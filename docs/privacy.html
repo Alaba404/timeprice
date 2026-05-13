@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Politique de confidentialité — Owoda</title>
+  <meta name="description" content="Politique de confidentialité de l'application Owoda par Owoda Labs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:      #00A86B;
+      --green-dark: #007A4D;
+      --gold:       #D4AF37;
+      --text:       #111827;
+      --text-mid:   #4B5563;
+      --border:     #E5E7EB;
+      --bg:         #FFFFFF;
+      --bg-alt:     #F9FAFB;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Nav */
+    nav {
+      background: #0D2B1A;
+      padding: 0 20px;
+    }
+    .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo-link {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: 0.5px;
+    }
+    .nav-back {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: white; text-decoration: none; }
+
+    /* Page */
+    .page-header {
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 20px 36px;
+      text-align: center;
+    }
+    .page-header h1 {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .page-header p {
+      font-size: 13px;
+      color: var(--text-mid);
+    }
+
+    .content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+
+    .content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 40px;
+      margin-bottom: 12px;
+      color: var(--text);
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .content h2:first-child { border-top: none; margin-top: 0; }
+
+    .content p {
+      font-size: 15px;
+      color: var(--text-mid);
+      margin-bottom: 14px;
+    }
+
+    .content ul {
+      font-size: 15px;
+      color: var(--text-mid);
+      margin: 0 0 14px 20px;
+    }
+
+    .content ul li { margin-bottom: 6px; }
+
+    .highlight-box {
+      background: #E6F7F1;
+      border: 1px solid rgba(0,168,107,0.25);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #0D4D2E;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      background: #0D1F14;
+      color: rgba(255,255,255,0.45);
+      padding: 24px 20px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    footer a { color: var(--gold); }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo-link">Owoda Labs</a>
+      <a href="index.html" class="nav-back">← Retour à l'accueil</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>Politique de confidentialité</h1>
+    <p>Dernière mise à jour : 13 mai 2026</p>
+  </div>
+
+  <main class="content">
+
+    <div class="highlight-box">
+      🔒 En résumé : Owoda ne collecte aucune donnée personnelle. Tout reste
+      sur votre appareil. Aucun compte requis. Aucun serveur. Aucun tracker.
+    </div>
+
+    <h2>1. Présentation</h2>
+    <p>
+      Owoda Labs («&nbsp;nous&nbsp;», «&nbsp;notre&nbsp;») développe et publie l'application mobile
+      <strong>Owoda</strong>. La présente politique de confidentialité décrit comment nous traitons
+      les informations dans le cadre de l'utilisation de l'application.
+    </p>
+    <p>
+      En utilisant Owoda, vous acceptez les pratiques décrites dans ce document.
+    </p>
+
+    <h2>2. Données collectées</h2>
+    <p>
+      <strong>Owoda ne collecte aucune donnée personnelle.</strong> L'application fonctionne
+      entièrement en local sur votre appareil. En particulier :
+    </p>
+    <ul>
+      <li>Vos données de salaire sont stockées exclusivement dans la base de données locale de votre appareil (SQLite).</li>
+      <li>Votre historique de conversions est conservé uniquement sur votre appareil.</li>
+      <li>Aucune information d'identification (nom, email, téléphone) n'est demandée ni stockée.</li>
+      <li>Aucun compte utilisateur n'est créé.</li>
+    </ul>
+
+    <h2>3. Taux de change</h2>
+    <p>
+      Pour mettre à jour les taux de change, l'application peut contacter
+      un service tiers de taux de change (requête anonyme sans identifiant).
+      Cette requête ne contient aucune donnée personnelle et est purement
+      technique. En l'absence de connexion, les derniers taux mis en cache
+      sont utilisés.
+    </p>
+
+    <h2>4. Achats intégrés (Premium)</h2>
+    <p>
+      Les achats Premium sont traités par <strong>Google Play</strong> (Android) ou
+      <strong>Apple App Store</strong> (iOS) via RevenueCat. Ces plateformes sont
+      responsables du traitement des paiements et disposent de leurs propres
+      politiques de confidentialité. Owoda Labs ne stocke aucune information
+      de paiement sur ses serveurs.
+    </p>
+
+    <h2>5. Permissions utilisées</h2>
+    <ul>
+      <li><strong>Caméra</strong> (optionnel) : utilisée uniquement pour le scanner de prix OCR (fonctionnalité Premium). Non activée par défaut.</li>
+      <li><strong>Internet</strong> : utilisé uniquement pour la mise à jour des taux de change et les achats Premium.</li>
+    </ul>
+    <p>Aucune autre permission n'est requise ou utilisée.</p>
+
+    <h2>6. Analytics et trackers</h2>
+    <p>
+      <strong>Owoda ne contient aucun tracker, aucun SDK d'analytics, aucune publicité.</strong>
+      Aucune donnée comportementale n'est collectée ou transmise à des tiers.
+    </p>
+
+    <h2>7. Données des mineurs</h2>
+    <p>
+      Owoda n'est pas destiné aux personnes de moins de 16 ans. Nous ne
+      collectons pas sciemment de données provenant de mineurs.
+    </p>
+
+    <h2>8. Vos droits</h2>
+    <p>
+      Étant donné qu'aucune donnée personnelle n'est collectée par nos
+      soins, il n'y a pas de données à accéder, modifier ou supprimer
+      auprès de nous. Toutes vos données (salaire, historique) peuvent
+      être supprimées directement depuis l'application, dans les Réglages.
+    </p>
+
+    <h2>9. Modifications de cette politique</h2>
+    <p>
+      Nous pouvons mettre à jour cette politique de confidentialité occasionnellement.
+      En cas de changement significatif, la date de mise à jour en haut de cette
+      page sera modifiée. Nous vous encourageons à consulter cette page
+      périodiquement.
+    </p>
+
+    <h2>10. Contact</h2>
+    <p>
+      Pour toute question relative à cette politique de confidentialité,
+      contactez-nous à : <a href="mailto:apps@alanahub.com">apps@alanahub.com</a>
+    </p>
+
+  </main>
+
+  <footer>
+    © 2026 Owoda Labs — Alana Hub &nbsp;·&nbsp;
+    <a href="terms.html">Conditions d'utilisation</a>
+  </footer>
+
+</body>
+</html>
