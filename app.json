@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "Owoda",
+    "slug": "owoda",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#00A86B"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.owoda.app",
+      "appGroupEntitlements": ["group.com.owoda.widget"]
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#00A86B"
+      },
+      "package": "com.owodalabs.owoda",
+      "versionCode": 1,
+      "navigationBar": {
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Owoda utilise la caméra pour scanner les prix."
+        }
+      ]
+    ],
+    "scheme": "owoda",
+    "experiments": {
+      "typedRoutes": true
+    },
+    "newArchEnabled": true
+  }
+}
