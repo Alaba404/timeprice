@@ -1,6 +1,7 @@
 export default {
   // Onboarding
   onboarding: {
+    tagline: "Avant d'acheter, sache ce que ça coûte vraiment.",
     step1Title: 'Votre devise',
     step1Subtitle: 'Dans quelle devise êtes-vous payé(e) ?',
     step2Title: 'Votre salaire',
@@ -68,6 +69,9 @@ export default {
   history: {
     title: 'Historique',
     empty: 'Aucune conversion enregistrée',
+    emptyTitle: 'Aucune conversion pour l\'instant',
+    emptySubtitle: 'Saisis un montant sur l\'écran principal pour commencer.',
+    emptyAction: 'Faire ma première conversion',
     deleteConfirm: 'Supprimer cette entrée ?',
     exportCSV: 'Exporter en CSV',
     filter: 'Filtrer',

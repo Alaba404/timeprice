@@ -2,12 +2,14 @@ import React, { useState, useMemo, useCallback } from 'react';
 import {
   View,
   Text,
+  Image,
   FlatList,
   TouchableOpacity,
   Alert,
   StyleSheet,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
 import { useHistoryStore } from '../../src/store/historyStore';
@@ -85,6 +87,7 @@ function buildCSV(entries: ConversionEntry[]): string {
 
 // ── Screen ────────────────────────────────────────────────────────────────────
 export default function HistoryScreen() {
+  const router      = useRouter();
   const entries     = useHistoryStore((s) => s.entries);
   const removeEntry = useHistoryStore((s) => s.removeEntry);
   const { canUse }  = usePremium();
@@ -243,7 +246,27 @@ export default function HistoryScreen() {
       />
 
       {/* Main list */}
-      {flatData.length === 0 ? (
+      {entries.length === 0 ? (
+        /* ── Rich empty state (zero conversions ever) ────────────────────── */
+        <View style={styles.emptyContainer}>
+          <Image
+            source={require('../../assets/icon.png')}
+            style={styles.emptyIcon}
+            resizeMode="contain"
+          />
+          <Text style={styles.emptyTitle}>{t('history.emptyTitle')}</Text>
+          <Text style={styles.emptySubtitle}>{t('history.emptySubtitle')}</Text>
+          <TouchableOpacity
+            onPress={() => router.navigate('/(tabs)')}
+            style={styles.emptyButton}
+            accessibilityRole="button"
+            accessibilityLabel={t('history.emptyAction')}
+          >
+            <Text style={styles.emptyButtonText}>{t('history.emptyAction')}</Text>
+          </TouchableOpacity>
+        </View>
+      ) : flatData.length === 0 ? (
+        /* ── No results for active filter ────────────────────────────────── */
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyEmoji}>📋</Text>
           <Text style={styles.emptyText}>{t('history.empty')}</Text>
@@ -338,7 +361,36 @@ const styles = StyleSheet.create({
   filterEmoji: { fontSize: 12 },
   filterTextActive:   { color: colors.primary, fontSize: 12, fontWeight: '700' },
   filterTextInactive: { color: colors.textMid,  fontSize: 12, fontWeight: '500' },
-  emptyContainer: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 12 },
+  emptyContainer: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32, gap: 0 },
+  // Rich empty state — zero conversions
+  emptyIcon: { width: 80, height: 80, opacity: 0.3, marginBottom: 20 },
+  emptyTitle: {
+    fontSize: 20,
+    fontWeight: '800',
+    color: colors.textDark,
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  emptySubtitle: {
+    fontSize: 14,
+    color: colors.textMuted,
+    textAlign: 'center',
+    lineHeight: 20,
+    marginBottom: 28,
+  },
+  emptyButton: {
+    backgroundColor: colors.primary,
+    borderRadius: 14,
+    paddingHorizontal: 28,
+    paddingVertical: 14,
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  emptyButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 15 },
+  // Filter-empty state (entries exist but none match filter)
   emptyEmoji: { fontSize: 40, opacity: 0.3 },
   emptyText:  { color: colors.textMuted, fontSize: 16 },
   listContent: { paddingHorizontal: 20, paddingBottom: 40 },

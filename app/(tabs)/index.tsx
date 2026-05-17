@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,14 @@ import {
   Platform,
   StyleSheet,
 } from 'react-native';
+import Animated, {
+  useSharedValue,
+  withTiming,
+  withDelay,
+  Easing,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
+import * as Haptics from 'expo-haptics';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { nanoid } from 'nanoid/non-secure';
@@ -130,6 +138,8 @@ export default function ConverterScreen() {
   const getActiveProfile = useProfileStore((s) => s.getActiveProfile);
   const { isPremium, canUse } = usePremium();
 
+  const { locale } = useLocaleStore();
+
   const [rawPrice, setRawPrice] = useState('');
   const [currency, setCurrency] = useState('XOF');
   const [category, setCategory] = useState<Category>('other');
@@ -141,6 +151,24 @@ export default function ConverterScreen() {
   const price = parseFloat(rawPrice.replace(',', '.')) || 0;
   const profile = getActiveProfile();
   const result = profile && price > 0 ? convert(price, currency) : null;
+
+  // ── Haptics + "de travail" fade-in on each new result ───────────────────
+  const ofWorkOpacity = useSharedValue(0);
+  const ofWorkStyle   = useAnimatedStyle(() => ({ opacity: ofWorkOpacity.value }));
+
+  useEffect(() => {
+    if (result) {
+      void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      ofWorkOpacity.value = 0;
+      ofWorkOpacity.value = withDelay(
+        1000,
+        withTiming(1, { duration: 200, easing: Easing.out(Easing.ease) }),
+      );
+    } else {
+      ofWorkOpacity.value = 0;
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [result?.durationMinutes]);
 
   const handleSave = useCallback(() => {
     if (!result || !profile) return;
@@ -158,6 +186,7 @@ export default function ConverterScreen() {
     };
 
     const saved = addEntry(entry, isPremium);
+    void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
 
     if (!saved) {
       // Free-tier limit reached — tell the user and open the paywall
@@ -250,13 +279,30 @@ export default function ConverterScreen() {
                 />
               </View>
 
+              {/* Chip exemple — visible uniquement quand le champ est vide */}
+              {rawPrice === '' && (
+                <TouchableOpacity
+                  onPress={() => setRawPrice('50000')}
+                  style={styles.exampleChip}
+                  activeOpacity={0.75}
+                  accessibilityRole="button"
+                  accessibilityLabel={`💡 Essaie avec 50 000 ${currency}`}
+                >
+                  <Text style={styles.exampleChipText}>
+                    {`💡 ${locale === 'en' ? 'Try with' : 'Essaie avec'} 50 000 ${currency}`}
+                  </Text>
+                </TouchableOpacity>
+              )}
+
               {/* Result */}
               <View style={styles.resultCard}>
                 {result ? (
                   <>
                     <Text style={styles.resultLabel}>{t('converter.equates')}</Text>
                     <DurationBadge result={result} weeklyHours={profile.weeklyHours} size="lg" />
-                    <Text style={styles.resultSub}>{t('converter.ofWorkTime')}</Text>
+                    <Animated.Text style={[styles.resultSub, ofWorkStyle]}>
+                      {t('converter.ofWorkTime')}
+                    </Animated.Text>
                   </>
                 ) : (
                   <View style={styles.resultPlaceholder}>
@@ -437,6 +483,24 @@ const styles = StyleSheet.create({
   // Input card
   inputCard: { backgroundColor: colors.card, borderRadius: 20, padding: 16, marginBottom: 14, shadowColor: colors.primary, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.08, shadowRadius: 12, elevation: 4 },
   inputCardLabel: { fontSize: 11, fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 10 },
+
+  // Example chip
+  exampleChip: {
+    alignSelf: 'center',
+    backgroundColor: '#E8F8F0',
+    borderWidth: 1,
+    borderColor: colors.primary + '60',
+    borderRadius: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    marginBottom: 10,
+    marginTop: -4,
+  },
+  exampleChipText: {
+    color: colors.primary,
+    fontSize: 13,
+    fontWeight: '600',
+  },
 
   // Result
   resultCard: { backgroundColor: colors.primaryTint, borderRadius: 20, paddingVertical: 28, paddingHorizontal: 20, marginBottom: 20, alignItems: 'center', borderWidth: 1.5, borderColor: colors.primary + '30' },

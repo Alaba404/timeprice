@@ -1,5 +1,6 @@
 export default {
   onboarding: {
+    tagline: 'Before you buy, know what it really costs.',
     step1Title: 'Your currency',
     step1Subtitle: 'What currency are you paid in?',
     step2Title: 'Your salary',
@@ -65,6 +66,9 @@ export default {
   history: {
     title: 'History',
     empty: 'No conversions saved yet',
+    emptyTitle: 'No conversions yet',
+    emptySubtitle: 'Enter an amount on the main screen to get started.',
+    emptyAction: 'Make my first conversion',
     deleteConfirm: 'Delete this entry?',
     exportCSV: 'Export as CSV',
     filter: 'Filter',

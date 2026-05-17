@@ -1,5 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import Animated, {
+  useSharedValue,
+  withTiming,
+  withDelay,
+  Easing,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 import type { ConversionResult } from '../types';
 import { formatDuration } from '../core/formatter';
 import { useLocaleStore } from '../store/localeStore';
@@ -16,14 +23,60 @@ export function DurationBadge({ result, weeklyHours, size = 'lg' }: Props) {
   const { locale } = useLocaleStore();
   const isLarge = size === 'lg';
 
-  // Recompute with the CURRENT locale so language changes are reflected
-  // immediately without needing to re-run the conversion.
-  const formatted = formatDuration(result.durationMinutes, weeklyHours, locale);
+  // ── Count-up animation (lg only) ─────────────────────────────────────────
+  // Small badges (history cards) display instantly — no animation needed.
+  const rafRef = useRef<number | null>(null);
+  const [displayedMinutes, setDisplayedMinutes] = useState(result.durationMinutes);
 
-  // CAS02: never display the raw price amount here.
-  // The parent screen already renders the "of your work time" label below this
-  // component. For durations < 60 min we show a compact "X min" hint; for
-  // longer durations the main label is self-explanatory — no subtitle needed.
+  // Reanimated: subtitle fade-in 200ms after the 800ms count-up ends
+  const subtitleOpacity = useSharedValue(isLarge ? 0 : 1);
+  const subtitleStyle = useAnimatedStyle(() => ({ opacity: subtitleOpacity.value }));
+
+  useEffect(() => {
+    if (!isLarge) {
+      setDisplayedMinutes(result.durationMinutes);
+      return;
+    }
+
+    // Cancel any running frame loop before starting a new one
+    if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+
+    const target   = result.durationMinutes;
+    const startMs  = Date.now();
+    const DURATION = 800; // ms
+
+    setDisplayedMinutes(0);
+    subtitleOpacity.value = 0;
+
+    const tick = () => {
+      const elapsed = Date.now() - startMs;
+      const t       = Math.min(elapsed / DURATION, 1);
+      const eased   = 1 - Math.pow(1 - t, 3); // cubic ease-out
+      setDisplayedMinutes(target * eased);
+      if (t < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        rafRef.current = null;
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    // Subtitle fades in 200ms after the count-up finishes (800 + 200 = 1000ms delay)
+    subtitleOpacity.value = withDelay(1000, withTiming(1, {
+      duration: 200,
+      easing: Easing.out(Easing.ease),
+    }));
+
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, [result.durationMinutes, isLarge]);
+
+  // Format the currently-animated value; accessibility always reads the final value
+  const formatted      = formatDuration(displayedMinutes, weeklyHours, locale);
+  const accessibleText = formatDuration(result.durationMinutes, weeklyHours, locale);
+
+  // CAS02: subtitle shows compact "X min" hint for durations < 60 min only
   const subtitle =
     result.durationMinutes < 60
       ? `${Math.round(result.durationMinutes)} min`
@@ -32,7 +85,7 @@ export function DurationBadge({ result, weeklyHours, size = 'lg' }: Props) {
   return (
     <View
       style={styles.container}
-      accessibilityLabel={formatted}
+      accessibilityLabel={accessibleText}
       accessibilityRole="text"
     >
       <Text
@@ -43,7 +96,9 @@ export function DurationBadge({ result, weeklyHours, size = 'lg' }: Props) {
         {formatted}
       </Text>
       {isLarge && subtitle !== null && (
-        <Text style={styles.subtitle}>{subtitle}</Text>
+        <Animated.Text style={[styles.subtitle, subtitleStyle]}>
+          {subtitle}
+        </Animated.Text>
       )}
     </View>
   );

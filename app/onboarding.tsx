@@ -117,6 +117,24 @@ const s = StyleSheet.create({
   switchRow:   { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: colors.card, padding: 16, borderRadius: 12, borderWidth: 1.5, borderColor: colors.border, marginTop: 8 },
   switchLabel: { fontSize: 15, color: colors.textMid, flex: 1, marginRight: 12 },
 
+  // Tagline accroche (step 1)
+  tagline: {
+    fontSize: 17,
+    fontStyle: 'italic',
+    color: '#00A86B',
+    textAlign: 'center',
+    lineHeight: 26,
+    marginBottom: 14,
+    paddingHorizontal: 8,
+  },
+  taglineSep: {
+    height: 1,
+    backgroundColor: '#D4AF37',
+    opacity: 0.55,
+    marginBottom: 24,
+    marginHorizontal: 4,
+  },
+
   // Buttons
   btnPrimary:     { backgroundColor: colors.primary, borderRadius: 14, paddingVertical: 16, alignItems: 'center', marginTop: 8 },
   btnSecondary:   { flex: 1, borderWidth: 1.5, borderColor: colors.border, borderRadius: 14, paddingVertical: 16, alignItems: 'center' },
@@ -206,6 +224,10 @@ export default function OnboardingScreen() {
           {/* ── STEP 1: Devise ── */}
           {step === 1 && (
             <View>
+              {/* Tagline d'accroche */}
+              <Text style={s.tagline}>{t('onboarding.tagline')}</Text>
+              <View style={s.taglineSep} />
+
               <Text style={s.heading}>{t('onboarding.step1Title')}</Text>
               <Text style={s.subheading}>{t('onboarding.step1Subtitle')}</Text>
 
