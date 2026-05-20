@@ -6,6 +6,7 @@ import {
   Switch,
   ScrollView,
   Alert,
+  Linking,
   StyleSheet,
   Modal,
   TextInput,
@@ -21,6 +22,8 @@ import { t } from '../../src/i18n';
 import { colors } from '../../src/theme';
 import type { Locale, SalaryFrequency, UserProfile } from '../../src/types';
 import Constants from 'expo-constants';
+
+const GUIDE_URL = 'https://owodalabs.com/guide/owoda-guide-pratique.pdf';
 
 const LOCALES: Array<{ code: Locale; label: string; flag: string }> = [
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
@@ -327,6 +330,50 @@ export default function SettingsScreen() {
           ))}
         </View>
 
+        {/* Ma bibliothèque */}
+        <SectionLabel label={t('settings.library')} />
+        {isPremium ? (
+          <View style={styles.card}>
+            <View style={styles.libraryCard}>
+              {/* Left: book icon */}
+              <View style={styles.libraryIconWrap}>
+                <Text style={styles.libraryIcon}>📘</Text>
+              </View>
+              {/* Right: info */}
+              <View style={styles.libraryInfo}>
+                <View style={styles.libraryTitleRow}>
+                  <Text style={styles.libraryTitle}>{t('settings.libraryGuideName')}</Text>
+                  <View style={styles.libraryBadge}>
+                    <Text style={styles.libraryBadgeText}>{t('settings.libraryGuideBadge')}</Text>
+                  </View>
+                </View>
+                <Text style={styles.librarySubtitle}>{t('settings.libraryGuideSubtitle')}</Text>
+                <TouchableOpacity
+                  onPress={() => Linking.openURL(GUIDE_URL)}
+                  style={styles.libraryButton}
+                  accessibilityRole="button"
+                  accessibilityLabel={t('settings.libraryDownload')}
+                >
+                  <Text style={styles.libraryButtonText}>⬇ {t('settings.libraryDownload')}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        ) : (
+          <View style={styles.card}>
+            <View style={styles.libraryLockedRow}>
+              <Text style={styles.libraryLockedText}>{t('settings.libraryPremiumOnly')}</Text>
+              <TouchableOpacity
+                onPress={() => router.push('/paywall')}
+                style={styles.libraryLockedBtn}
+                accessibilityRole="button"
+              >
+                <Text style={styles.libraryLockedBtnText}>{t('settings.libraryDiscoverPremium')} →</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+
         {/* Privacy */}
         <SectionLabel label={t('settings.privacy')} />
         <View style={styles.privacyCard}>
@@ -431,4 +478,43 @@ const styles = StyleSheet.create({
   dangerRow: { paddingHorizontal: 14, paddingVertical: 14 },
   dangerText: { color: colors.danger, fontWeight: '600', fontSize: 14 },
   versionText: { color: colors.textMuted, fontSize: 11, textAlign: 'center', marginTop: 8 },
+
+  // Library
+  libraryCard: { flexDirection: 'row', padding: 14, gap: 14, alignItems: 'flex-start' },
+  libraryIconWrap: {
+    width: 48, height: 48, borderRadius: 14,
+    backgroundColor: '#E8F4FD',
+    alignItems: 'center', justifyContent: 'center',
+  },
+  libraryIcon: { fontSize: 26, lineHeight: 32 },
+  libraryInfo: { flex: 1 },
+  libraryTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 },
+  libraryTitle: { color: colors.textDark, fontWeight: '800', fontSize: 14, flex: 1 },
+  libraryBadge: {
+    backgroundColor: colors.primaryTint,
+    borderRadius: 999,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderWidth: 1,
+    borderColor: colors.primary + '40',
+  },
+  libraryBadgeText: { color: colors.primary, fontSize: 10, fontWeight: '700' },
+  librarySubtitle: { color: colors.textMuted, fontSize: 12, lineHeight: 17, marginBottom: 12 },
+  libraryButton: {
+    backgroundColor: colors.primary,
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 9,
+    alignSelf: 'flex-start',
+  },
+  libraryButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 13 },
+  libraryLockedRow: { padding: 16, alignItems: 'center', gap: 12 },
+  libraryLockedText: { color: colors.textMid, fontSize: 13, textAlign: 'center', lineHeight: 19 },
+  libraryLockedBtn: {
+    backgroundColor: colors.primary,
+    borderRadius: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  libraryLockedBtnText: { color: '#FFFFFF', fontWeight: '800', fontSize: 14 },
 });

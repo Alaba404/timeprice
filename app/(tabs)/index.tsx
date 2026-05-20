@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -137,6 +137,7 @@ export default function ConverterScreen() {
   const addEntry = useHistoryStore((s) => s.addEntry);
   const getActiveProfile = useProfileStore((s) => s.getActiveProfile);
   const { isPremium, canUse } = usePremium();
+  const entriesCount = useHistoryStore((s) => s.entries.length);
 
   const { locale } = useLocaleStore();
 
@@ -151,6 +152,35 @@ export default function ConverterScreen() {
   const price = parseFloat(rawPrice.replace(',', '.')) || 0;
   const profile = getActiveProfile();
   const result = profile && price > 0 ? convert(price, currency) : null;
+
+  // ── Guide banner — once per session, after 3rd saved conversion ─────────
+  const [showGuideBanner, setShowGuideBanner]   = useState(false);
+  const guideBannerShownRef                     = useRef(false);
+  const bannerTranslateY                        = useSharedValue(-80);
+  const bannerStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: bannerTranslateY.value }],
+  }));
+
+  useEffect(() => {
+    if (!isPremium && entriesCount >= 3 && !guideBannerShownRef.current) {
+      guideBannerShownRef.current = true;
+      setShowGuideBanner(true);
+    }
+  }, [entriesCount, isPremium]);
+
+  useEffect(() => {
+    if (showGuideBanner) {
+      bannerTranslateY.value = withTiming(0, {
+        duration: 350,
+        easing: Easing.out(Easing.back(1.4)),
+      });
+    } else {
+      bannerTranslateY.value = withTiming(-80, { duration: 200 });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showGuideBanner]);
+
+  const dismissBanner = useCallback(() => setShowGuideBanner(false), []);
 
   // ── Haptics + "de travail" fade-in on each new result ───────────────────
   const ofWorkOpacity = useSharedValue(0);
@@ -252,6 +282,30 @@ export default function ConverterScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      {/* ── Guide banner — slides in from top after 3rd conversion ──────── */}
+      {showGuideBanner && (
+        <Animated.View style={[styles.guideBanner, bannerStyle]}>
+          <TouchableOpacity
+            onPress={() => { dismissBanner(); router.push('/paywall'); }}
+            style={styles.guideBannerContent}
+            activeOpacity={0.85}
+            accessibilityRole="button"
+          >
+            <Text style={styles.guideBannerText}>
+              {t('premium.guideBanner')}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={dismissBanner}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            accessibilityRole="button"
+            accessibilityLabel={t('premium.close')}
+          >
+            <Text style={styles.guideBannerClose}>✕</Text>
+          </TouchableOpacity>
+        </Animated.View>
+      )}
+
       <KeyboardAvoidingView
         style={styles.flex}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -468,6 +522,29 @@ const styles = StyleSheet.create({
   safeArea:   { flex: 1, backgroundColor: colors.bg },
   flex:       { flex: 1 },
   scrollContent: { paddingHorizontal: 20, paddingTop: 20, paddingBottom: 40 },
+
+  // Guide banner
+  guideBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1A3A2A',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    gap: 10,
+    zIndex: 100,
+  },
+  guideBannerContent: { flex: 1 },
+  guideBannerText: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '600',
+    lineHeight: 18,
+  },
+  guideBannerClose: {
+    color: 'rgba(255,255,255,0.5)',
+    fontSize: 16,
+    fontWeight: '700',
+  },
 
   // No profile
   noProfileSafe: { flex: 1, backgroundColor: colors.bg },

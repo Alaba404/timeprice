@@ -96,6 +96,13 @@ export default {
   // Settings
   settings: {
     title: 'Réglages',
+    library: 'Ma bibliothèque',
+    libraryGuideName: 'Guide Pratique Owoda',
+    libraryGuideSubtitle: 'Comprendre, Maîtriser et Éliminer les Dépenses Impulsives',
+    libraryGuideBadge: '28 pages · PDF',
+    libraryDownload: 'Télécharger le guide',
+    libraryPremiumOnly: 'Ta bibliothèque est réservée aux abonnés Premium.',
+    libraryDiscoverPremium: 'Découvrir Premium',
     profiles: 'Mes profils',
     addProfile: 'Ajouter un profil',
     defaultProfile: 'Profil par défaut',
@@ -131,6 +138,9 @@ export default {
   premium: {
     unlockTitle: 'Débloquer Owoda Premium',
     unlockSubtitle: 'Scanner OCR, widget, export CSV et plus',
+    guideOffer: '🎁 Guide Pratique offert avec Premium',
+    guideValue: 'Valeur guide : 2 990 CFA | 4,99 € | $4,99',
+    guideBanner: 'Abonne-toi au Premium et reçois notre guide pratique offert.',
     cta: 'Commencer — Essai 7 jours gratuit',
     restore: 'Restaurer les achats',
     perYear: '/an',
@@ -148,6 +158,7 @@ export default {
       dashboard: 'Tableau de bord analytique',
       unlimited_history: 'Historique illimité',
       multi_profile: 'Profils multiples',
+      guide: 'Guide Pratique Owoda — 28 pages',
     },
   },
 

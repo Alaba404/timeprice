@@ -15,7 +15,6 @@ import type { PurchasesPackage } from '@revenuecat/purchases-typescript-internal
 import { t } from '../src/i18n';
 import { colors } from '../src/theme';
 import { useProfileStore } from '../src/store/profileStore';
-import type { PremiumFeature } from '../src/types';
 
 let Purchases: typeof PurchasesType | null = null;
 try {
@@ -41,13 +40,15 @@ const PRICING: PricingTier[] = [
   { currency: 'NGN', flag: '🇳🇬', amount: '₦ 2 500',   packageId: 'annual_ngn' },
 ];
 
-const FEATURE_LIST: Array<{ key: PremiumFeature; icon: string }> = [
+// 'guide' is not a gated feature — it's a paywall bonus displayed last
+const FEATURE_LIST: Array<{ key: string; icon: string; isBonus?: boolean }> = [
   { key: 'scanner',           icon: '📷' },
   { key: 'widget',            icon: '🔲' },
   { key: 'csv_export',        icon: '📊' },
   { key: 'dashboard',         icon: '📈' },
   { key: 'unlimited_history', icon: '∞'  },
   { key: 'multi_profile',     icon: '👥' },
+  { key: 'guide',             icon: '🎁', isBonus: true },
 ];
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -152,6 +153,10 @@ export default function PaywallScreen() {
           </View>
           <Text style={styles.heroTitle}>{t('premium.unlockTitle')}</Text>
           <Text style={styles.heroSubtitle}>{t('premium.unlockSubtitle')}</Text>
+          {/* Guide offer badge */}
+          <View style={styles.guideBadge}>
+            <Text style={styles.guideBadgeText}>{t('premium.guideOffer')}</Text>
+          </View>
         </View>
 
         {/* Features */}
@@ -162,16 +167,24 @@ export default function PaywallScreen() {
               style={[
                 styles.featureRow,
                 idx < FEATURE_LIST.length - 1 && styles.featureRowBorder,
+                f.isBonus && styles.featureRowBonus,
               ]}
             >
-              <View style={styles.featureIconWrap}>
+              <View style={[styles.featureIconWrap, f.isBonus && styles.featureIconWrapBonus]}>
                 <Text style={styles.featureIcon}>{f.icon}</Text>
               </View>
-              <Text style={styles.featureLabel}>
-                {t(`premium.features.${f.key}`)}
-              </Text>
-              <View style={styles.featureCheck}>
-                <Text style={styles.featureCheckText}>✓</Text>
+              <View style={styles.featureLabelWrap}>
+                <Text style={[styles.featureLabel, f.isBonus && styles.featureLabelBonus]}>
+                  {t(`premium.features.${f.key}`)}
+                </Text>
+                {f.isBonus && (
+                  <Text style={styles.featureValueStrike}>
+                    {t('premium.guideValue')}
+                  </Text>
+                )}
+              </View>
+              <View style={[styles.featureCheck, f.isBonus && styles.featureCheckBonus]}>
+                <Text style={styles.featureCheckText}>{f.isBonus ? '🎁' : '✓'}</Text>
               </View>
             </View>
           ))}
@@ -258,7 +271,17 @@ const styles = StyleSheet.create({
   heroMarkInner: { position: 'absolute', fontSize: 72, color: colors.primary, fontWeight: '900' },
   heroMarkOverlay: { position: 'absolute', fontSize: 30, color: colors.accent, fontWeight: '900' },
   heroTitle: { color: colors.textDark, fontSize: 26, fontWeight: '900', textAlign: 'center', marginBottom: 10, letterSpacing: -0.5 },
-  heroSubtitle: { color: colors.textMid, textAlign: 'center', fontSize: 15, lineHeight: 22 },
+  heroSubtitle: { color: colors.textMid, textAlign: 'center', fontSize: 15, lineHeight: 22, marginBottom: 14 },
+  guideBadge: {
+    backgroundColor: '#D4AF3720',
+    borderWidth: 1,
+    borderColor: '#D4AF3780',
+    borderRadius: 20,
+    paddingHorizontal: 14,
+    paddingVertical: 7,
+    marginTop: 4,
+  },
+  guideBadgeText: { color: '#9E7C00', fontSize: 13, fontWeight: '700', textAlign: 'center' },
 
   // Features list
   featuresCard: {
@@ -275,6 +298,7 @@ const styles = StyleSheet.create({
   },
   featureRow: { flexDirection: 'row', alignItems: 'center', gap: 14, padding: 14 },
   featureRowBorder: { borderBottomWidth: 1, borderBottomColor: colors.divider },
+  featureRowBonus: { backgroundColor: '#D4AF3712' },
   featureIconWrap: {
     width: 36,
     height: 36,
@@ -283,8 +307,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  featureIconWrapBonus: { backgroundColor: '#D4AF3725' },
   featureIcon: { fontSize: 18, lineHeight: 22, textAlign: 'center' },
-  featureLabel: { color: colors.textDark, fontSize: 14, flex: 1, fontWeight: '500' },
+  featureLabelWrap: { flex: 1 },
+  featureLabel: { color: colors.textDark, fontSize: 14, fontWeight: '500' },
+  featureLabelBonus: { fontWeight: '700', color: '#6B5400' },
+  featureValueStrike: {
+    color: colors.textMuted,
+    fontSize: 11,
+    textDecorationLine: 'line-through',
+    marginTop: 2,
+  },
   featureCheck: {
     width: 22,
     height: 22,
@@ -293,6 +326,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  featureCheckBonus: { backgroundColor: 'transparent' },
   featureCheckText: { color: '#FFFFFF', fontSize: 12, fontWeight: '800' },
 
   // Pricing grid

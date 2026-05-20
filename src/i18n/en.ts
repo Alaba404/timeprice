@@ -91,6 +91,13 @@ export default {
 
   settings: {
     title: 'Settings',
+    library: 'My Library',
+    libraryGuideName: 'Owoda Practical Guide',
+    libraryGuideSubtitle: 'Understanding, Mastering and Eliminating Impulse Spending',
+    libraryGuideBadge: '28 pages · PDF',
+    libraryDownload: 'Download the guide',
+    libraryPremiumOnly: 'Your library is available for Premium subscribers.',
+    libraryDiscoverPremium: 'Discover Premium',
     profiles: 'My profiles',
     addProfile: 'Add profile',
     defaultProfile: 'Default profile',
@@ -125,6 +132,9 @@ export default {
   premium: {
     unlockTitle: 'Unlock Owoda Premium',
     unlockSubtitle: 'OCR scanner, widget, CSV export and more',
+    guideOffer: '🎁 Free Practical Guide with Premium',
+    guideValue: 'Guide value: 2,990 XOF | €4.99 | $4.99',
+    guideBanner: 'Subscribe to Premium and receive our practical guide for free.',
     cta: 'Start — 7-day free trial',
     restore: 'Restore purchases',
     perYear: '/year',
@@ -142,6 +152,7 @@ export default {
       dashboard: 'Analytics dashboard',
       unlimited_history: 'Unlimited history',
       multi_profile: 'Multiple profiles',
+      guide: 'Owoda Practical Guide — 28 pages',
     },
   },
 
