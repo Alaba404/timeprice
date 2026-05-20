@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guide Pratique Owoda — Reprends le contrôle de ton argent</title>
+  <meta name="description" content="28 pages · 7 chapitres · Exercices pratiques. Le guide qui change ta relation avec l'argent. Offert avec Owoda Premium." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & base ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:       #00A86B;
+      --green-dark:  #007A4D;
+      --green-light: #E6F7F1;
+      --gold:        #D4AF37;
+      --gold-dark:   #9E7C00;
+      --gold-light:  #FDF8E7;
+      --text:        #111827;
+      --text-mid:    #4B5563;
+      --text-muted:  #9CA3AF;
+      --border:      #E5E7EB;
+      --bg:          #FFFFFF;
+      --bg-alt:      #F9FAFB;
+      --radius:      14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Nav ──────────────────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      background: var(--green);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-mark svg { width: 20px; height: 20px; fill: white; }
+
+    .logo-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: 0.5px;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-mid);
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--green); }
+
+    .nav-links a.active {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* ── Hero ─────────────────────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(160deg, #0D2B1A 0%, #0F3D24 60%, #1A5C38 100%);
+      color: white;
+      padding: 80px 20px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,168,107,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Floating book silhouette decoration */
+    .hero::after {
+      content: '📘';
+      position: absolute;
+      right: 8%;
+      top: 50%;
+      transform: translateY(-50%) rotate(8deg);
+      font-size: 120px;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.40);
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 16px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 6vw, 54px);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -0.5px;
+      max-width: 740px;
+      margin: 0 auto 22px;
+    }
+
+    .hero h1 span { color: var(--gold); }
+
+    .hero-sub {
+      font-size: clamp(15px, 2.5vw, 18px);
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 520px;
+      margin: 0 auto 16px;
+      line-height: 1.7;
+    }
+
+    .hero-offer {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(212,175,55,0.22) 0%, rgba(212,175,55,0.10) 100%);
+      border: 1px solid rgba(212,175,55,0.45);
+      color: rgba(255,255,255,0.95);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 20px;
+      border-radius: 999px;
+      margin-bottom: 44px;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-offer strong { color: var(--gold); }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--green);
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 800;
+      padding: 18px 40px;
+      border-radius: var(--radius);
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+      box-shadow: 0 6px 28px rgba(0, 168, 107, 0.45);
+      letter-spacing: 0.2px;
+    }
+
+    .hero-cta:hover {
+      background: var(--green-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 36px rgba(0, 168, 107, 0.55);
+    }
+
+    .hero-secondary {
+      margin-top: 14px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Section wrapper ──────────────────────────────────────────────────── */
+    .section { padding: 80px 20px; }
+    .section-alt { background: var(--bg-alt); }
+
+    .section-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -0.3px;
+      margin-bottom: 10px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--text-mid);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* ── Chapter list ─────────────────────────────────────────────────────── */
+    .chapters-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .chapters-header .section-sub { margin: 0 auto; }
+
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 0;
+      position: relative;
+    }
+
+    /* Last item spans full width when odd count */
+    .chapters-grid .chapter-item:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      max-width: 50%;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .chapter-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .chapter-item:hover {
+      border-color: var(--green);
+      box-shadow: 0 2px 16px rgba(0,168,107,0.10);
+    }
+
+    .chapter-check {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--green-light);
+      border: 1.5px solid var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .chapter-check svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--green);
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    .chapter-number {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 3px;
+    }
+
+    .chapter-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    /* Lock overlay on last 4 chapters */
+    .chapter-item.locked {
+      opacity: 0.72;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chapter-item.locked::after {
+      content: '🔒';
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 13px;
+      opacity: 0.55;
+    }
+
+    .chapter-item.locked .chapter-check {
+      background: #F3F4F6;
+      border-color: var(--border);
+    }
+
+    .chapter-item.locked .chapter-check svg { stroke: var(--text-muted); }
+
+    .chapter-item.locked .chapter-title { color: var(--text-mid); }
+
+    /* Unlock callout below chapters */
+    .chapters-unlock {
+      margin-top: 28px;
+      background: linear-gradient(135deg, var(--green-light) 0%, #F0FBF5 100%);
+      border: 1.5px solid var(--green) + '40';
+      border-color: rgba(0,168,107,0.25);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .chapters-unlock-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--green-dark);
+    }
+
+    .chapters-unlock-text span {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-mid);
+      margin-top: 2px;
+    }
+
+    .chapters-unlock-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 10px;
+      white-space: nowrap;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .chapters-unlock-btn:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ── Value section ────────────────────────────────────────────────────── */
+    .value-section {
+      text-align: center;
+    }
+
+    .value-section .section-title { margin-bottom: 8px; }
+
+    .value-section .section-sub {
+      margin: 0 auto 48px;
+      max-width: 480px;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 660px;
+      margin: 0 auto 36px;
+    }
+
+    .value-card {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .value-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 20px rgba(212,175,55,0.12);
+    }
+
+    .value-currency {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .value-strike {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+      text-decoration-color: #F87171;
+    }
+
+    .value-offer {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--green);
+    }
+
+    .value-label {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .value-included {
+      font-size: 13px;
+      color: var(--text-mid);
+      font-weight: 500;
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    .value-included strong { color: var(--green-dark); font-weight: 700; }
+
+    /* ── CTA section ──────────────────────────────────────────────────────── */
+    .cta-section {
+      text-align: center;
+    }
+
+    .cta-title {
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    .cta-title span { color: var(--green); }
+
+    .cta-sub {
+      font-size: 16px;
+      color: var(--text-mid);
+      line-height: 1.7;
+      max-width: 460px;
+      margin: 0 auto 40px;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--green);
+      color: #ffffff;
+      font-size: 17px;
+      font-weight: 800;
+      padding: 20px 48px;
+      border-radius: 18px;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+      box-shadow: 0 8px 32px rgba(0, 168, 107, 0.40);
+      letter-spacing: 0.2px;
+    }
+
+    .cta-btn:hover {
+      background: var(--green-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(0, 168, 107, 0.50);
+    }
+
+    .cta-details {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+    }
+
+    .cta-details span {
+      display: inline-block;
+      margin: 0 6px;
+    }
+
+    .cta-details span::before {
+      content: '·';
+      margin-right: 12px;
+      opacity: 0.5;
+    }
+
+    .cta-details span:first-child::before { display: none; }
+
+    /* ── Quote strip ──────────────────────────────────────────────────────── */
+    .quote-strip {
+      background: linear-gradient(135deg, #0D2B1A 0%, #0F3D24 100%);
+      color: white;
+      text-align: center;
+      padding: 64px 20px;
+    }
+
+    .quote-strip blockquote {
+      font-size: clamp(17px, 3vw, 24px);
+      font-weight: 700;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.95);
+    }
+
+    .quote-strip blockquote em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .quote-strip cite {
+      display: block;
+      margin-top: 20px;
+      font-size: 13px;
+      font-style: normal;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Footer ───────────────────────────────────────────────────────────── */
+    footer {
+      background: #0D1F14;
+      color: rgba(255,255,255,0.5);
+      padding: 32px 20px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copy { font-size: 13px; }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── Responsive ───────────────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero { padding: 56px 20px 72px; }
+      .hero::after { display: none; }
+      .section { padding: 56px 20px; }
+      .chapters-grid { grid-template-columns: 1fr; }
+      .chapters-grid .chapter-item:last-child:nth-child(odd) {
+        grid-column: 1;
+        max-width: 100%;
+      }
+      .value-grid { grid-template-columns: 1fr; max-width: 280px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ──────────────────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo" aria-label="Owoda Labs — accueil">
+        <div class="logo-mark">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="none"/>
+            <circle cx="10" cy="10" r="3" fill="white"/>
+          </svg>
+        </div>
+        <div>
+          <div class="logo-name">Owoda Labs</div>
+          <div class="logo-sub">owodalabs.com</div>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html#features">Fonctionnalités</a></li>
+        <li><a href="guide.html" class="active">Guide Pratique</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Hero ────────────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-badge">
+      📘 Guide Pratique · 28 pages · 7 chapitres · Exercices pratiques
+    </div>
+    <h1>Reprends le contrôle<br /><span>de ton argent</span></h1>
+    <p class="hero-sub">
+      Le guide pratique qui change ta relation avec l'argent.<br />
+      Savoir, comprendre, agir — dès aujourd'hui.
+    </p>
+    <p class="hero-offer">
+      🎁 <strong>Offert avec Owoda Premium</strong> — valeur 2 990 CFA / 4,99€ / $4,99
+    </p>
+    <a href="https://play.google.com/store/apps/details?id=com.owodalabs.owoda"
+       class="hero-cta"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Télécharger Owoda Premium sur Google Play">
+      📥&nbsp; Obtenir le guide gratuitement
+    </a>
+    <p class="hero-secondary">Via Owoda Premium · Essai gratuit 7 jours · Annulable à tout moment</p>
+  </section>
+
+  <!-- ── Chapter preview ─────────────────────────────────────────────────── -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="chapters-header">
+        <div class="section-label">Aperçu du guide</div>
+        <h2 class="section-title">7 chapitres pour tout changer</h2>
+        <p class="section-sub">
+          Pas de théorie creuse. Des situations réelles, des exercices concrets,
+          des outils que tu peux appliquer dès ce soir.
+        </p>
+      </div>
+
+      <div class="chapters-grid">
+
+        <!-- Chapitre 1 — déverrouillé : donne envie -->
+        <div class="chapter-item">
+          <div class="chapter-check">
+            <svg viewBox="0 0 14 14"><polyline points="2,7 5.5,11 12,3"/></svg>
+          </div>
+          <div>
+            <div class="chapter-number">Chapitre 1</div>
+            <div class="chapter-title">Comprendre pourquoi tu achètes ce dont tu n'as pas besoin</div>
+          </div>
+        </div>
+
+        <!-- Chapitre 2 — déverrouillé -->
+        <div class="chapter-item">
+          <div class="chapter-check">
+            <svg viewBox="0 0 14 14"><polyline points="2,7 5.5,11 12,3"/></svg>
+          </div>
+          <div>
+            <div class="chapter-number">Chapitre 2</div>
+            <div class="chapter-title">Les 7 pièges qui vident ton compte chaque mois</div>
+          </div>
+        </div>
+
+        <!-- Chapitres 3–7 — verrouillés (crée l'envie) -->
+        <div class="chapter-item locked">
+          <div class="chapter-check">
+            <svg viewBox="0 0 14 14"><polyline points="2,7 5.5,11 12,3"/></svg>
+          </div>
+          <div>
+            <div class="chapter-number">Chapitre 3</div>
+            <div class="chapter-title">La pression sociale — comment dire non sans briser les liens</div>
+          </div>
+        </div>
+
+        <div class="chapter-item locked">
+          <div class="chapter-check">
+            <svg viewBox="0 0 14 14"><polyline points="2,7 5.5,11 12,3"/></svg>
+          </div>
+          <div>
+            <div class="chapter-number">Chapitre 4</div>
+            <div class="chapter-title">Les transferts familiaux — en parler honnêtement</div>
+          </div>
+        </div>
+
+        <div class="chapter-item locked">
+          <div class="chapter-check">
+            <svg viewBox="0 0 14 14"><polyline points="2,7 5.5,11 12,3"/></svg>
+          </div>
+          <div>
+            <div class="chapter-number">Chapitre 5</div>
+            <div class="chapter-title">La règle des 100x — ta boussole financière</div>
+          </div>
+        </div>
+
+        <div class="chapter-item locked">
+          <div class="chapter-check">
+            <svg viewBox="0 0 14 14"><polyline points="2,7 5.5,11 12,3"/></svg>
+          </div>
+          <div>
+            <div class="chapter-number">Chapitre 6</div>
+            <div class="chapter-title">Construire une épargne avec un petit salaire</div>
+          </div>
+        </div>
+
+        <div class="chapter-item locked">
+          <div class="chapter-check">
+            <svg viewBox="0 0 14 14"><polyline points="2,7 5.5,11 12,3"/></svg>
+          </div>
+          <div>
+            <div class="chapter-number">Chapitre 7</div>
+            <div class="chapter-title">Le plan d'action 30 jours pour changer tes habitudes</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Unlock nudge -->
+      <div class="chapters-unlock">
+        <div class="chapters-unlock-text">
+          🔓 Débloque les 5 chapitres restants
+          <span>Inclus dans Owoda Premium avec les exercices pratiques</span>
+        </div>
+        <a href="https://play.google.com/store/apps/details?id=com.owodalabs.owoda"
+           class="chapters-unlock-btn"
+           target="_blank"
+           rel="noopener noreferrer">
+          Obtenir Premium →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Valeur du guide ──────────────────────────────────────────────────── -->
+  <section class="section value-section">
+    <div class="section-inner">
+      <div class="section-label" style="text-align:center;">Ce que tu reçois</div>
+      <h2 class="section-title" style="text-align:center;">
+        Ce guide est offert avec Owoda Premium
+      </h2>
+      <p class="section-sub" style="margin:0 auto 48px;">
+        Tu paies l'abonnement. Le guide est en cadeau.
+      </p>
+
+      <div class="value-grid">
+        <div class="value-card">
+          <div class="value-currency">CFA / XOF</div>
+          <div class="value-strike">2 990 CFA</div>
+          <div class="value-offer">Offert</div>
+          <div class="value-label">avec Premium</div>
+        </div>
+        <div class="value-card">
+          <div class="value-currency">EUR</div>
+          <div class="value-strike">4,99 €</div>
+          <div class="value-offer">Offert</div>
+          <div class="value-label">avec Premium</div>
+        </div>
+        <div class="value-card">
+          <div class="value-currency">USD</div>
+          <div class="value-strike">$4,99</div>
+          <div class="value-offer">Offert</div>
+          <div class="value-label">avec Premium</div>
+        </div>
+      </div>
+
+      <p class="value-included">
+        <strong>Inclus dans ton abonnement Premium</strong> —
+        l'app + le guide + toutes les fonctionnalités.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── CTA principal ────────────────────────────────────────────────────── -->
+  <section class="section section-alt cta-section">
+    <div class="section-inner">
+      <div class="section-label" style="text-align:center;">Une seule action</div>
+      <h2 class="cta-title">
+        Télécharge <span>Owoda Premium</span>,<br />reçois le guide.
+      </h2>
+      <p class="cta-sub">
+        L'application qui calcule le coût réel de chaque achat en temps de travail.
+        Le guide qui t'explique pourquoi tu dépenses. Ensemble.
+      </p>
+      <a href="https://play.google.com/store/apps/details?id=com.owodalabs.owoda"
+         class="cta-btn"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Télécharger Owoda Premium et recevoir le guide">
+        📥&nbsp; Télécharger Owoda Premium — Recevoir le guide
+      </a>
+      <div class="cta-details">
+        <span>2 990 CFA/an</span>
+        <span>4,99€/an</span>
+        <span>Essai gratuit 7 jours</span>
+        <span>Annulable à tout moment</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Citation ─────────────────────────────────────────────────────────── -->
+  <div class="quote-strip">
+    <blockquote>
+      "Avant d'acheter, sache ce que ça coûte vraiment.<br />
+      Pas en argent. <em>En temps de ta vie.</em>"
+    </blockquote>
+    <cite>— Owoda</cite>
+  </div>
+
+  <!-- ── Footer ───────────────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-copy">© 2026 Owoda Labs — Alana Hub</span>
+      <ul class="footer-links">
+        <li><a href="privacy.html">Politique de confidentialité</a></li>
+        <li><a href="terms.html">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
