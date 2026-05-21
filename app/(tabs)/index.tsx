@@ -340,10 +340,10 @@ export default function ConverterScreen() {
                   style={styles.exampleChip}
                   activeOpacity={0.75}
                   accessibilityRole="button"
-                  accessibilityLabel={`💡 Essaie avec 50 000 ${currency}`}
+                  accessibilityLabel={`💡 Essaie avec 50 000 ${getCurrency(currency).badge ?? currency}`}
                 >
                   <Text style={styles.exampleChipText}>
-                    {`💡 ${locale === 'en' ? 'Try with' : 'Essaie avec'} 50 000 ${currency}`}
+                    {`💡 ${locale === 'en' ? 'Try with' : 'Essaie avec'} 50 000 ${getCurrency(currency).badge ?? currency}`}
                   </Text>
                 </TouchableOpacity>
               )}
