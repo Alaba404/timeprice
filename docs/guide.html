@@ -111,6 +111,21 @@
 
     .nav-links a:hover { color: var(--green); }
 
+    /* ── Hamburger ────────────────────────────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      color: var(--text-mid);
+      font-size: 24px;
+      line-height: 1;
+      border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-hamburger:hover { background: var(--bg-alt); color: var(--green); }
+
     .nav-links a.active {
       color: var(--green);
       font-weight: 700;
@@ -612,7 +627,39 @@
 
     /* ── Responsive ───────────────────────────────────────────────────────── */
     @media (max-width: 640px) {
-      .nav-links { display: none; }
+      .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 4px 0 8px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        z-index: 99;
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links li { list-style: none; }
+
+      .nav-links li a {
+        display: block;
+        padding: 14px 24px;
+        font-size: 15px;
+        font-weight: 500;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-mid);
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-links li a:hover { background: var(--bg-alt); color: var(--green); }
+
       .hero { padding: 56px 20px 72px; }
       .hero::after { display: none; }
       .section { padding: 56px 20px; }
@@ -643,10 +690,13 @@
           <div class="logo-sub">owodalabs.com</div>
         </div>
       </a>
-      <ul class="nav-links">
+      <button class="nav-hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-menu">
+        ☰
+      </button>
+      <ul class="nav-links" id="nav-menu" role="list">
         <li><a href="index.html">Accueil</a></li>
         <li><a href="index.html#features">Fonctionnalités</a></li>
-        <li><a href="guide.html" class="active">Guide Pratique</a></li>
+        <li><a href="guide.html" class="active" style="color:var(--green);font-weight:700;">📘 Guide Pratique</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
     </div>
@@ -865,6 +915,37 @@
       </ul>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var btn   = document.querySelector('.nav-hamburger');
+      var menu  = document.getElementById('nav-menu');
+
+      function closeMenu() {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.textContent = '☰';
+      }
+
+      btn.addEventListener('click', function () {
+        var isOpen = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(isOpen));
+        btn.textContent = isOpen ? '✕' : '☰';
+      });
+
+      // Close on any nav link tap
+      menu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // Close on outside tap
+      document.addEventListener('click', function (e) {
+        if (!btn.contains(e.target) && !menu.contains(e.target)) {
+          closeMenu();
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>
