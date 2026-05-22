@@ -9,7 +9,7 @@ import {
 import type { ConversionEntry, Category } from '../types';
 
 /** Maximum number of saved conversions for free-tier users. */
-export const FREE_TIER_LIMIT = 20;
+export const FREE_TIER_LIMIT = 7;
 
 type HistoryState = {
   entries: ConversionEntry[];

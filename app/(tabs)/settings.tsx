@@ -50,8 +50,8 @@ type GuideAccess = 'free' | 'trial' | 'full';
 
 /** Which chapters are accessible per access level (0-indexed). */
 const CHAPTER_ACCESS: Record<GuideAccess, number> = {
-  free:  2, // chapters 0-1 unlocked
-  trial: 3, // chapters 0-2 unlocked (ch2 = "La pression sociale" is the trial unlock)
+  free:  1, // chapter 0 only (ch1: "Comprendre la dépense impulsive")
+  trial: 3, // chapters 0-2 unlocked (ch2 "Les 7 pièges" + ch3 "Pression sociale" trial-unlocked)
   full:  7, // all unlocked
 };
 
@@ -102,7 +102,8 @@ function GuideLibrary({ locale, access, trialDaysRemaining, onUpgrade }: GuideLi
       {/* Chapter list */}
       {chapters.map((title, idx) => {
         const isUnlocked = idx < unlockedCount;
-        const isTrialNew = access === 'trial' && idx === 2; // ch3 unlocked by trial
+        // ch2 "Les 7 pièges" (idx=1) and ch3 "Pression sociale" (idx=2) are trial-bonus chapters
+        const isTrialNew = access === 'trial' && (idx === 1 || idx === 2);
 
         return (
           <View

@@ -239,6 +239,32 @@
       letter-spacing: 0.3px;
     }
 
+    .hero-pricing {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .hero-pricing-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: rgba(255,255,255,0.35);
+    }
+    .hero-pricing-amounts {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 0.2px;
+    }
+    .hero-pricing-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.2px;
+    }
+
     /* ── Section wrapper ──────────────────────────────────────────────────── */
     .section { padding: 80px 20px; }
     .section-alt { background: var(--bg-alt); }
@@ -722,7 +748,11 @@
        aria-label="Télécharger Owoda Premium sur Google Play">
       📥&nbsp; Obtenir le guide gratuitement
     </a>
-    <p class="hero-secondary">Via Owoda Premium · Essai gratuit 7 jours · Annulable à tout moment</p>
+    <div class="hero-pricing">
+      <p class="hero-pricing-label">via Owoda Premium</p>
+      <p class="hero-pricing-amounts">2 990 CFA/an &nbsp;·&nbsp; 4,99 €/an &nbsp;·&nbsp; $4,99/an</p>
+      <p class="hero-pricing-sub">Essai gratuit 7 jours &nbsp;·&nbsp; Annulable à tout moment</p>
+    </div>
   </section>
 
   <!-- ── Chapter preview ─────────────────────────────────────────────────── -->

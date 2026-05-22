@@ -45,7 +45,7 @@ export default {
     hint: 'Saisis un montant pour voir combien de temps il représente',
     saved: 'La conversion a été ajoutée à ton historique',
     limitTitle: 'Limite atteinte',
-    limitBody: 'Tu as atteint la limite de 20 conversions. Passe à Premium pour un historique illimité.',
+    limitBody: 'Tu as atteint la limite de 7 conversions. Passe à Premium pour un historique illimité.',
     addCurrency: 'Ajouter une devise',
     currencyHint: 'Appuie sur ✕ pour retirer · + pour ajouter',
     manageCurrencies: 'Gérer mes devises',

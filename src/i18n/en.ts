@@ -43,7 +43,7 @@ export default {
     hint: 'Enter an amount to see how much time it represents',
     saved: 'Conversion added to your history',
     limitTitle: 'Limit reached',
-    limitBody: 'You have reached the 20-conversion limit. Upgrade to Premium for unlimited history.',
+    limitBody: 'You have reached the 7-conversion limit. Upgrade to Premium for unlimited history.',
     addCurrency: 'Add a currency',
     currencyHint: 'Tap ✕ to remove · + to add',
     manageCurrencies: 'Manage my currencies',

@@ -328,6 +328,118 @@
       line-height: 1.65;
     }
 
+    /* ── Pricing comparison ───────────────────────────────────────────────── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 860px;
+      margin: 52px auto 0;
+    }
+
+    .pricing-card {
+      border-radius: 20px;
+      padding: 32px 28px;
+      border: 1.5px solid var(--border);
+    }
+
+    .pricing-card.free {
+      background: var(--bg);
+    }
+
+    .pricing-card.premium {
+      background: #0D2B1A;
+      border-color: var(--green);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card.premium::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+    }
+
+    .pricing-plan-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+    .pricing-card.free  .pricing-plan-label { color: var(--text-muted); }
+    .pricing-card.premium .pricing-plan-label { color: var(--green); }
+
+    .pricing-plan-name {
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .pricing-card.free  .pricing-plan-name { color: var(--text); }
+    .pricing-card.premium .pricing-plan-name { color: #FFFFFF; }
+
+    .pricing-plan-price {
+      font-size: 13px;
+      margin-bottom: 28px;
+    }
+    .pricing-card.free  .pricing-plan-price { color: var(--text-muted); }
+    .pricing-card.premium .pricing-plan-price { color: rgba(255,255,255,0.55); }
+
+    .pricing-plan-price strong {
+      font-size: 17px;
+      font-weight: 800;
+    }
+    .pricing-card.premium .pricing-plan-price strong { color: var(--gold); }
+
+    .pricing-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pricing-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .pricing-card.free  .pricing-list li { color: var(--text-mid); }
+    .pricing-card.premium .pricing-list li { color: rgba(255,255,255,0.80); }
+
+    .pricing-list li .pi {
+      flex-shrink: 0;
+      width: 18px;
+      font-size: 13px;
+      margin-top: 1px;
+    }
+
+    .pricing-list li.yes .pi { color: var(--green); }
+    .pricing-list li.no  .pi { color: var(--text-muted); }
+    .pricing-list li.no { opacity: 0.65; }
+    .pricing-list li.bonus .pi { font-size: 14px; }
+    .pricing-list li.bonus { color: var(--gold) !important; font-weight: 600; }
+
+    .pricing-cta {
+      display: block;
+      margin-top: 28px;
+      text-align: center;
+      background: var(--green);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 24px;
+      border-radius: 12px;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .pricing-cta:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+    @media (max-width: 640px) {
+      .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+    }
+
     /* ── Quote strip ──────────────────────────────────────────────────────── */
     .quote-strip {
       background: var(--green);
@@ -480,6 +592,7 @@
       <ul class="nav-links" id="nav-menu" role="list">
         <li><a href="#features">Fonctionnalités</a></li>
         <li><a href="#how">Comment ça marche</a></li>
+        <li><a href="#pricing">Tarifs</a></li>
         <li><a href="guide.html" style="color:var(--gold);font-weight:700;">📘 Guide Pratique</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -588,6 +701,65 @@
             Ce repas, 45 minutes. Décide en connaissance de cause.
           </p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Pricing comparison ─────────────────────────────────────────────── -->
+  <section class="section section-alt" id="pricing">
+    <div class="section-inner">
+      <div style="text-align:center;">
+        <div class="section-label">Tarifs</div>
+        <h2 class="section-title">Gratuit ou Premium ?</h2>
+        <p class="section-sub" style="margin:0 auto;">
+          Owoda est gratuit pour toujours. Premium débloque les outils avancés
+          et offre le Guide Pratique.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+
+        <!-- Free -->
+        <div class="pricing-card free">
+          <div class="pricing-plan-label">Gratuit</div>
+          <div class="pricing-plan-name">Owoda Free</div>
+          <div class="pricing-plan-price">Pour toujours · <strong>0 CFA</strong></div>
+          <ul class="pricing-list">
+            <li class="yes"><span class="pi">✓</span> Calculateur prix → temps instantané</li>
+            <li class="yes"><span class="pi">✓</span> 7 conversions en historique</li>
+            <li class="yes"><span class="pi">✓</span> Toutes les devises africaines</li>
+            <li class="yes"><span class="pi">✓</span> Fonctionne hors ligne</li>
+            <li class="no"><span class="pi">✗</span> Historique limité à 7 entrées</li>
+            <li class="no"><span class="pi">✗</span> Pas de scanner OCR</li>
+            <li class="no"><span class="pi">✗</span> Pas de widget écran d'accueil</li>
+            <li class="no"><span class="pi">✗</span> Pas de tableau de bord analytique</li>
+            <li class="no"><span class="pi">✗</span> Guide Pratique non inclus</li>
+          </ul>
+        </div>
+
+        <!-- Premium -->
+        <div class="pricing-card premium">
+          <div class="pricing-plan-label">Premium</div>
+          <div class="pricing-plan-name">Owoda Premium</div>
+          <div class="pricing-plan-price">Annuel · <strong>2 990 CFA/an</strong> · 4,99 €/an · $4,99/an</div>
+          <ul class="pricing-list">
+            <li class="yes"><span class="pi">✓</span> Tout le Free, sans limites</li>
+            <li class="yes"><span class="pi">✓</span> Historique illimité</li>
+            <li class="yes"><span class="pi">✓</span> Scanner OCR de prix</li>
+            <li class="yes"><span class="pi">✓</span> Widget écran d'accueil</li>
+            <li class="yes"><span class="pi">✓</span> Tableau de bord analytique</li>
+            <li class="yes"><span class="pi">✓</span> Export CSV</li>
+            <li class="yes"><span class="pi">✓</span> Multi-profils</li>
+            <li class="bonus"><span class="pi">🎁</span> Guide Pratique 28 pages offert</li>
+          </ul>
+          <a href="https://play.google.com/store/apps/details?id=com.owodalabs.owoda"
+             class="pricing-cta"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Essayer Premium gratuitement 7 jours">
+            Essai gratuit 7 jours →
+          </a>
+        </div>
+
       </div>
     </div>
   </section>
