@@ -25,6 +25,170 @@ import Constants from 'expo-constants';
 
 const GUIDE_URL = 'https://owodalabs.com/guide/owoda-guide-pratique.pdf';
 
+// ── Guide chapters ───────────────────────────────────────────────────────────
+const GUIDE_CHAPTERS_FR = [
+  'Comprendre la dépense impulsive',
+  'Les 7 pièges qui vident ton compte',
+  'La pression sociale et le regard des autres',
+  'Le syndrome FOMO et la peur de rater',
+  "Les abonnements qui s'accumulent",
+  'Construire ton budget-temps',
+  "Ton plan d'action sur 30 jours",
+] as const;
+
+const GUIDE_CHAPTERS_EN = [
+  'Understanding impulse spending',
+  'The 7 traps emptying your account',
+  'Social pressure and the gaze of others',
+  'FOMO syndrome and the fear of missing out',
+  'Accumulating subscriptions',
+  'Building your time budget',
+  'Your 30-day action plan',
+] as const;
+
+type GuideAccess = 'free' | 'trial' | 'full';
+
+/** Which chapters are accessible per access level (0-indexed). */
+const CHAPTER_ACCESS: Record<GuideAccess, number> = {
+  free:  2, // chapters 0-1 unlocked
+  trial: 3, // chapters 0-2 unlocked (ch2 = "La pression sociale" is the trial unlock)
+  full:  7, // all unlocked
+};
+
+type GuideLibraryProps = {
+  locale: string;
+  access: GuideAccess;
+  trialDaysRemaining: number;
+  onUpgrade: () => void;
+};
+
+function GuideLibrary({ locale, access, trialDaysRemaining, onUpgrade }: GuideLibraryProps) {
+  const chapters = locale === 'en' ? GUIDE_CHAPTERS_EN : GUIDE_CHAPTERS_FR;
+  const unlockedCount = CHAPTER_ACCESS[access];
+  const lockedCount = chapters.length - unlockedCount;
+
+  // Access status badge
+  const statusBadgeLabel =
+    access === 'full'  ? t('settings.libraryFullAccessBadge') :
+    access === 'trial' ? t('settings.libraryTrialBadge') :
+                         t('settings.libraryFreeBadge');
+  const statusBadgeStyle =
+    access === 'full'  ? lib.badgeFull :
+    access === 'trial' ? lib.badgeTrial :
+                         lib.badgeFree;
+  const statusBadgeTextStyle =
+    access === 'full'  ? lib.badgeFullText :
+    access === 'trial' ? lib.badgeTrialText :
+                         lib.badgeFreeText;
+
+  return (
+    <View style={lib.container}>
+      {/* Header row */}
+      <View style={lib.header}>
+        <View style={lib.iconWrap}>
+          <Text style={lib.icon}>📘</Text>
+        </View>
+        <View style={lib.headerInfo}>
+          <Text style={lib.title}>{t('settings.libraryGuideName')}</Text>
+          <Text style={lib.subtitle}>{t('settings.libraryGuideSubtitle')}</Text>
+        </View>
+        <View style={[lib.statusBadge, statusBadgeStyle]}>
+          <Text style={[lib.statusBadgeText, statusBadgeTextStyle]}>{statusBadgeLabel}</Text>
+        </View>
+      </View>
+
+      <View style={lib.divider} />
+
+      {/* Chapter list */}
+      {chapters.map((title, idx) => {
+        const isUnlocked = idx < unlockedCount;
+        const isTrialNew = access === 'trial' && idx === 2; // ch3 unlocked by trial
+
+        return (
+          <View
+            key={idx}
+            style={[lib.chapterRow, idx < chapters.length - 1 && lib.chapterRowBorder]}
+          >
+            <View style={[lib.chapterNum, isUnlocked ? lib.chapterNumUnlocked : lib.chapterNumLocked]}>
+              <Text style={[lib.chapterNumText, isUnlocked ? lib.chapterNumTextUnlocked : lib.chapterNumTextLocked]}>
+                {idx + 1}
+              </Text>
+            </View>
+            <Text
+              style={[lib.chapterTitle, !isUnlocked && lib.chapterTitleLocked]}
+              numberOfLines={2}
+            >
+              {title}
+            </Text>
+            {isUnlocked && isTrialNew ? (
+              <View style={lib.newBadge}>
+                <Text style={lib.newBadgeText}>{t('settings.libraryNewChapter')}</Text>
+              </View>
+            ) : isUnlocked ? (
+              <View style={lib.checkCircle}>
+                <Text style={lib.checkText}>✓</Text>
+              </View>
+            ) : (
+              <Text style={lib.lockIcon}>🔒</Text>
+            )}
+          </View>
+        );
+      })}
+
+      {/* Action section */}
+      {access === 'full' && (
+        <>
+          <View style={lib.divider} />
+          <TouchableOpacity
+            onPress={() => Linking.openURL(GUIDE_URL)}
+            style={lib.downloadButton}
+            accessibilityRole="button"
+            accessibilityLabel={t('settings.libraryDownload')}
+          >
+            <Text style={lib.downloadButtonText}>⬇  {t('settings.libraryDownload')}</Text>
+          </TouchableOpacity>
+        </>
+      )}
+
+      {access === 'trial' && lockedCount > 0 && (
+        <>
+          <View style={lib.divider} />
+          <View style={lib.trialBox}>
+            <View style={lib.trialCountdownRow}>
+              <Text style={lib.trialCountdownIcon}>⏳</Text>
+              <Text style={lib.trialCountdown}>
+                {t('settings.libraryCountdown', { days: trialDaysRemaining })}
+              </Text>
+            </View>
+            <Text style={lib.trialInfo}>{t('settings.libraryLockedTrial')}</Text>
+          </View>
+        </>
+      )}
+
+      {access === 'free' && (
+        <>
+          <View style={lib.divider} />
+          <View style={lib.freeBox}>
+            <Text style={lib.freeBoxText}>
+              {t('settings.libraryLockedFree', {
+                count: lockedCount,
+              })}
+            </Text>
+            <TouchableOpacity
+              onPress={onUpgrade}
+              style={lib.upgradeButton}
+              accessibilityRole="button"
+              accessibilityLabel={t('settings.libraryStartTrial')}
+            >
+              <Text style={lib.upgradeButtonText}>{t('settings.libraryStartTrial')}</Text>
+            </TouchableOpacity>
+          </View>
+        </>
+      )}
+    </View>
+  );
+}
+
 const LOCALES: Array<{ code: Locale; label: string; flag: string }> = [
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
   { code: 'en', label: 'English',  flag: '🇬🇧' },
@@ -193,7 +357,7 @@ export default function SettingsScreen() {
   const activeId     = useProfileStore((s) => s.activeProfileId);
   const updateProfile = useProfileStore((s) => s.updateProfile);
   const deleteProfile = useProfileStore((s) => s.deleteProfile);
-  const { canUse, isPremium } = usePremium();
+  const { canUse, isPremium, isTrial, trialDaysRemaining } = usePremium();
   const clearHistory = useHistoryStore((s) => s.clear);
   const { locale, setLocale } = useLocaleStore();
 
@@ -332,47 +496,12 @@ export default function SettingsScreen() {
 
         {/* Ma bibliothèque */}
         <SectionLabel label={t('settings.library')} />
-        {isPremium ? (
-          <View style={styles.card}>
-            <View style={styles.libraryCard}>
-              {/* Left: book icon */}
-              <View style={styles.libraryIconWrap}>
-                <Text style={styles.libraryIcon}>📘</Text>
-              </View>
-              {/* Right: info */}
-              <View style={styles.libraryInfo}>
-                <View style={styles.libraryTitleRow}>
-                  <Text style={styles.libraryTitle}>{t('settings.libraryGuideName')}</Text>
-                  <View style={styles.libraryBadge}>
-                    <Text style={styles.libraryBadgeText}>{t('settings.libraryGuideBadge')}</Text>
-                  </View>
-                </View>
-                <Text style={styles.librarySubtitle}>{t('settings.libraryGuideSubtitle')}</Text>
-                <TouchableOpacity
-                  onPress={() => Linking.openURL(GUIDE_URL)}
-                  style={styles.libraryButton}
-                  accessibilityRole="button"
-                  accessibilityLabel={t('settings.libraryDownload')}
-                >
-                  <Text style={styles.libraryButtonText}>⬇ {t('settings.libraryDownload')}</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        ) : (
-          <View style={styles.card}>
-            <View style={styles.libraryLockedRow}>
-              <Text style={styles.libraryLockedText}>{t('settings.libraryPremiumOnly')}</Text>
-              <TouchableOpacity
-                onPress={() => router.push('/paywall')}
-                style={styles.libraryLockedBtn}
-                accessibilityRole="button"
-              >
-                <Text style={styles.libraryLockedBtnText}>{t('settings.libraryDiscoverPremium')} →</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
+        <GuideLibrary
+          locale={locale}
+          access={isPremium ? (isTrial ? 'trial' : 'full') : 'free'}
+          trialDaysRemaining={trialDaysRemaining}
+          onUpgrade={() => router.push('/paywall')}
+        />
 
         {/* Privacy */}
         <SectionLabel label={t('settings.privacy')} />
@@ -479,42 +608,108 @@ const styles = StyleSheet.create({
   dangerText: { color: colors.danger, fontWeight: '600', fontSize: 14 },
   versionText: { color: colors.textMuted, fontSize: 11, textAlign: 'center', marginTop: 8 },
 
-  // Library
-  libraryCard: { flexDirection: 'row', padding: 14, gap: 14, alignItems: 'flex-start' },
-  libraryIconWrap: {
-    width: 48, height: 48, borderRadius: 14,
+});
+
+// ── GuideLibrary styles ──────────────────────────────────────────────────────
+const lib = StyleSheet.create({
+  container: {
+    backgroundColor: colors.card,
+    borderRadius: 16,
+    marginBottom: 16,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: colors.divider,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 4,
+    elevation: 1,
+  },
+
+  // ── Header ──
+  header: { flexDirection: 'row', alignItems: 'flex-start', padding: 14, gap: 12 },
+  iconWrap: {
+    width: 44, height: 44, borderRadius: 12,
     backgroundColor: '#E8F4FD',
     alignItems: 'center', justifyContent: 'center',
+    flexShrink: 0,
   },
-  libraryIcon: { fontSize: 26, lineHeight: 32 },
-  libraryInfo: { flex: 1 },
-  libraryTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 },
-  libraryTitle: { color: colors.textDark, fontWeight: '800', fontSize: 14, flex: 1 },
-  libraryBadge: {
-    backgroundColor: colors.primaryTint,
-    borderRadius: 999,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderWidth: 1,
-    borderColor: colors.primary + '40',
+  icon: { fontSize: 24, lineHeight: 30 },
+  headerInfo: { flex: 1 },
+  title: { color: colors.textDark, fontWeight: '800', fontSize: 13, marginBottom: 2 },
+  subtitle: { color: colors.textMuted, fontSize: 11, lineHeight: 16 },
+
+  // ── Status badge ──
+  statusBadge: {
+    borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3,
+    borderWidth: 1, alignSelf: 'flex-start', flexShrink: 0,
   },
-  libraryBadgeText: { color: colors.primary, fontSize: 10, fontWeight: '700' },
-  librarySubtitle: { color: colors.textMuted, fontSize: 12, lineHeight: 17, marginBottom: 12 },
-  libraryButton: {
+  badgeFull:  { backgroundColor: colors.primaryTint, borderColor: colors.primary + '50' },
+  badgeTrial: { backgroundColor: '#FDF8E7', borderColor: '#D4AF3760' },
+  badgeFree:  { backgroundColor: colors.bg, borderColor: colors.border },
+  statusBadgeText: { fontSize: 10, fontWeight: '700' },
+  badgeFullText:  { color: colors.primary },
+  badgeTrialText: { color: '#9E7C00' },
+  badgeFreeText:  { color: colors.textMuted },
+
+  divider: { height: 1, backgroundColor: colors.divider },
+
+  // ── Chapter rows ──
+  chapterRow: {
+    flexDirection: 'row', alignItems: 'center',
+    paddingHorizontal: 14, paddingVertical: 12, gap: 12,
+  },
+  chapterRowBorder: { borderBottomWidth: 1, borderBottomColor: colors.divider },
+  chapterNum: {
+    width: 26, height: 26, borderRadius: 8,
+    alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+  },
+  chapterNumUnlocked: { backgroundColor: colors.primaryTint },
+  chapterNumLocked:   { backgroundColor: colors.bg, borderWidth: 1, borderColor: colors.border },
+  chapterNumText: { fontSize: 12, fontWeight: '800' },
+  chapterNumTextUnlocked: { color: colors.primary },
+  chapterNumTextLocked:   { color: colors.textMuted },
+  chapterTitle:       { flex: 1, color: colors.textDark, fontSize: 13, fontWeight: '500', lineHeight: 18 },
+  chapterTitleLocked: { color: colors.textMuted },
+  checkCircle: {
+    width: 22, height: 22, borderRadius: 11,
     backgroundColor: colors.primary,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 9,
-    alignSelf: 'flex-start',
+    alignItems: 'center', justifyContent: 'center', flexShrink: 0,
   },
-  libraryButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 13 },
-  libraryLockedRow: { padding: 16, alignItems: 'center', gap: 12 },
-  libraryLockedText: { color: colors.textMid, fontSize: 13, textAlign: 'center', lineHeight: 19 },
-  libraryLockedBtn: {
+  checkText: { color: '#FFFFFF', fontSize: 11, fontWeight: '800' },
+  lockIcon:  { fontSize: 16, flexShrink: 0 },
+  newBadge: {
+    backgroundColor: '#D4AF3720', borderRadius: 999,
+    paddingHorizontal: 7, paddingVertical: 3,
+    borderWidth: 1, borderColor: '#D4AF3770', flexShrink: 0,
+  },
+  newBadgeText: { color: '#9E7C00', fontSize: 9, fontWeight: '700' },
+
+  // ── Full access — download ──
+  downloadButton: {
+    margin: 14,
     backgroundColor: colors.primary,
-    borderRadius: 12,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    borderRadius: 12, paddingVertical: 13,
+    alignItems: 'center',
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3, shadowRadius: 8, elevation: 4,
   },
-  libraryLockedBtnText: { color: '#FFFFFF', fontWeight: '800', fontSize: 14 },
+  downloadButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 14 },
+
+  // ── Trial — countdown box ──
+  trialBox: { padding: 14 },
+  trialCountdownRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 },
+  trialCountdownIcon: { fontSize: 16 },
+  trialCountdown: { color: '#9E7C00', fontWeight: '800', fontSize: 14 },
+  trialInfo: { color: colors.textMuted, fontSize: 12, lineHeight: 17 },
+
+  // ── Free — upgrade box ──
+  freeBox: { padding: 14, alignItems: 'center', gap: 12 },
+  freeBoxText: { color: colors.textMid, fontSize: 13, textAlign: 'center', lineHeight: 19 },
+  upgradeButton: {
+    backgroundColor: colors.primary, borderRadius: 12,
+    paddingHorizontal: 24, paddingVertical: 11, alignSelf: 'stretch', alignItems: 'center',
+  },
+  upgradeButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 14 },
 });

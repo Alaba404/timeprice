@@ -24,15 +24,53 @@ const PREMIUM_FEATURES = new Set<PremiumFeature>([
 
 type UsePremiumResult = {
   isPremium: boolean;
+  /** True during the 7-day free trial (RevenueCat isTrialPeriod). */
+  isTrial: boolean;
+  /** Days remaining until full access (0 if not in trial). */
+  trialDaysRemaining: number;
   canUse: (feature: PremiumFeature) => boolean;
   customerInfo: CustomerInfo | null;
   loading: boolean;
 };
 
+/** Compute trial state from a CustomerInfo snapshot. */
+function deriveTrialState(info: CustomerInfo): { isPremium: boolean; isTrial: boolean; trialDaysRemaining: number } {
+  const entitlement = info.entitlements.active['premium'];
+  if (!entitlement) return { isPremium: false, isTrial: false, trialDaysRemaining: 0 };
+
+  const isPremium = true;
+  // RevenueCat types vary by SDK version — check both the boolean field and periodType string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const ent = entitlement as any;
+  const inTrial: boolean =
+    ent.isTrialPeriod === true ||
+    String(ent.periodType ?? '').toUpperCase() === 'TRIAL';
+
+  let trialDaysRemaining = 0;
+  const purchaseDateStr: string | undefined = ent.latestPurchaseDate ?? ent.originalPurchaseDate;
+  if (inTrial && purchaseDateStr) {
+    const purchaseMs = new Date(purchaseDateStr).getTime();
+    const elapsedDays = (Date.now() - purchaseMs) / 86_400_000;
+    trialDaysRemaining = Math.max(0, Math.ceil(7 - elapsedDays));
+  }
+
+  return { isPremium, isTrial: inTrial, trialDaysRemaining };
+}
+
 export function usePremium(): UsePremiumResult {
   const [isPremium, setIsPremium] = useState(false);
+  const [isTrial, setIsTrial] = useState(false);
+  const [trialDaysRemaining, setTrialDaysRemaining] = useState(0);
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const applyInfo = (info: CustomerInfo) => {
+    const derived = deriveTrialState(info);
+    setIsPremium(derived.isPremium);
+    setIsTrial(derived.isTrial);
+    setTrialDaysRemaining(derived.trialDaysRemaining);
+    setCustomerInfo(info);
+  };
 
   useEffect(() => {
     if (!_Purchases) {
@@ -47,11 +85,7 @@ export function usePremium(): UsePremiumResult {
     try {
       _Purchases.getCustomerInfo()
         .then((info) => {
-          if (!cancelled) {
-            const active = info.entitlements.active;
-            setIsPremium('premium' in active);
-            setCustomerInfo(info);
-          }
+          if (!cancelled) applyInfo(info);
         })
         .catch(() => {
           // Offline or unconfigured — default to free tier
@@ -60,12 +94,14 @@ export function usePremium(): UsePremiumResult {
           if (!cancelled) setLoading(false);
         });
 
-      listener = _Purchases.addCustomerInfoUpdateListener((info) => {
-        if (!cancelled) {
-          setIsPremium('premium' in info.entitlements.active);
-          setCustomerInfo(info);
-        }
+      // addCustomerInfoUpdateListener return type varies by SDK version
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const maybeListener: any = _Purchases.addCustomerInfoUpdateListener((info) => {
+        if (!cancelled) applyInfo(info);
       });
+      if (maybeListener && typeof maybeListener.remove === 'function') {
+        listener = maybeListener as { remove: () => void };
+      }
     } catch {
       // Native RevenueCat module not available (Expo Go / dev build without plugin)
       setLoading(false);
@@ -82,5 +118,5 @@ export function usePremium(): UsePremiumResult {
     return isPremium;
   };
 
-  return { isPremium, canUse, customerInfo, loading };
+  return { isPremium, isTrial, trialDaysRemaining, canUse, customerInfo, loading };
 }
