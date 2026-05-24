@@ -585,9 +585,6 @@
         padding: 4px 0;
         align-self: center;
       }
-      .acts-grid {
-        grid-template-columns: 1fr;
-      }
     }
 
     /* ── Hero — édito additions ───────────────────────────────────────────── */
@@ -761,11 +758,20 @@
     .s2 .journey-step-desc { color: var(--text-mid); }
 
     /* ── 3 Actes narratifs ────────────────────────────────────────────────── */
-    .acts-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+    /* Mobile-first : colonne par défaut, row à partir de 768px */
+    .actes-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
       margin-top: 48px;
+    }
+    @media (min-width: 768px) {
+      .actes-container {
+        flex-direction: row;
+      }
+      .actes-container .act-card {
+        flex: 1;
+      }
     }
 
     .act-card {
@@ -917,7 +923,7 @@
         </p>
       </div>
 
-      <div class="acts-grid">
+      <div class="actes-container">
 
         <!-- Acte 1 -->
         <div class="act-card a1">
