@@ -566,10 +566,28 @@
       .section { padding: 56px 20px; }
       .footer-inner { flex-direction: column; text-align: center; }
       .diff-cell { font-size: 12px; padding: 10px 12px; }
-      .journey-steps { flex-direction: column; align-items: stretch; }
-      .journey-arrow { transform: rotate(90deg); padding: 6px 0; align-self: center; }
-      .acts-grid { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+    }
+
+    /* ── Mobile étendu : parcours + actes (couvre iPhone landscape) ───────── */
+    @media (max-width: 768px) {
+      .journey-steps {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .journey-step {
+        flex: none;
+        width: 100%;
+      }
+      .journey-arrow {
+        transform: rotate(90deg);
+        padding: 4px 0;
+        align-self: center;
+      }
+      .acts-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ── Hero — édito additions ───────────────────────────────────────────── */
@@ -857,7 +875,7 @@
       <div class="section-label">Positionnement</div>
       <h2 class="section-title">Owoda, ce n'est pas une app de budget</h2>
       <p class="section-sub" style="margin:0 auto;">
-        Les apps de budget culpabilisent. Owoda éclaire.
+        Les autres apps culpabilisent. Owoda éclaire.
       </p>
 
       <div class="diff-table" role="table" aria-label="Comparaison Owoda vs autres apps">
@@ -895,7 +913,7 @@
         <h2 class="section-title">Trois actes. Une vie financière différente.</h2>
         <p class="section-sub">
           Owoda n'est pas juste un outil de calcul. C'est le début d'un parcours
-          vers une liberté financière réelle — construite depuis l'Afrique.
+          vers une liberté financière réelle — pensée pour l'Afrique, utile partout.
         </p>
       </div>
 
