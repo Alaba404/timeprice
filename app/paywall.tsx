@@ -40,6 +40,18 @@ const PRICING: PricingTier[] = [
   { currency: 'NGN', flag: '🇳🇬', amount: '₦ 2 500',   packageId: 'annual_ngn' },
 ];
 
+// ── Comparison table rows ─────────────────────────────────────────────────────
+type CompPremiumType = 'check' | 'value' | 'gift';
+const COMP_ROWS: Array<{ labelKey: string; free: string; premium: string; type: CompPremiumType }> = [
+  { labelKey: 'premium.comp.history',  free: '7',  premium: '∞',  type: 'value' },
+  { labelKey: 'premium.comp.scanner',  free: '—',  premium: '✓',  type: 'check' },
+  { labelKey: 'premium.comp.widget',   free: '—',  premium: '✓',  type: 'check' },
+  { labelKey: 'premium.comp.dashboard',free: '—',  premium: '✓',  type: 'check' },
+  { labelKey: 'premium.comp.csv',      free: '—',  premium: '✓',  type: 'check' },
+  { labelKey: 'premium.comp.profiles', free: '—',  premium: '✓',  type: 'check' },
+  { labelKey: 'premium.comp.guide',    free: '—',  premium: '🎁', type: 'gift'  },
+];
+
 // 'guide' is not a gated feature — it's a paywall bonus displayed last
 const FEATURE_LIST: Array<{ key: string; icon: string; isBonus?: boolean }> = [
   { key: 'scanner',           icon: '📷' },
@@ -190,6 +202,43 @@ export default function PaywallScreen() {
           ))}
         </View>
 
+        {/* Comparison table: Gratuit vs Premium */}
+        <View style={styles.compTable}>
+          {/* Header */}
+          <View style={styles.compHeader}>
+            <View style={styles.compFeatureCell} />
+            <View style={styles.compHeaderFree}>
+              <Text style={styles.compHeaderFreeText}>{t('premium.comp.headerFree')}</Text>
+            </View>
+            <View style={styles.compHeaderPremium}>
+              <Text style={styles.compHeaderPremiumText}>{t('premium.comp.headerPremium')}</Text>
+            </View>
+          </View>
+          {/* Rows */}
+          {COMP_ROWS.map((row, idx) => (
+            <View
+              key={row.labelKey}
+              style={[styles.compRow, idx % 2 === 0 ? styles.compRowEven : styles.compRowOdd]}
+            >
+              <View style={styles.compFeatureCell}>
+                <Text style={styles.compFeatureText}>{t(row.labelKey)}</Text>
+              </View>
+              <View style={styles.compValueCell}>
+                <Text style={styles.compFreeText}>{row.free}</Text>
+              </View>
+              <View style={styles.compValueCell}>
+                <Text style={
+                  row.type === 'check' ? styles.compPremiumCheck
+                  : row.type === 'gift' ? styles.compPremiumGift
+                  : styles.compPremiumValue
+                }>
+                  {row.premium}
+                </Text>
+              </View>
+            </View>
+          ))}
+        </View>
+
         {/* Pricing selector */}
         <Text style={styles.pricingLabel}>{t('settings.frequency')}</Text>
         <View style={styles.pricingGrid}>
@@ -236,12 +285,10 @@ export default function PaywallScreen() {
           {loading ? (
             <ActivityIndicator color="white" />
           ) : (
-            <>
-              <Text style={styles.ctaText}>{t('premium.cta')}</Text>
-              <Text style={styles.ctaSubtext}>{t('premium.annualBilling')}</Text>
-            </>
+            <Text style={styles.ctaText}>{t('premium.cta')}</Text>
           )}
         </TouchableOpacity>
+        <Text style={styles.ctaSubtext}>{t('premium.annualBilling')}</Text>
 
         <TouchableOpacity
           onPress={handleRestore}
@@ -384,13 +431,59 @@ const styles = StyleSheet.create({
   pricingPer: { color: colors.textMuted, fontSize: 10 },
   pricingPerActive: { color: colors.primary },
 
+  // Comparison table
+  compTable: {
+    borderRadius: 16,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: colors.divider,
+    marginBottom: 24,
+  },
+  compHeader: { flexDirection: 'row' },
+  compHeaderFree: {
+    flex: 1,
+    backgroundColor: '#F3F4F6',
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  compHeaderFreeText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: colors.textMuted,
+    letterSpacing: 0.8,
+  },
+  compHeaderPremium: {
+    flex: 1,
+    backgroundColor: colors.primary,
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  compHeaderPremiumText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    letterSpacing: 0.8,
+  },
+  compRow: { flexDirection: 'row', borderTopWidth: 1, borderTopColor: colors.divider },
+  compRowEven: { backgroundColor: colors.card },
+  compRowOdd:  { backgroundColor: colors.bg },
+  compFeatureCell: { flex: 2, paddingVertical: 9, paddingHorizontal: 12, justifyContent: 'center' },
+  compFeatureText: { fontSize: 12, color: colors.textMid, fontWeight: '500' },
+  compValueCell: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 9 },
+  compFreeText:      { fontSize: 13, color: colors.textMuted, fontWeight: '600' },
+  compPremiumCheck:  { fontSize: 13, color: colors.primary,   fontWeight: '900' },
+  compPremiumValue:  { fontSize: 13, color: colors.primary,   fontWeight: '900' },
+  compPremiumGift:   { fontSize: 15 },
+
   // CTA
   ctaButton: {
     backgroundColor: colors.primary,
     borderRadius: 16,
     paddingVertical: 18,
     alignItems: 'center',
-    marginBottom: 14,
+    marginBottom: 8,
     shadowColor: colors.primary,
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.4,
@@ -399,7 +492,7 @@ const styles = StyleSheet.create({
   },
   ctaButtonLoading: { opacity: 0.7 },
   ctaText: { color: '#FFFFFF', fontWeight: '900', fontSize: 17, letterSpacing: 0.2 },
-  ctaSubtext: { color: 'rgba(255,255,255,0.7)', fontSize: 11, marginTop: 5 },
+  ctaSubtext: { color: colors.textMuted, fontSize: 12, textAlign: 'center', marginBottom: 16 },
 
   restoreButton: { alignItems: 'center', paddingVertical: 12 },
   restoreText: { color: colors.textMuted, fontWeight: '600', fontSize: 14 },
