@@ -392,8 +392,19 @@ export default function SettingsScreen() {
   const version = Constants.expoConfig?.version ?? '1.0.0';
   const freqLabel = (f: SalaryFrequency) => t(`onboarding.frequency.${f}`);
 
+  const ANDROID_VERSION: Record<number, string> = {
+    30: '11', 31: '12', 32: '12L', 33: '13', 34: '14', 35: '15',
+  };
+
   const handleContact = () => {
-    const deviceInfo = `${Platform.OS === 'ios' ? 'iOS' : 'Android'} ${Platform.Version}`;
+    const androidVersion =
+      Platform.OS === 'android'
+        ? ANDROID_VERSION[Platform.Version as number] ?? String(Platform.Version)
+        : null;
+    const deviceInfo =
+      Platform.OS === 'ios'
+        ? `iOS ${Platform.Version}`
+        : `Android ${androidVersion}`;
     const subject = encodeURIComponent(t('settings.contactEmailSubject'));
     const body = encodeURIComponent(
       t('settings.contactEmailBody', { version, device: deviceInfo }),
