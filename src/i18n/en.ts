@@ -135,6 +135,10 @@ export default {
     netSalary: 'Net salary',
     weeklyHours: 'Hours / week',
     save: 'Save',
+    contact: 'Contact us',
+    contactEmailSubject: '[Owoda] User feedback',
+    contactEmailBody: 'Hello,\n\nApp version: {{version}}\nDevice: {{device}}\n\nMy feedback:\n',
+    contactNoApp: 'Contact us at hello@owodalabs.com',
   },
 
   premium: {

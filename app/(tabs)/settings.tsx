@@ -7,6 +7,7 @@ import {
   ScrollView,
   Alert,
   Linking,
+  Platform,
   StyleSheet,
   Modal,
   TextInput,
@@ -391,6 +392,22 @@ export default function SettingsScreen() {
   const version = Constants.expoConfig?.version ?? '1.0.0';
   const freqLabel = (f: SalaryFrequency) => t(`onboarding.frequency.${f}`);
 
+  const handleContact = () => {
+    const deviceInfo = `${Platform.OS === 'ios' ? 'iOS' : 'Android'} ${Platform.Version}`;
+    const subject = encodeURIComponent(t('settings.contactEmailSubject'));
+    const body = encodeURIComponent(
+      t('settings.contactEmailBody', { version, device: deviceInfo }),
+    );
+    const url = `mailto:hello@owodalabs.com?subject=${subject}&body=${body}`;
+    Linking.canOpenURL(url).then((supported) => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        Alert.alert('✉️', t('settings.contactNoApp'));
+      }
+    });
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
@@ -524,6 +541,20 @@ export default function SettingsScreen() {
           </TouchableOpacity>
         )}
 
+        {/* Contact */}
+        <View style={styles.card}>
+          <TouchableOpacity
+            onPress={handleContact}
+            style={styles.contactRow}
+            accessibilityRole="button"
+            accessibilityLabel={t('settings.contact')}
+          >
+            <Text style={styles.contactIcon}>✉️</Text>
+            <Text style={styles.contactText}>{t('settings.contact')}</Text>
+            <Text style={styles.contactArrow}>›</Text>
+          </TouchableOpacity>
+        </View>
+
         {/* Danger */}
         <SectionLabel label={t('settings.dangerZone')} />
         <View style={styles.card}>
@@ -607,6 +638,10 @@ const styles = StyleSheet.create({
   premiumArrow: { color: '#FFFFFF', fontSize: 16, fontWeight: '800' },
   dangerRow: { paddingHorizontal: 14, paddingVertical: 14 },
   dangerText: { color: colors.danger, fontWeight: '600', fontSize: 14 },
+  contactRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, paddingVertical: 14, gap: 12 },
+  contactIcon: { fontSize: 16 },
+  contactText: { flex: 1, color: colors.textDark, fontWeight: '600', fontSize: 14 },
+  contactArrow: { color: colors.textMuted, fontSize: 22, fontWeight: '300' },
   versionText: { color: colors.textMuted, fontSize: 11, textAlign: 'center', marginTop: 8 },
 
 });
