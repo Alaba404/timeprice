@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, type TextStyle } from 'react-native';
 import Animated, {
   useSharedValue,
   withTiming,
@@ -11,6 +11,14 @@ import type { ConversionResult } from '../types';
 import { formatDuration } from '../core/formatter';
 import { useLocaleStore } from '../store/localeStore';
 import { colors } from '../theme';
+
+function getResultFontSize(text: string): number {
+  const len = text.length;
+  if (len <= 10) return 48;
+  if (len <= 16) return 40;
+  if (len <= 22) return 32;
+  return 26;
+}
 
 type Props = {
   result: ConversionResult;
@@ -76,6 +84,11 @@ export function DurationBadge({ result, weeklyHours, size = 'lg' }: Props) {
   const formatted      = formatDuration(displayedMinutes, weeklyHours, locale);
   const accessibleText = formatDuration(result.durationMinutes, weeklyHours, locale);
 
+  // Use the final (stable) text to compute font size so it doesn't jump during animation
+  const dynamicFontSize: TextStyle | null = isLarge
+    ? { fontSize: getResultFontSize(accessibleText), lineHeight: getResultFontSize(accessibleText) + 8 }
+    : null;
+
   // CAS02: subtitle shows compact "X min" hint for durations < 60 min only
   const subtitle =
     result.durationMinutes < 60
@@ -84,14 +97,14 @@ export function DurationBadge({ result, weeklyHours, size = 'lg' }: Props) {
 
   return (
     <View
-      style={styles.container}
+      style={[styles.container, isLarge && styles.containerLarge]}
       accessibilityLabel={accessibleText}
       accessibilityRole="text"
     >
       <Text
-        style={isLarge ? styles.durationLarge : styles.durationSmall}
-        adjustsFontSizeToFit
-        allowFontScaling
+        style={[isLarge ? styles.durationLarge : styles.durationSmall, dynamicFontSize]}
+        allowFontScaling={false}
+        numberOfLines={isLarge ? 2 : 1}
       >
         {formatted}
       </Text>
@@ -108,11 +121,16 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
   },
+  containerLarge: {
+    justifyContent: 'center',
+    width: '100%',
+  },
   durationLarge: {
     fontWeight: '900',
     color: colors.primary,
-    fontSize: 48,
+    fontSize: 48,        // overridden at runtime by dynamicFontSize
     letterSpacing: -1,
+    textAlign: 'center',
   },
   durationSmall: {
     fontWeight: '800',
