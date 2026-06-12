@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { CategoryIcon } from './CategoryIcon';
 import type { ConversionEntry } from '../types';
 import { formatDuration } from '../core/formatter';
+import { formatPriceDisplay } from '../core/currencies';
 import { useProfileStore } from '../store/profileStore';
 import { useLocaleStore } from '../store/localeStore';
 import { t } from '../i18n';
@@ -50,7 +51,7 @@ function ConversionCardInner({ entry, onPress, onDelete }: Props) {
       style={styles.card}
       activeOpacity={0.75}
       accessibilityLabel={
-        `${entry.priceAmount} ${entry.priceCurrency}, ` +
+        `${formatPriceDisplay(entry.priceAmount, entry.priceCurrency)}, ` +
         `${formatDuration(entry.durationMinutes, weeklyHours, locale)}`
       }
       accessibilityRole="button"
@@ -62,7 +63,7 @@ function ConversionCardInner({ entry, onPress, onDelete }: Props) {
       {/* Text block */}
       <View style={styles.textSection}>
         <Text style={styles.price} numberOfLines={1}>
-          {entry.priceAmount.toFixed(2)} {entry.priceCurrency}
+          {formatPriceDisplay(entry.priceAmount, entry.priceCurrency)}
         </Text>
         <Text style={styles.date} numberOfLines={1}>
           {dateStr}

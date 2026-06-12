@@ -18,6 +18,7 @@ import { useProfileStore } from '../../src/store/profileStore';
 import { useHistoryStore } from '../../src/store/historyStore';
 import { usePremium } from '../../src/hooks/usePremium';
 import { computeHourlyRate } from '../../src/core/converter';
+import { getCurrency, formatPriceDisplay } from '../../src/core/currencies';
 import { useLocaleStore } from '../../src/store/localeStore';
 import { t } from '../../src/i18n';
 import { colors } from '../../src/theme';
@@ -259,7 +260,7 @@ function EditProfileModal({ profile, visible, onClose, onSave }: EditModalProps)
               placeholder="0"
               placeholderTextColor={colors.textMuted}
             />
-            <Text style={edit.currency}>{profile.currency}</Text>
+            <Text style={edit.currency}>{getCurrency(profile.currency).badge ?? profile.currency}</Text>
           </View>
 
           {/* Net salary */}
@@ -273,7 +274,7 @@ function EditProfileModal({ profile, visible, onClose, onSave }: EditModalProps)
               placeholder="0"
               placeholderTextColor={colors.textMuted}
             />
-            <Text style={edit.currency}>{profile.currency}</Text>
+            <Text style={edit.currency}>{getCurrency(profile.currency).badge ?? profile.currency}</Text>
           </View>
 
           {/* Use net toggle */}
@@ -440,10 +441,10 @@ export default function SettingsScreen() {
               <View style={styles.profileInfo}>
                 <Text style={styles.profileName}>{p.name}</Text>
                 <Text style={styles.profileSub}>
-                  {p.grossSalary.toLocaleString()} {p.currency} · {freqLabel(p.frequency)}
+                  {formatPriceDisplay(p.grossSalary, p.currency)} · {freqLabel(p.frequency)}
                 </Text>
                 <Text style={styles.profileRate}>
-                  ≈ {Math.round(computeHourlyRate(p)).toLocaleString()} {p.currency}/h
+                  ≈ {formatPriceDisplay(Math.round(computeHourlyRate(p)), p.currency)}/h
                 </Text>
               </View>
               {p.id === activeId && (

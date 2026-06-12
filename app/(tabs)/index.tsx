@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import {
   View,
   Text,
@@ -38,8 +38,10 @@ import {
   ALL_CURRENCIES,
   DEFAULT_USER_CURRENCIES,
   getCurrency,
+  formatPriceDisplay,
   type CurrencyInfo,
 } from '../../src/core/currencies';
+import { convertCurrency } from '../../src/core/converter';
 import type { Category, ConversionEntry } from '../../src/types';
 
 // Category value + icon only — labels come from t() at render time
@@ -133,7 +135,7 @@ function CurrencyRow({
 // ── Main screen ─────────────────────────────────────────────────────────────
 export default function ConverterScreen() {
   const router = useRouter();
-  const { convert } = useConverter();
+  const { convert, rates } = useConverter();
   const addEntry = useHistoryStore((s) => s.addEntry);
   const getActiveProfile = useProfileStore((s) => s.getActiveProfile);
   const { isPremium, canUse } = usePremium();
@@ -250,17 +252,42 @@ export default function ConverterScreen() {
     if (currency === code) setCurrency(userCurrencies.find((c) => c !== code) ?? 'XOF');
   }, [userCurrencies, currency]);
 
+  const handleCurrencySelect = useCallback((newCode: string) => {
+    if (rawPrice !== '' && newCode !== currency) {
+      const currentAmount = parseFloat(rawPrice.replace(',', '.'));
+      if (!isNaN(currentAmount) && currentAmount > 0) {
+        const converted = convertCurrency(currentAmount, currency, newCode, rates);
+        const noCents = newCode === 'XOF' || newCode === 'XAF';
+        const rounded = noCents ? Math.round(converted) : Math.round(converted * 100) / 100;
+        setRawPrice(String(rounded));
+      }
+    }
+    setCurrency(newCode);
+    setCurrencyModalVisible(false);
+  }, [rawPrice, currency, rates]);
+
   const handleAddCurrency = useCallback((code: string) => {
     if (!userCurrencies.includes(code)) {
       setUserCurrencies((prev) => [...prev, code]);
     }
-    setCurrency(code);
     setAddCurrencyModalVisible(false);
-    setCurrencyModalVisible(false);
-  }, [userCurrencies]);
+    handleCurrencySelect(code);
+  }, [userCurrencies, handleCurrencySelect]);
 
   const activeCurrencyInfo = getCurrency(currency);
   const availableToAdd = ALL_CURRENCIES.filter((c) => !userCurrencies.includes(c.code));
+
+  // Amount equivalent to 50 000 XOF in the active currency, rounded to a clean figure
+  const chipAmount = useMemo(() => {
+    const BASE_XOF = 50_000;
+    if (currency === 'XOF' || currency === 'XAF') return BASE_XOF;
+    const converted = convertCurrency(BASE_XOF, 'XOF', currency, rates);
+    if (converted >= 10_000) return Math.round(converted / 1_000) * 1_000;
+    if (converted >= 1_000)  return Math.round(converted / 100) * 100;
+    if (converted >= 100)    return Math.round(converted / 10) * 10;
+    if (converted >= 10)     return Math.round(converted);
+    return Math.round(converted * 10) / 10;
+  }, [currency, rates]);
 
   if (!profile) {
     return (
@@ -336,14 +363,14 @@ export default function ConverterScreen() {
               {/* Chip exemple — visible uniquement quand le champ est vide */}
               {rawPrice === '' && (
                 <TouchableOpacity
-                  onPress={() => setRawPrice('50000')}
+                  onPress={() => setRawPrice(String(chipAmount))}
                   style={styles.exampleChip}
                   activeOpacity={0.75}
                   accessibilityRole="button"
-                  accessibilityLabel={`💡 Essaie avec 50 000 ${getCurrency(currency).badge ?? currency}`}
+                  accessibilityLabel={`💡 ${locale === 'en' ? 'Try with' : 'Essaie avec'} ${formatPriceDisplay(chipAmount, currency)}`}
                 >
                   <Text style={styles.exampleChipText}>
-                    {`💡 ${locale === 'en' ? 'Try with' : 'Essaie avec'} 50 000 ${getCurrency(currency).badge ?? currency}`}
+                    {`💡 ${locale === 'en' ? 'Try with' : 'Essaie avec'} ${formatPriceDisplay(chipAmount, currency)}`}
                   </Text>
                 </TouchableOpacity>
               )}
@@ -448,7 +475,7 @@ export default function ConverterScreen() {
                     <CurrencyRow
                       info={getCurrency(code)}
                       selected={currency === code}
-                      onSelect={() => { setCurrency(code); setCurrencyModalVisible(false); }}
+                      onSelect={() => handleCurrencySelect(code)}
                       onRemove={userCurrencies.length > 1 ? () => handleRemoveCurrency(code) : undefined}
                     />
                   )}

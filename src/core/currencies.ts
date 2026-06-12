@@ -49,3 +49,28 @@ export function getCurrency(code: string): CurrencyInfo {
     }
   );
 }
+
+/**
+ * Format a price amount for display:
+ * - Uses the badge label (e.g. "CFA") instead of the raw code ("XOF")
+ * - XOF/XAF: no decimals, space as thousands separator → "25 000 CFA"
+ * - Other currencies: up to 2 decimals, space separator → "85.50 USD"
+ */
+export function formatPriceDisplay(amount: number, currency: string): string {
+  const info = getCurrency(currency);
+  const label = info.badge ?? currency;
+  const noCents = currency === 'XOF' || currency === 'XAF';
+
+  if (noCents) {
+    const str = Math.round(amount)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    return `${str} ${label}`;
+  }
+
+  const val = Number.isInteger(amount) ? amount.toFixed(0) : amount.toFixed(2);
+  const [intPart, decPart] = val.split('.');
+  const formattedInt = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  const str = decPart ? `${formattedInt}.${decPart}` : formattedInt;
+  return `${str} ${label}`;
+}
