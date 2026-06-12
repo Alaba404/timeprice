@@ -20,6 +20,7 @@
     "@hookform/resolvers": "3.9.1",
     "@react-native-ml-kit/text-recognition": "1.2.0",
     "ajv": "8.17.1",
+    "babel-preset-expo": "^56.0.15",
     "expo": "~54.0.35",
     "expo-camera": "17.0.10",
     "expo-constants": "18.0.13",
