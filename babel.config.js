@@ -5,6 +5,10 @@ module.exports = function (api) {
     presets: [
       ['babel-preset-expo', { unstable_transformImportMeta: true }],
     ],
-    plugins: isTest ? [] : ['react-native-reanimated/plugin'],
+    plugins: [
+      '@babel/plugin-transform-private-methods',
+      '@babel/plugin-transform-class-properties',
+      ...(isTest ? [] : ['react-native-reanimated/plugin']),
+    ],
   };
 };
