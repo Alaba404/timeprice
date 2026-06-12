@@ -12,7 +12,8 @@
  *   ≥ 1h, < 1 day   → "3h 12min"
  *   ≥ 1d, < 5d      → "2 jours 4h"   / "2 days 4h"
  *   ≥ 5d, < 20d     → "1 semaine 3 jours" / "1 week 3 days"
- *   ≥ 20d            → "2 mois 1 semaine"  / "2 months 1 week"
+ *   ≥ 20d, < 12mo   → "2 mois 1 semaine"  / "2 months 1 week"
+ *   ≥ 12mo           → "3 ans 6 mois"     / "3 years 6 months"
  */
 
 type Locale = 'fr' | 'en';
@@ -33,6 +34,7 @@ interface Units {
   days: (n: number) => string;
   weeks: (n: number) => string;
   months: (n: number) => string;
+  years: (n: number) => string;
 }
 
 const UNITS: Record<Locale, Units> = {
@@ -44,6 +46,7 @@ const UNITS: Record<Locale, Units> = {
     days:   (n) => plural(n, 'jour', 'jours'),
     weeks:  (n) => plural(n, 'semaine', 'semaines'),
     months: (n) => `${n} mois`,              // "mois" invariable en pluriel
+    years:  (n) => plural(n, 'an', 'ans'),
   },
   en: {
     lessThanMinute: 'less than a minute',
@@ -53,6 +56,7 @@ const UNITS: Record<Locale, Units> = {
     days:   (n) => plural(n, 'day', 'days'),
     weeks:  (n) => plural(n, 'week', 'weeks'),
     months: (n) => plural(n, 'month', 'months'),
+    years:  (n) => plural(n, 'year', 'years'),
   },
 };
 
@@ -76,8 +80,20 @@ export function formatDuration(
   const totalDays   = totalMinutes / dailyWorkMinutes;
   const totalWeeks  = totalMinutes / weeklyWorkMinutes;
   const totalMonths = totalMinutes / monthlyWorkMinutes;
+  const yearlyWorkMinutes = monthlyWorkMinutes * 12;
 
-  // ≥ 20 work-days → months
+  // ≥ 12 work-months → years + remainder months (weeks dropped at this scale)
+  if (totalMonths >= 12) {
+    const yr = Math.floor(totalMonths / 12);
+    const remainMo = Math.floor(
+      (totalMinutes - yr * yearlyWorkMinutes) / monthlyWorkMinutes,
+    );
+    return remainMo > 0
+      ? `${u.years(yr)} ${u.months(remainMo)}`
+      : u.years(yr);
+  }
+
+  // ≥ 20 work-days → months + remainder weeks
   if (totalDays >= 20) {
     const mo = Math.floor(totalMonths);
     const remainWeeks = Math.floor(

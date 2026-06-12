@@ -65,6 +65,40 @@ describe('formatDuration', () => {
     expect(formatDuration(18900, WH)).toBe('2 mois 1 semaine');
   });
 
+  test('11 months 3 weeks — stays in months', () => {
+    // 11*8400 + 3*2100 = 98700 min — totalMonths = 11.75 < 12
+    expect(formatDuration(98700, WH)).toBe('11 mois 3 semaines');
+  });
+
+  test('12 months exactly → 1 an', () => {
+    // 12 * 8400 = 100800 min
+    expect(formatDuration(100800, WH)).toBe('1 an');
+  });
+
+  test('42 months 2 weeks → 3 ans 6 mois', () => {
+    // 42*8400 + 2*2100 = 357000 min  — prior bug: "42 mois 2 semaines"
+    expect(formatDuration(357000, WH)).toBe('3 ans 6 mois');
+  });
+
+  test('exact 2 years → 2 ans', () => {
+    // 24 * 8400 = 201600 min
+    expect(formatDuration(201600, WH)).toBe('2 ans');
+  });
+
+  test('3 years 6 months', () => {
+    // 3*12*8400 + 6*8400 = 302400 + 50400 = 352800 min
+    expect(formatDuration(352800, WH)).toBe('3 ans 6 mois');
+  });
+
+  test('en locale — 1 year', () => {
+    expect(formatDuration(100800, WH, 'en')).toBe('1 year');
+  });
+
+  test('en locale — 2 years 3 months', () => {
+    // 2*12*8400 + 3*8400 = 201600 + 25200 = 226800 min
+    expect(formatDuration(226800, WH, 'en')).toBe('2 years 3 months');
+  });
+
   test('freelancer with 4h/week — 1h work-day threshold', () => {
     // dailyWorkHours = 4/5 = 0.8h = 48 min
     // 50 minutes > 48 min daily → shows "1 jour"
@@ -89,12 +123,12 @@ describe('formatDurationShort', () => {
     expect(formatDurationShort(420, WH)).toBe('1j');
   });
 
-  test('2100 min → "1sem"', () => {
-    expect(formatDurationShort(2100, WH)).toBe('1sem');
+  test('2100 min → "1 semaine"', () => {
+    expect(formatDurationShort(2100, WH)).toBe('1 semaine');
   });
 
-  test('8400 min → "1mois"', () => {
-    expect(formatDurationShort(8400, WH)).toBe('1mois');
+  test('8400 min → "1 mois"', () => {
+    expect(formatDurationShort(8400, WH)).toBe('1 mois');
   });
 });
 
