@@ -150,6 +150,8 @@ export default function ConverterScreen() {
   const [userCurrencies, setUserCurrencies] = useState<string[]>(DEFAULT_USER_CURRENCIES);
   const [currencyModalVisible, setCurrencyModalVisible] = useState(false);
   const [addCurrencyModalVisible, setAddCurrencyModalVisible] = useState(false);
+  // iOS only: signal to open the add-currency modal once the main modal has fully dismissed
+  const [openAddOnDismiss, setOpenAddOnDismiss] = useState(false);
 
   const price = parseFloat(rawPrice.replace(',', '.')) || 0;
   const profile = getActiveProfile();
@@ -265,6 +267,18 @@ export default function ConverterScreen() {
     setCurrency(newCode);
     setCurrencyModalVisible(false);
   }, [rawPrice, currency, rates]);
+
+  // iOS can't stack two Modals from the same root presenter.
+  // Close the main modal first; onDismiss fires when the animation is done and opens the add modal.
+  // Android stacks modals fine, so open the add modal directly without closing the main one.
+  const handleOpenAddCurrency = useCallback(() => {
+    if (Platform.OS === 'ios') {
+      setOpenAddOnDismiss(true);
+      setCurrencyModalVisible(false);
+    } else {
+      setAddCurrencyModalVisible(true);
+    }
+  }, []);
 
   const handleAddCurrency = useCallback((code: string) => {
     if (!userCurrencies.includes(code)) {
@@ -456,6 +470,15 @@ export default function ConverterScreen() {
         animationType="slide"
         transparent
         onRequestClose={() => setCurrencyModalVisible(false)}
+        onDismiss={() => {
+          // iOS only: onDismiss fires after the slide-down animation completes.
+          // If the user tapped "Add currency", open the add modal now that the
+          // main modal is fully gone from the iOS view hierarchy.
+          if (openAddOnDismiss) {
+            setOpenAddOnDismiss(false);
+            setAddCurrencyModalVisible(true);
+          }
+        }}
       >
         <TouchableWithoutFeedback onPress={() => setCurrencyModalVisible(false)}>
           <View style={styles.modalOverlay}>
@@ -483,7 +506,7 @@ export default function ConverterScreen() {
 
                 {/* Add currency button */}
                 <TouchableOpacity
-                  onPress={() => setAddCurrencyModalVisible(true)}
+                  onPress={handleOpenAddCurrency}
                   style={styles.addCurrencyButton}
                   accessibilityRole="button"
                   accessibilityLabel={t('converter.addCurrency')}
