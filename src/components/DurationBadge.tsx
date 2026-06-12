@@ -129,7 +129,10 @@ export function DurationBadge({ result, weeklyHours, size = 'lg' }: Props) {
           final value) not the animated formatted text. */}
       {isLarge && (
         <View style={styles.measureLayer} pointerEvents="none">
+          {/* key=lgFontSize forces remount on each size change so onTextLayout
+              re-fires even when only the fontSize style prop changed. */}
           <Text
+            key={lgFontSize}
             style={[styles.durationLarge, lgStyle]}
             allowFontScaling={false}
             onTextLayout={handleMeasureLayout}
