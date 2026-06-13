@@ -138,20 +138,47 @@ export default function ConverterScreen() {
   const { convert, rates } = useConverter();
   const addEntry = useHistoryStore((s) => s.addEntry);
   const getActiveProfile = useProfileStore((s) => s.getActiveProfile);
+  const activeProfileId = useProfileStore((s) => s.activeProfileId);
   const { isPremium, canUse } = usePremium();
   const entriesCount = useHistoryStore((s) => s.entries.length);
 
   const { locale } = useLocaleStore();
 
   const [rawPrice, setRawPrice] = useState('');
-  const [currency, setCurrency] = useState('XOF');
+  const [currency, setCurrency] = useState<string>(
+    () => getActiveProfile()?.currency ?? 'XOF'
+  );
   const [category, setCategory] = useState<Category>('other');
   // The user's personal currency list (manageable)
-  const [userCurrencies, setUserCurrencies] = useState<string[]>(DEFAULT_USER_CURRENCIES);
+  const [userCurrencies, setUserCurrencies] = useState<string[]>(() => {
+    const profileCurrency = getActiveProfile()?.currency;
+    if (profileCurrency && !DEFAULT_USER_CURRENCIES.includes(profileCurrency)) {
+      return [...DEFAULT_USER_CURRENCIES, profileCurrency];
+    }
+    return DEFAULT_USER_CURRENCIES;
+  });
   const [currencyModalVisible, setCurrencyModalVisible] = useState(false);
   const [addCurrencyModalVisible, setAddCurrencyModalVisible] = useState(false);
   // iOS only: signal to open the add-currency modal once the main modal has fully dismissed
   const [openAddOnDismiss, setOpenAddOnDismiss] = useState(false);
+
+  // Track which profileId last auto-synced the currency.
+  // Initialized to the current active profile so the effect is a no-op on first render.
+  const syncedProfileIdRef = useRef<string | null>(activeProfileId);
+
+  // When the active profile changes (Premium profile switch), sync currency to the new profile.
+  // The ref guard prevents overwriting a manual currency choice within the same profile session.
+  useEffect(() => {
+    if (!activeProfileId || syncedProfileIdRef.current === activeProfileId) return;
+    const p = getActiveProfile();
+    if (p) {
+      setCurrency(p.currency);
+      setUserCurrencies((prev) =>
+        prev.includes(p.currency) ? prev : [...prev, p.currency]
+      );
+    }
+    syncedProfileIdRef.current = activeProfileId;
+  }, [activeProfileId, getActiveProfile]);
 
   const price = parseFloat(rawPrice.replace(',', '.')) || 0;
   const profile = getActiveProfile();
