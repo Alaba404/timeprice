@@ -205,6 +205,7 @@ export default {
     profileNameRequired: 'Le nom du profil est obligatoire',
     salaryRequired: 'Le salaire doit être supérieur à 0',
     netSalaryRequired: 'Le salaire net doit être supérieur à 0',
+    netExceedsGross: 'Le salaire net ne peut pas dépasser le salaire brut.',
   },
 
   // Common

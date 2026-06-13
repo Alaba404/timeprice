@@ -34,7 +34,10 @@ const step2Schema = z.object({
   netSalary: z.coerce.number().positive(),
   frequency: z.enum(['hourly', 'daily', 'weekly', 'monthly', 'annual']),
   useNetSalary: z.boolean(),
-});
+}).refine(
+  (data) => data.netSalary <= data.grossSalary,
+  { message: 'netExceedsGross', path: ['netSalary'] },
+);
 
 const step3Schema = z.object({
   weeklyHours: z.coerce.number().min(1).max(168),
@@ -374,7 +377,11 @@ export default function OnboardingScreen() {
                       placeholderTextColor={colors.border}
                     />
                     {fieldState.error && (
-                      <Text style={s.errorText}>{t('validation.netSalaryRequired')}</Text>
+                      <Text style={s.errorText}>
+                        {fieldState.error.message === 'netExceedsGross'
+                          ? t('validation.netExceedsGross')
+                          : t('validation.netSalaryRequired')}
+                      </Text>
                     )}
                   </>
                 )}

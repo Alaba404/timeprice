@@ -198,6 +198,7 @@ export default {
     profileNameRequired: 'Profile name is required',
     salaryRequired: 'Gross salary must be greater than 0',
     netSalaryRequired: 'Net salary must be greater than 0',
+    netExceedsGross: 'Net salary cannot exceed gross salary.',
   },
 
   common: {

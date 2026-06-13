@@ -221,6 +221,7 @@ function EditProfileModal({ profile, visible, onClose, onSave }: EditModalProps)
     const hoursNum = parseFloat(hours);
     if (!name.trim())             { Alert.alert(t('common.error'), t('validation.profileNameRequired')); return; }
     if (isNaN(grossNum) || grossNum <= 0) { Alert.alert(t('common.error'), t('validation.salaryRequired')); return; }
+    if (!isNaN(netNum) && netNum > grossNum) { Alert.alert(t('common.error'), t('validation.netExceedsGross')); return; }
     onSave({
       name:         name.trim(),
       grossSalary:  grossNum,
