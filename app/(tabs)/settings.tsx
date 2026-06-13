@@ -442,7 +442,7 @@ export default function SettingsScreen() {
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         {/* Brand */}
         <View style={styles.brandRow}>
-          <Text style={styles.brandName}>OWODA</Text>
+          <Text style={styles.brandName}>Owoda</Text>
           <Text style={styles.brandTagline}>{t('converter.tagline')}</Text>
         </View>
         <Text style={styles.screenTitle}>{t('settings.title')}</Text>

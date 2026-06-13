@@ -65,7 +65,7 @@ function OwodaLogo() {
         <Text style={logo.markOverlay}>₣</Text>
       </View>
       <View style={logo.wordmark}>
-        <Text style={logo.name}>OWODA</Text>
+        <Text style={logo.name}>Owoda</Text>
         <Text style={logo.tagline}>{t('converter.tagline')}</Text>
       </View>
     </View>
@@ -636,7 +636,7 @@ const styles = StyleSheet.create({
 
   // Input card
   inputCard: { backgroundColor: colors.card, borderRadius: 20, padding: 16, marginBottom: 14, shadowColor: colors.primary, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.08, shadowRadius: 12, elevation: 4 },
-  inputCardLabel: { fontSize: 11, fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 10 },
+  inputCardLabel: { fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1.2, marginBottom: 10 },
 
   // Example chip
   exampleChip: {
@@ -658,7 +658,7 @@ const styles = StyleSheet.create({
 
   // Result
   resultCard: { backgroundColor: colors.primaryTint, borderRadius: 20, paddingVertical: 28, paddingHorizontal: 20, marginBottom: 20, alignItems: 'center', borderWidth: 1.5, borderColor: colors.primary + '30' },
-  resultLabel: { fontSize: 11, fontWeight: '700', color: colors.primary, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 12 },
+  resultLabel: { fontSize: 11, fontWeight: '700', color: colors.primary, letterSpacing: 1.2, marginBottom: 12 },
   resultSub: { fontSize: 13, color: colors.textMid, marginTop: 8, fontWeight: '500' },
   resultPlaceholder: { alignItems: 'center', gap: 10 },
   resultPlaceholderEmoji: { fontSize: 36, opacity: 0.35 },
@@ -666,7 +666,7 @@ const styles = StyleSheet.create({
 
   // Categories
   categorySection: { marginBottom: 12 },
-  categoryLabel: { fontSize: 11, fontWeight: '700', color: colors.textMuted, textTransform: 'uppercase', letterSpacing: 1.2, marginBottom: 10 },
+  categoryLabel: { fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1.2, marginBottom: 10 },
   // gap + flexWrap: 'wrap' is unreliable on Android 11 (Yoga layout engine).
   // Use marginRight + marginBottom on each chip instead.
   categoryRow: { flexDirection: 'row', flexWrap: 'wrap' },
