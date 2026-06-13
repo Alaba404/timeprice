@@ -145,7 +145,7 @@ export default {
     unlockTitle: 'Unlock Owoda Premium',
     unlockSubtitle: 'OCR scanner, widget, CSV export and more',
     guideOffer: '🎁 Free Practical Guide with Premium',
-    guideValue: 'Guide value: 2,990 CFA | €4.99 | $4.99',
+    guideValue: 'Guide value: 2,990 F CFA | €4.99 | $4.99',
     guideBanner: 'Subscribe to Premium and receive our practical guide for free.',
     cta: 'Try 7 days. Decide after.',
     restore: 'Restore purchases',

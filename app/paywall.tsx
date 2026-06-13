@@ -33,7 +33,7 @@ type PricingTier = {
 };
 
 const PRICING: PricingTier[] = [
-  { currency: 'XOF', flag: '🌍', amount: '2 990 CFA', packageId: 'annual_xof' },
+  { currency: 'XOF', flag: '🌍', amount: '2 990 F CFA', packageId: 'annual_xof' },
   { currency: 'XAF', flag: '🌍', amount: '2 990 XAF', packageId: 'annual_xaf' },
   { currency: 'EUR', flag: '🇪🇺', amount: '4,99 €',    packageId: 'annual_eur' },
   { currency: 'USD', flag: '🇺🇸', amount: '$4.99',     packageId: 'annual_usd' },

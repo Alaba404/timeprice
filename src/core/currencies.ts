@@ -9,13 +9,13 @@ export type CurrencyInfo = {
 
 export const ALL_CURRENCIES: CurrencyInfo[] = [
   // ── Afrique de l'Ouest ──────────────────────────────────────────────────
-  { code: 'XOF', flag: '🌍', nameFr: 'Franc CFA Afrique de l\'Ouest', nameEn: 'CFA Franc West Africa', badge: 'CFA' },
+  { code: 'XOF', flag: '🌍', nameFr: 'Franc CFA Afrique de l\'Ouest', nameEn: 'CFA Franc West Africa', badge: 'F CFA' },
   { code: 'GNF', flag: '🇬🇳', nameFr: 'Franc guinéen', nameEn: 'Guinean Franc' },
   { code: 'NGN', flag: '🇳🇬', nameFr: 'Naira nigérian', nameEn: 'Nigerian Naira' },
   { code: 'GHS', flag: '🇬🇭', nameFr: 'Cédi ghanéen', nameEn: 'Ghanaian Cedi' },
   { code: 'SLL', flag: '🇸🇱', nameFr: 'Leone sierra-léonais', nameEn: 'Sierra Leonean Leone' },
   // ── Afrique Centrale ────────────────────────────────────────────────────
-  { code: 'XAF', flag: '🌍', nameFr: 'Franc CFA Afrique Centrale', nameEn: 'CFA Franc Central Africa', badge: 'CFA' },
+  { code: 'XAF', flag: '🌍', nameFr: 'Franc CFA Afrique Centrale', nameEn: 'CFA Franc Central Africa', badge: 'F CFA' },
   { code: 'CDF', flag: '🇨🇩', nameFr: 'Franc congolais', nameEn: 'Congolese Franc' },
   // ── Afrique du Nord ─────────────────────────────────────────────────────
   { code: 'MAD', flag: '🇲🇦', nameFr: 'Dirham marocain', nameEn: 'Moroccan Dirham' },
