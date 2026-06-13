@@ -47,7 +47,10 @@ const step3Schema = z.object({
   paidVacationDays: z.coerce.number().min(0).max(365),
   includeCommute: z.boolean(),
   commuteDailyMinutes: z.coerce.number().min(0).max(1440),
-});
+}).refine(
+  (data) => !data.includeCommute || data.commuteDailyMinutes > 0,
+  { message: 'commuteRequired', path: ['commuteDailyMinutes'] },
+);
 
 type Step1Data = z.infer<typeof step1Schema>;
 type Step2Data = z.infer<typeof step2Schema>;
@@ -141,6 +144,14 @@ const s = StyleSheet.create({
     marginHorizontal: 4,
   },
 
+  // Commute unit selector
+  commuteRow:     { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  commuteInput:   { flex: 1 },
+  unitChip:       { paddingHorizontal: 10, paddingVertical: 9, borderRadius: 12, borderWidth: 1.5, borderColor: colors.border, backgroundColor: colors.card },
+  unitChipActive: { paddingHorizontal: 10, paddingVertical: 9, borderRadius: 12, borderWidth: 1.5, borderColor: colors.primary, backgroundColor: colors.primaryTint },
+  unitText:       { fontSize: 12, color: colors.textMid, fontWeight: '600' },
+  unitTextActive: { fontSize: 12, color: colors.primary, fontWeight: '700' },
+
   // Buttons
   btnPrimary:     { backgroundColor: colors.primary, borderRadius: 14, paddingVertical: 16, alignItems: 'center', marginTop: 8 },
   btnSecondary:   { flex: 1, borderWidth: 1.5, borderColor: colors.border, borderRadius: 14, paddingVertical: 16, alignItems: 'center' },
@@ -165,12 +176,34 @@ export default function OnboardingScreen() {
     useNetSalary: true,
   });
 
+  // Commute unit selector — local display state, RHF stores minutes
+  const [commuteUnit, setCommuteUnit] = useState<'min' | 'h'>('min');
+  const [commuteDisplay, setCommuteDisplay] = useState('0');
+
   const form1 = useForm<Step1Data>({ resolver: zodResolver(step1Schema), defaultValues: { name: '', currency: 'XOF' } });
   const form2 = useForm<Step2Data>({ resolver: zodResolver(step2Schema), defaultValues: step2Data });
   const form3 = useForm<Step3Data>({
     resolver: zodResolver(step3Schema),
     defaultValues: { weeklyHours: 40, paidVacationDays: 21, includeCommute: false, commuteDailyMinutes: 0 },
   });
+
+  const handleCommuteChange = (text: string) => {
+    setCommuteDisplay(text);
+    const num = parseFloat(text.replace(',', '.')) || 0;
+    const minutes = commuteUnit === 'h' ? Math.round(num * 60) : Math.round(num);
+    form3.setValue('commuteDailyMinutes', minutes);
+  };
+
+  const handleCommuteUnitChange = (newUnit: 'min' | 'h') => {
+    if (newUnit === commuteUnit) return;
+    const currentNum = parseFloat(commuteDisplay.replace(',', '.')) || 0;
+    if (commuteUnit === 'min' && newUnit === 'h') {
+      setCommuteDisplay(String(parseFloat((currentNum / 60).toFixed(2))));
+    } else {
+      setCommuteDisplay(String(Math.round(currentNum * 60)));
+    }
+    setCommuteUnit(newUnit);
+  };
 
   const goToStep2 = form1.handleSubmit((data) => { setStep1Data(data); setStep(2); });
   const goToStep3 = form2.handleSubmit((data) => { setStep2Data(data); setStep(3); });
@@ -187,6 +220,7 @@ export default function OnboardingScreen() {
       paidVacationDays: data.paidVacationDays,
       includeCommute: data.includeCommute,
       commuteDailyMinutes: data.commuteDailyMinutes,
+      commuteUnit,
       useNetSalary: step2Data.useNetSalary,
       createdAt: Date.now(),
       isDefault: true,
@@ -500,31 +534,44 @@ export default function OnboardingScreen() {
                 )}
               />
 
-              {/* Minutes de trajet (conditionnel) */}
-              <Controller
-                control={form3.control}
-                name="includeCommute"
-                render={({ field: commuteField }) =>
-                  commuteField.value ? (
-                    <>
-                      <Text style={[s.label, { marginTop: 16 }]}>{t('onboarding.commuteDailyLabel')}</Text>
-                      <Controller
-                        control={form3.control}
-                        name="commuteDailyMinutes"
-                        render={({ field }) => (
-                          <TextInput
-                            style={s.textInput}
-                            keyboardType="number-pad"
-                            value={String(field.value)}
-                            onChangeText={field.onChange}
-                            accessibilityLabel={t('onboarding.commuteDailyLabel')}
-                          />
-                        )}
-                      />
-                    </>
-                  ) : null
-                }
-              />
+              {/* Champ trajet + sélecteur d'unité (conditionnel) */}
+              {form3.watch('includeCommute') && (
+                <>
+                  <Text style={[s.label, { marginTop: 16 }]}>{t('onboarding.commuteDailyLabel')}</Text>
+                  <View style={s.commuteRow}>
+                    <TextInput
+                      style={[s.textInput, s.commuteInput, !!form3.formState.errors.commuteDailyMinutes && { borderColor: colors.danger }]}
+                      keyboardType={commuteUnit === 'h' ? 'decimal-pad' : 'number-pad'}
+                      value={commuteDisplay}
+                      onChangeText={handleCommuteChange}
+                      placeholder="0"
+                      placeholderTextColor={colors.border}
+                      accessibilityLabel={t('onboarding.commuteDailyLabel')}
+                    />
+                    <TouchableOpacity
+                      onPress={() => handleCommuteUnitChange('min')}
+                      style={[s.unitChip, commuteUnit === 'min' && s.unitChipActive]}
+                      accessibilityRole="button"
+                    >
+                      <Text style={commuteUnit === 'min' ? s.unitTextActive : s.unitText}>
+                        {t('onboarding.commuteUnitMin')}
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => handleCommuteUnitChange('h')}
+                      style={[s.unitChip, commuteUnit === 'h' && s.unitChipActive]}
+                      accessibilityRole="button"
+                    >
+                      <Text style={commuteUnit === 'h' ? s.unitTextActive : s.unitText}>
+                        {t('onboarding.commuteUnitHour')}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  {form3.formState.errors.commuteDailyMinutes && (
+                    <Text style={s.errorText}>{t('validation.commuteRequired')}</Text>
+                  )}
+                </>
+              )}
 
               <View style={s.btnRow}>
                 <TouchableOpacity

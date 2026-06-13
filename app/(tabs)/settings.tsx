@@ -214,23 +214,51 @@ function EditProfileModal({ profile, visible, onClose, onSave }: EditModalProps)
   const [freq, setFreq]       = useState<SalaryFrequency>(profile.frequency);
   const [useNet, setUseNet]   = useState(profile.useNetSalary);
   const [hours, setHours]     = useState(String(profile.weeklyHours));
+  const [includeCommute, setIncludeCommute] = useState(profile.includeCommute);
+  const [commuteUnit, setCommuteUnit] = useState<'min' | 'h'>(profile.commuteUnit ?? 'min');
+  const [commuteDisplay, setCommuteDisplay] = useState(() => {
+    const mins = profile.commuteDailyMinutes;
+    const unit = profile.commuteUnit ?? 'min';
+    return unit === 'h' ? String(parseFloat((mins / 60).toFixed(2))) : String(mins);
+  });
+
+  const handleCommuteDisplayChange = (text: string) => {
+    setCommuteDisplay(text);
+  };
+
+  const handleCommuteUnitChange = (newUnit: 'min' | 'h') => {
+    if (newUnit === commuteUnit) return;
+    const currentNum = parseFloat(commuteDisplay.replace(',', '.')) || 0;
+    if (commuteUnit === 'min' && newUnit === 'h') {
+      setCommuteDisplay(String(parseFloat((currentNum / 60).toFixed(2))));
+    } else {
+      setCommuteDisplay(String(Math.round(currentNum * 60)));
+    }
+    setCommuteUnit(newUnit);
+  };
 
   const handleSave = () => {
     const grossNum = parseFloat(gross.replace(',', '.'));
     const netNum   = parseFloat(net.replace(',', '.'));
     const hoursNum = parseFloat(hours);
+    const commuteNum = parseFloat(commuteDisplay.replace(',', '.')) || 0;
+    const commuteMinutes = commuteUnit === 'h' ? Math.round(commuteNum * 60) : Math.round(commuteNum);
     if (!name.trim()) { Alert.alert(t('common.error'), t('validation.profileNameRequired')); return; }
     if (isNaN(netNum) || netNum <= 0) { Alert.alert(t('common.error'), t('validation.netSalaryRequired')); return; }
     const hasGross = !isNaN(grossNum) && grossNum > 0;
     if (!useNet && !hasGross) { Alert.alert(t('common.error'), t('validation.salaryRequired')); return; }
     if (hasGross && netNum > grossNum) { Alert.alert(t('common.error'), t('validation.netExceedsGross')); return; }
+    if (includeCommute && commuteMinutes <= 0) { Alert.alert(t('common.error'), t('validation.commuteRequired')); return; }
     onSave({
-      name:         name.trim(),
-      grossSalary:  hasGross ? grossNum : 0,
-      netSalary:    netNum,
-      frequency:    freq,
-      useNetSalary: useNet,
-      weeklyHours:  isNaN(hoursNum) ? 35 : hoursNum,
+      name:               name.trim(),
+      grossSalary:        hasGross ? grossNum : 0,
+      netSalary:          netNum,
+      frequency:          freq,
+      useNetSalary:       useNet,
+      weeklyHours:        isNaN(hoursNum) ? 35 : hoursNum,
+      includeCommute,
+      commuteDailyMinutes: commuteMinutes,
+      commuteUnit,
     });
     onClose();
   };
@@ -318,6 +346,52 @@ function EditProfileModal({ profile, visible, onClose, onSave }: EditModalProps)
             placeholderTextColor={colors.textMuted}
           />
 
+          {/* Include commute toggle */}
+          <View style={edit.toggleRow}>
+            <Text style={edit.toggleLabel}>{t('onboarding.includeCommuteLabel')}</Text>
+            <Switch
+              value={includeCommute}
+              onValueChange={setIncludeCommute}
+              trackColor={{ false: colors.border, true: colors.primary }}
+              thumbColor="#FFFFFF"
+            />
+          </View>
+
+          {/* Commute field + unit selector (conditional) */}
+          {includeCommute && (
+            <>
+              <Text style={edit.label}>{t('onboarding.commuteDailyLabel')}</Text>
+              <View style={edit.commuteRow}>
+                <TextInput
+                  style={[edit.input, { flex: 1 }]}
+                  keyboardType={commuteUnit === 'h' ? 'decimal-pad' : 'number-pad'}
+                  value={commuteDisplay}
+                  onChangeText={handleCommuteDisplayChange}
+                  placeholder="0"
+                  placeholderTextColor={colors.textMuted}
+                />
+                <TouchableOpacity
+                  onPress={() => handleCommuteUnitChange('min')}
+                  style={[edit.unitChip, commuteUnit === 'min' && edit.unitChipActive]}
+                  accessibilityRole="button"
+                >
+                  <Text style={commuteUnit === 'min' ? edit.unitTextActive : edit.unitText}>
+                    {t('onboarding.commuteUnitMin')}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleCommuteUnitChange('h')}
+                  style={[edit.unitChip, commuteUnit === 'h' && edit.unitChipActive]}
+                  accessibilityRole="button"
+                >
+                  <Text style={commuteUnit === 'h' ? edit.unitTextActive : edit.unitText}>
+                    {t('onboarding.commuteUnitHour')}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </>
+          )}
+
           {/* Buttons */}
           <View style={edit.buttons}>
             <TouchableOpacity onPress={onClose} style={edit.cancelBtn}>
@@ -349,6 +423,11 @@ const edit = StyleSheet.create({
   freqChipActive: { backgroundColor: colors.primaryTint, borderColor: colors.primary },
   freqTextActive:   { color: colors.primary, fontSize: 13, fontWeight: '700' },
   freqTextInactive: { color: colors.textMid,  fontSize: 13, fontWeight: '500' },
+  commuteRow:     { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 },
+  unitChip:       { paddingHorizontal: 10, paddingVertical: 10, borderRadius: 12, borderWidth: 1.5, borderColor: colors.border, backgroundColor: colors.bg },
+  unitChipActive: { paddingHorizontal: 10, paddingVertical: 10, borderRadius: 12, borderWidth: 1.5, borderColor: colors.primary, backgroundColor: colors.primaryTint },
+  unitText:       { fontSize: 12, color: colors.textMid, fontWeight: '600' },
+  unitTextActive: { fontSize: 12, color: colors.primary, fontWeight: '700' },
   buttons: { flexDirection: 'row', gap: 12, marginTop: 24 },
   cancelBtn: { flex: 1, paddingVertical: 14, borderRadius: 14, alignItems: 'center', backgroundColor: colors.bg, borderWidth: 1.5, borderColor: colors.border },
   cancelText: { color: colors.textMid, fontWeight: '700', fontSize: 15 },

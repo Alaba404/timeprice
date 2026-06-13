@@ -13,6 +13,7 @@ export type UserProfile = {
   paidVacationDays: number;     // default 25
   includeCommute: boolean;
   commuteDailyMinutes: number;
+  commuteUnit?: 'min' | 'h';
   useNetSalary: boolean;
   createdAt: number;            // Unix timestamp ms
   isDefault: boolean;

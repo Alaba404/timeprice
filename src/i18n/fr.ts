@@ -22,7 +22,9 @@ export default {
     weeklyHoursLabel: 'Heures par semaine',
     vacationDaysLabel: 'Jours de congés payés',
     includeCommuteLabel: 'Inclure le temps de trajet',
-    commuteDailyLabel: 'Trajet aller-retour (minutes/jour)',
+    commuteDailyLabel: 'Trajet aller-retour',
+    commuteUnitMin: 'min/j',
+    commuteUnitHour: 'h/j',
     frequencyLabel: 'Fréquence de paiement',
     defaultProfileName: 'Mon profil',
     nameLabel: 'Nom du profil',
@@ -206,6 +208,7 @@ export default {
     salaryRequired: 'Le salaire doit être supérieur à 0',
     netSalaryRequired: 'Le salaire net doit être supérieur à 0',
     netExceedsGross: 'Le salaire net ne peut pas dépasser le salaire brut.',
+    commuteRequired: 'Indique ton temps de trajet, ou désactive l\'option.',
   },
 
   // Common

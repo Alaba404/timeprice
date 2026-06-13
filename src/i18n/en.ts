@@ -21,7 +21,9 @@ export default {
     weeklyHoursLabel: 'Hours per week',
     vacationDaysLabel: 'Paid vacation days',
     includeCommuteLabel: 'Include commute time',
-    commuteDailyLabel: 'Round-trip commute (min/day)',
+    commuteDailyLabel: 'Round-trip commute',
+    commuteUnitMin: 'min/day',
+    commuteUnitHour: 'h/day',
     frequencyLabel: 'Pay frequency',
     defaultProfileName: 'My profile',
     nameLabel: 'Profile name',
@@ -199,6 +201,7 @@ export default {
     salaryRequired: 'Gross salary must be greater than 0',
     netSalaryRequired: 'Net salary must be greater than 0',
     netExceedsGross: 'Net salary cannot exceed gross salary.',
+    commuteRequired: 'Enter your commute time, or disable the option.',
   },
 
   common: {
