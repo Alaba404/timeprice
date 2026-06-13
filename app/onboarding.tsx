@@ -30,12 +30,15 @@ const step1Schema = z.object({
 });
 
 const step2Schema = z.object({
-  grossSalary: z.coerce.number().positive(),
+  grossSalary: z.coerce.number().min(0),
   netSalary: z.coerce.number().positive(),
   frequency: z.enum(['hourly', 'daily', 'weekly', 'monthly', 'annual']),
   useNetSalary: z.boolean(),
 }).refine(
-  (data) => data.netSalary <= data.grossSalary,
+  (data) => data.useNetSalary || data.grossSalary > 0,
+  { message: 'salaryRequired', path: ['grossSalary'] },
+).refine(
+  (data) => data.grossSalary === 0 || data.netSalary <= data.grossSalary,
   { message: 'netExceedsGross', path: ['netSalary'] },
 );
 
@@ -159,7 +162,7 @@ export default function OnboardingScreen() {
     grossSalary: 0,
     netSalary: 0,
     frequency: 'monthly',
-    useNetSalary: false,
+    useNetSalary: true,
   });
 
   const form1 = useForm<Step1Data>({ resolver: zodResolver(step1Schema), defaultValues: { name: '', currency: 'XOF' } });

@@ -219,13 +219,15 @@ function EditProfileModal({ profile, visible, onClose, onSave }: EditModalProps)
     const grossNum = parseFloat(gross.replace(',', '.'));
     const netNum   = parseFloat(net.replace(',', '.'));
     const hoursNum = parseFloat(hours);
-    if (!name.trim())             { Alert.alert(t('common.error'), t('validation.profileNameRequired')); return; }
-    if (isNaN(grossNum) || grossNum <= 0) { Alert.alert(t('common.error'), t('validation.salaryRequired')); return; }
-    if (!isNaN(netNum) && netNum > grossNum) { Alert.alert(t('common.error'), t('validation.netExceedsGross')); return; }
+    if (!name.trim()) { Alert.alert(t('common.error'), t('validation.profileNameRequired')); return; }
+    if (isNaN(netNum) || netNum <= 0) { Alert.alert(t('common.error'), t('validation.netSalaryRequired')); return; }
+    const hasGross = !isNaN(grossNum) && grossNum > 0;
+    if (!useNet && !hasGross) { Alert.alert(t('common.error'), t('validation.salaryRequired')); return; }
+    if (hasGross && netNum > grossNum) { Alert.alert(t('common.error'), t('validation.netExceedsGross')); return; }
     onSave({
       name:         name.trim(),
-      grossSalary:  grossNum,
-      netSalary:    isNaN(netNum) ? grossNum * 0.77 : netNum,
+      grossSalary:  hasGross ? grossNum : 0,
+      netSalary:    netNum,
       frequency:    freq,
       useNetSalary: useNet,
       weeklyHours:  isNaN(hoursNum) ? 35 : hoursNum,
@@ -459,7 +461,7 @@ export default function SettingsScreen() {
               <View style={styles.profileInfo}>
                 <Text style={styles.profileName}>{p.name}</Text>
                 <Text style={styles.profileSub}>
-                  {formatPriceDisplay(p.grossSalary, p.currency)} · {freqLabel(p.frequency)}
+                  {formatPriceDisplay(p.grossSalary > 0 ? p.grossSalary : p.netSalary, p.currency)} · {freqLabel(p.frequency)}
                 </Text>
                 <Text style={styles.profileRate}>
                   ≈ {formatPriceDisplay(Math.round(computeHourlyRate(p)), p.currency)}/h
