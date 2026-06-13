@@ -5,6 +5,7 @@ import {
   getAllConversions,
   getConversionsForMonth,
   getConversionCount,
+  deleteConversionsByProfileId,
 } from '../db/schema';
 import type { ConversionEntry, Category } from '../types';
 
@@ -26,6 +27,7 @@ type HistoryState = {
   getByCategory: (category: Category) => ConversionEntry[];
   getForMonth: (year: number, month: number) => ConversionEntry[];
   clear: () => void;
+  clearForProfile: (profileId: string) => void;
 };
 
 export const useHistoryStore = create<HistoryState>((set, get) => ({
@@ -70,5 +72,10 @@ export const useHistoryStore = create<HistoryState>((set, get) => ({
     const db = require('../db/schema').getDb();
     db.runSync('DELETE FROM conversions');
     set({ entries: [] });
+  },
+
+  clearForProfile: (profileId) => {
+    deleteConversionsByProfileId(profileId);
+    set({ entries: get().entries.filter((e) => e.profileId !== profileId) });
   },
 }));

@@ -124,6 +124,10 @@ export function getConversionCount(): number {
   return row?.count ?? 0;
 }
 
+export function deleteConversionsByProfileId(profileId: string): void {
+  getDb().runSync('DELETE FROM conversions WHERE profileId = ?', profileId);
+}
+
 /** Delete oldest entries, keeping only the most recent `keep` rows. */
 export function pruneHistory(keep: number): void {
   getDb().runSync(

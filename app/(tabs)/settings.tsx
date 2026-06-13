@@ -362,6 +362,7 @@ export default function SettingsScreen() {
   const deleteProfile = useProfileStore((s) => s.deleteProfile);
   const { canUse, isPremium, isTrial, trialDaysRemaining } = usePremium();
   const clearHistory = useHistoryStore((s) => s.clear);
+  const clearHistoryForProfile = useHistoryStore((s) => s.clearForProfile);
   const { locale, setLocale } = useLocaleStore();
 
   const [editingProfile, setEditingProfile] = useState<UserProfile | null>(null);
@@ -375,7 +376,18 @@ export default function SettingsScreen() {
       isLast ? t('settings.deleteProfileLastBody') : undefined,
       [
         { text: t('common.cancel'), style: 'cancel' },
-        { text: t('common.delete'), style: 'destructive', onPress: () => deleteProfile(id) },
+        {
+          text: t('common.delete'),
+          style: 'destructive',
+          onPress: () => {
+            if (isLast) {
+              clearHistory();
+            } else {
+              clearHistoryForProfile(id);
+            }
+            deleteProfile(id);
+          },
+        },
       ],
     );
   };
