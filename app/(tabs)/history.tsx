@@ -96,6 +96,8 @@ export default function HistoryScreen() {
   const profile     = getActiveProfile();
   const weeklyHours = profile?.weeklyHours ?? 35;
 
+  const activeId = useProfileStore((s) => s.activeProfileId);
+
   const [filter, setFilter] = useState<Category | 'all'>('all');
 
   const dateLocale = locale === 'en' ? 'en-GB' : 'fr-FR';
@@ -113,9 +115,14 @@ export default function HistoryScreen() {
     [locale],
   );
 
+  const profileEntries = useMemo(
+    () => (activeId ? entries.filter((e) => e.profileId === activeId) : entries),
+    [entries, activeId],
+  );
+
   const filtered = useMemo(
-    () => (filter === 'all' ? entries : entries.filter((e) => e.category === filter)),
-    [entries, filter],
+    () => (filter === 'all' ? profileEntries : profileEntries.filter((e) => e.category === filter)),
+    [profileEntries, filter],
   );
 
   // Flat list rows (header + items interleaved)
@@ -246,7 +253,7 @@ export default function HistoryScreen() {
       />
 
       {/* Main list */}
-      {entries.length === 0 ? (
+      {profileEntries.length === 0 ? (
         /* ── Rich empty state (zero conversions ever) ────────────────────── */
         <View style={styles.emptyContainer}>
           <Image
