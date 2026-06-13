@@ -128,6 +128,7 @@ export default {
     dangerZone: 'Danger zone',
     premiumFeatures: 'Scanner, widget, export, dashboard…',
     deleteProfile: 'Delete this profile?',
+    deleteProfileLastBody: "Deleting your profile will erase your information. You'll start from scratch and can choose a different currency. Continue?",
     editLabel: 'Edit',
     deleteLabel: 'Delete',
     salary: 'Salary',

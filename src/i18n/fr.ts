@@ -133,6 +133,7 @@ export default {
     dangerZone: 'Zone danger',
     premiumFeatures: 'Scanner, widget, export, dashboard…',
     deleteProfile: 'Supprimer ce profil ?',
+    deleteProfileLastBody: "Supprimer ton profil effacera tes informations. Tu repartiras de la configuration de départ et pourras choisir une autre devise. Continuer ?",
     editLabel: 'Modifier',
     deleteLabel: 'Supprimer',
     salary: 'Salaire',

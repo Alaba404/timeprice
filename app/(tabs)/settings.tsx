@@ -369,10 +369,15 @@ export default function SettingsScreen() {
   const activeProfile = profiles.find((p) => p.id === activeId) ?? null;
 
   const handleDeleteProfile = (id: string) => {
-    Alert.alert(t('settings.deleteProfile'), undefined, [
-      { text: t('common.cancel'), style: 'cancel' },
-      { text: t('common.delete'), style: 'destructive', onPress: () => deleteProfile(id) },
-    ]);
+    const isLast = profiles.length === 1;
+    Alert.alert(
+      t('settings.deleteProfile'),
+      isLast ? t('settings.deleteProfileLastBody') : undefined,
+      [
+        { text: t('common.cancel'), style: 'cancel' },
+        { text: t('common.delete'), style: 'destructive', onPress: () => deleteProfile(id) },
+      ],
+    );
   };
 
   const handleClearHistory = () => {
@@ -461,16 +466,14 @@ export default function SettingsScreen() {
               >
                 <Text style={styles.editIcon}>✏️</Text>
               </TouchableOpacity>
-              {profiles.length > 1 && (
-                <TouchableOpacity
-                  onPress={() => handleDeleteProfile(p.id)}
-                  style={styles.iconBtn}
-                  accessibilityRole="button"
-                  accessibilityLabel={`${t('settings.deleteLabel')} ${p.name}`}
-                >
-                  <Text style={styles.deleteIcon}>✕</Text>
-                </TouchableOpacity>
-              )}
+              <TouchableOpacity
+                onPress={() => handleDeleteProfile(p.id)}
+                style={styles.iconBtn}
+                accessibilityRole="button"
+                accessibilityLabel={`${t('settings.deleteLabel')} ${p.name}`}
+              >
+                <Text style={styles.deleteIcon}>✕</Text>
+              </TouchableOpacity>
             </View>
           ))}
           <TouchableOpacity onPress={handleAddProfile} style={styles.addProfileRow} accessibilityRole="button" accessibilityLabel={t('settings.addProfile')}>
