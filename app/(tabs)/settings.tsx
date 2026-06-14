@@ -78,6 +78,9 @@ function GuideLibrary({ locale, hasGuideAccess, onUpgrade }: GuideLibraryProps) 
       <View style={lib.divider} />
 
       {/* Chapter list — all 7 chapters, binary locked/unlocked */}
+      {!!t('premium.guideLanguageNote') && (
+        <Text style={lib.guideLanguageNote}>{t('premium.guideLanguageNote')}</Text>
+      )}
       {chapters.map((title, idx) => (
         <View
           key={idx}
@@ -751,6 +754,7 @@ const lib = StyleSheet.create({
   chapterNumText: { fontSize: 12, fontWeight: '800' },
   chapterNumTextUnlocked: { color: colors.primary },
   chapterNumTextLocked:   { color: colors.textMuted },
+  guideLanguageNote:  { color: colors.textMuted, fontSize: 12, textAlign: 'center', marginBottom: 8, fontStyle: 'italic' },
   chapterTitle:       { flex: 1, color: colors.textDark, fontSize: 13, fontWeight: '500', lineHeight: 18 },
   chapterTitleLocked: { color: colors.textMuted },
   checkCircle: {

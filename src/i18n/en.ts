@@ -143,7 +143,7 @@ export default {
   premium: {
     unlockTitle: 'Unlock Owoda Premium',
     unlockSubtitle: 'OCR scanner, widget, CSV export and more',
-    guideOffer: '🎁 Free Practical Guide with Premium',
+    guideOffer: '🎁 Practical Guide (in French) included with Premium',
     guideBanner: 'Subscribe to Premium and receive our practical guide for free.',
     cta: 'Try 7 days. Decide after.',
     restore: 'Restore purchases',
@@ -160,6 +160,7 @@ export default {
     privacy: 'Privacy Policy',
     termsUrl: 'https://owodalabs.com/terms-en.html',
     privacyUrl: 'https://owodalabs.com/privacy-en.html',
+    guideLanguageNote: 'The guide is available in French.',
     features: {
       scanner: 'Price scanner (OCR)',
       widget: 'Home screen widget',
@@ -167,7 +168,7 @@ export default {
       dashboard: 'Analytics dashboard',
       unlimited_history: 'Unlimited history',
       multi_profile: 'Multiple profiles',
-      guide: 'Owoda Practical Guide — 17 pages',
+      guide: 'Owoda Practical Guide (in French) — 17 pages',
     },
     comp: {
       headerFree: 'FREE',
