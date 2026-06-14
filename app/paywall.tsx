@@ -34,9 +34,9 @@ type PricingTier = {
 
 const PRICING: PricingTier[] = [
   { currency: 'XOF', flag: '🌍', amount: '2 990 F CFA', packageId: 'annual_xof' },
-  { currency: 'XAF', flag: '🌍', amount: '2 990 XAF', packageId: 'annual_xaf' },
-  { currency: 'EUR', flag: '🇪🇺', amount: '4,99 €',    packageId: 'annual_eur' },
-  { currency: 'USD', flag: '🇺🇸', amount: '$4.99',     packageId: 'annual_usd' },
+  { currency: 'XAF', flag: '🌍', amount: '2 990 F CFA', packageId: 'annual_xaf' },
+  { currency: 'EUR', flag: '🇪🇺', amount: '4,99 €',     packageId: 'annual_eur' },
+  { currency: 'USD', flag: '🇺🇸', amount: '4,99 $',     packageId: 'annual_usd' },
   { currency: 'NGN', flag: '🇳🇬', amount: '₦ 2 500',   packageId: 'annual_ngn' },
 ];
 
@@ -189,11 +189,6 @@ export default function PaywallScreen() {
                 <Text style={[styles.featureLabel, f.isBonus && styles.featureLabelBonus]}>
                   {t(`premium.features.${f.key}`)}
                 </Text>
-                {f.isBonus && (
-                  <Text style={styles.featureValueStrike}>
-                    {t('premium.guideValue')}
-                  </Text>
-                )}
               </View>
               <View style={[styles.featureCheck, f.isBonus && styles.featureCheckBonus]}>
                 <Text style={styles.featureCheckText}>{f.isBonus ? '🎁' : '✓'}</Text>
@@ -288,6 +283,9 @@ export default function PaywallScreen() {
             <Text style={styles.ctaText}>{t('premium.cta')}</Text>
           )}
         </TouchableOpacity>
+        <Text style={styles.ctaDisclosure}>
+          {t('premium.trialDisclosure', { price: selectedTier.amount })}
+        </Text>
         <Text style={styles.ctaSubtext}>{t('premium.annualBilling')}</Text>
 
         <TouchableOpacity
@@ -492,6 +490,7 @@ const styles = StyleSheet.create({
   },
   ctaButtonLoading: { opacity: 0.7 },
   ctaText: { color: '#FFFFFF', fontWeight: '900', fontSize: 17, letterSpacing: 0.2 },
+  ctaDisclosure: { color: colors.textMuted, fontSize: 11, textAlign: 'center', marginBottom: 4, lineHeight: 16 },
   ctaSubtext: { color: colors.textMuted, fontSize: 12, textAlign: 'center', marginBottom: 16 },
 
   restoreButton: { alignItems: 'center', paddingVertical: 12 },
