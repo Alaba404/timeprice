@@ -156,6 +156,8 @@ export default {
     purchaseFailed: 'Purchase not completed. Please try again.',
     restored: 'Purchases restored successfully.',
     close: 'Close',
+    terms: 'Terms of Use',
+    privacy: 'Privacy Policy',
     features: {
       scanner: 'Price scanner (OCR)',
       widget: 'Home screen widget',

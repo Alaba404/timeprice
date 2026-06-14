@@ -162,6 +162,8 @@ export default {
     purchaseFailed: 'Achat non effectué. Réessayez.',
     restored: 'Achats restaurés avec succès.',
     close: 'Fermer',
+    terms: 'Conditions d\'utilisation',
+    privacy: 'Politique de confidentialité',
     features: {
       scanner: 'Scanner de prix (OCR)',
       widget: "Widget écran d'accueil",

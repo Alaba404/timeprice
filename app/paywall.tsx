@@ -6,6 +6,7 @@ import {
   ScrollView,
   Alert,
   ActivityIndicator,
+  Linking,
   StyleSheet,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -297,6 +298,24 @@ export default function PaywallScreen() {
         >
           <Text style={styles.restoreText}>{t('premium.restore')}</Text>
         </TouchableOpacity>
+
+        <View style={styles.legalLinks}>
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://owodalabs.com/terms.html')}
+            accessibilityRole="link"
+            accessibilityLabel={t('premium.terms')}
+          >
+            <Text style={styles.legalLink}>{t('premium.terms')}</Text>
+          </TouchableOpacity>
+          <Text style={styles.legalSep}>·</Text>
+          <TouchableOpacity
+            onPress={() => Linking.openURL('https://owodalabs.com/privacy.html')}
+            accessibilityRole="link"
+            accessibilityLabel={t('premium.privacy')}
+          >
+            <Text style={styles.legalLink}>{t('premium.privacy')}</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -495,4 +514,7 @@ const styles = StyleSheet.create({
 
   restoreButton: { alignItems: 'center', paddingVertical: 12 },
   restoreText: { color: colors.textMuted, fontWeight: '600', fontSize: 14 },
+  legalLinks: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, paddingVertical: 8, paddingBottom: 4 },
+  legalLink: { color: colors.textMuted, fontSize: 11, fontWeight: '500' },
+  legalSep: { color: colors.textMuted, fontSize: 11 },
 });
