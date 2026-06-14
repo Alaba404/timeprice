@@ -48,40 +48,14 @@ const GUIDE_CHAPTERS_EN = [
   'Your 30-day action plan',
 ] as const;
 
-type GuideAccess = 'free' | 'trial' | 'full';
-
-/** Which chapters are accessible per access level (0-indexed). */
-const CHAPTER_ACCESS: Record<GuideAccess, number> = {
-  free:  1, // chapter 0 only (ch1: "Comprendre la dépense impulsive")
-  trial: 3, // chapters 0-2 unlocked (ch2 "Les 7 pièges" + ch3 "Pression sociale" trial-unlocked)
-  full:  7, // all unlocked
-};
-
 type GuideLibraryProps = {
   locale: string;
-  access: GuideAccess;
-  trialDaysRemaining: number;
+  hasGuideAccess: boolean;
   onUpgrade: () => void;
 };
 
-function GuideLibrary({ locale, access, trialDaysRemaining, onUpgrade }: GuideLibraryProps) {
+function GuideLibrary({ locale, hasGuideAccess, onUpgrade }: GuideLibraryProps) {
   const chapters = locale === 'en' ? GUIDE_CHAPTERS_EN : GUIDE_CHAPTERS_FR;
-  const unlockedCount = CHAPTER_ACCESS[access];
-  const lockedCount = chapters.length - unlockedCount;
-
-  // Access status badge
-  const statusBadgeLabel =
-    access === 'full'  ? t('settings.libraryFullAccessBadge') :
-    access === 'trial' ? t('settings.libraryTrialBadge') :
-                         t('settings.libraryFreeBadge');
-  const statusBadgeStyle =
-    access === 'full'  ? lib.badgeFull :
-    access === 'trial' ? lib.badgeTrial :
-                         lib.badgeFree;
-  const statusBadgeTextStyle =
-    access === 'full'  ? lib.badgeFullText :
-    access === 'trial' ? lib.badgeTrialText :
-                         lib.badgeFreeText;
 
   return (
     <View style={lib.container}>
@@ -94,99 +68,65 @@ function GuideLibrary({ locale, access, trialDaysRemaining, onUpgrade }: GuideLi
           <Text style={lib.title}>{t('settings.libraryGuideName')}</Text>
           <Text style={lib.subtitle}>{t('settings.libraryGuideSubtitle')}</Text>
         </View>
-        <View style={[lib.statusBadge, statusBadgeStyle]}>
-          <Text style={[lib.statusBadgeText, statusBadgeTextStyle]}>{statusBadgeLabel}</Text>
+        <View style={[lib.statusBadge, hasGuideAccess ? lib.badgeFull : lib.badgeLocked]}>
+          <Text style={[lib.statusBadgeText, hasGuideAccess ? lib.badgeFullText : lib.badgeLockedText]}>
+            {hasGuideAccess ? t('settings.libraryFullAccessBadge') : t('settings.libraryLockedBadge')}
+          </Text>
         </View>
       </View>
 
       <View style={lib.divider} />
 
-      {/* Chapter list */}
-      {chapters.map((title, idx) => {
-        const isUnlocked = idx < unlockedCount;
-        // ch2 "Les 7 pièges" (idx=1) and ch3 "Pression sociale" (idx=2) are trial-bonus chapters
-        const isTrialNew = access === 'trial' && (idx === 1 || idx === 2);
-
-        return (
-          <View
-            key={idx}
-            style={[lib.chapterRow, idx < chapters.length - 1 && lib.chapterRowBorder]}
-          >
-            <View style={[lib.chapterNum, isUnlocked ? lib.chapterNumUnlocked : lib.chapterNumLocked]}>
-              <Text style={[lib.chapterNumText, isUnlocked ? lib.chapterNumTextUnlocked : lib.chapterNumTextLocked]}>
-                {idx + 1}
-              </Text>
-            </View>
-            <Text
-              style={[lib.chapterTitle, !isUnlocked && lib.chapterTitleLocked]}
-              numberOfLines={2}
-            >
-              {title}
+      {/* Chapter list — all 7 chapters, binary locked/unlocked */}
+      {chapters.map((title, idx) => (
+        <View
+          key={idx}
+          style={[lib.chapterRow, idx < chapters.length - 1 && lib.chapterRowBorder]}
+        >
+          <View style={[lib.chapterNum, hasGuideAccess ? lib.chapterNumUnlocked : lib.chapterNumLocked]}>
+            <Text style={[lib.chapterNumText, hasGuideAccess ? lib.chapterNumTextUnlocked : lib.chapterNumTextLocked]}>
+              {idx + 1}
             </Text>
-            {isUnlocked && isTrialNew ? (
-              <View style={lib.newBadge}>
-                <Text style={lib.newBadgeText}>{t('settings.libraryNewChapter')}</Text>
-              </View>
-            ) : isUnlocked ? (
-              <View style={lib.checkCircle}>
-                <Text style={lib.checkText}>✓</Text>
-              </View>
-            ) : (
-              <Text style={lib.lockIcon}>🔒</Text>
-            )}
           </View>
-        );
-      })}
+          <Text
+            style={[lib.chapterTitle, !hasGuideAccess && lib.chapterTitleLocked]}
+            numberOfLines={2}
+          >
+            {title}
+          </Text>
+          {hasGuideAccess ? (
+            <View style={lib.checkCircle}>
+              <Text style={lib.checkText}>✓</Text>
+            </View>
+          ) : (
+            <Text style={lib.lockIcon}>🔒</Text>
+          )}
+        </View>
+      ))}
 
       {/* Action section */}
-      {access === 'full' && (
-        <>
-          <View style={lib.divider} />
+      <View style={lib.divider} />
+      {hasGuideAccess ? (
+        <TouchableOpacity
+          onPress={() => Linking.openURL(GUIDE_URL)}
+          style={lib.downloadButton}
+          accessibilityRole="button"
+          accessibilityLabel={t('settings.libraryDownload')}
+        >
+          <Text style={lib.downloadButtonText}>⬇  {t('settings.libraryDownload')}</Text>
+        </TouchableOpacity>
+      ) : (
+        <View style={lib.lockedBox}>
+          <Text style={lib.lockedBoxText}>{t('settings.libraryLockedFree')}</Text>
           <TouchableOpacity
-            onPress={() => Linking.openURL(GUIDE_URL)}
-            style={lib.downloadButton}
+            onPress={onUpgrade}
+            style={lib.upgradeButton}
             accessibilityRole="button"
-            accessibilityLabel={t('settings.libraryDownload')}
+            accessibilityLabel={t('settings.libraryStartTrial')}
           >
-            <Text style={lib.downloadButtonText}>⬇  {t('settings.libraryDownload')}</Text>
+            <Text style={lib.upgradeButtonText}>{t('settings.libraryStartTrial')}</Text>
           </TouchableOpacity>
-        </>
-      )}
-
-      {access === 'trial' && lockedCount > 0 && (
-        <>
-          <View style={lib.divider} />
-          <View style={lib.trialBox}>
-            <View style={lib.trialCountdownRow}>
-              <Text style={lib.trialCountdownIcon}>⏳</Text>
-              <Text style={lib.trialCountdown}>
-                {t('settings.libraryCountdown', { days: trialDaysRemaining })}
-              </Text>
-            </View>
-            <Text style={lib.trialInfo}>{t('settings.libraryLockedTrial')}</Text>
-          </View>
-        </>
-      )}
-
-      {access === 'free' && (
-        <>
-          <View style={lib.divider} />
-          <View style={lib.freeBox}>
-            <Text style={lib.freeBoxText}>
-              {t('settings.libraryLockedFree', {
-                count: lockedCount,
-              })}
-            </Text>
-            <TouchableOpacity
-              onPress={onUpgrade}
-              style={lib.upgradeButton}
-              accessibilityRole="button"
-              accessibilityLabel={t('settings.libraryStartTrial')}
-            >
-              <Text style={lib.upgradeButtonText}>{t('settings.libraryStartTrial')}</Text>
-            </TouchableOpacity>
-          </View>
-        </>
+        </View>
       )}
     </View>
   );
@@ -442,7 +382,7 @@ export default function SettingsScreen() {
   const activeId     = useProfileStore((s) => s.activeProfileId);
   const updateProfile = useProfileStore((s) => s.updateProfile);
   const deleteProfile = useProfileStore((s) => s.deleteProfile);
-  const { canUse, isPremium, isTrial, trialDaysRemaining } = usePremium();
+  const { canUse, isPremium, hasGuideAccess } = usePremium();
   const clearHistory = useHistoryStore((s) => s.clear);
   const clearHistoryForProfile = useHistoryStore((s) => s.clearForProfile);
   const { locale, setLocale } = useLocaleStore();
@@ -625,8 +565,7 @@ export default function SettingsScreen() {
         <SectionLabel label={t('settings.library')} />
         <GuideLibrary
           locale={locale}
-          access={isPremium ? (isTrial ? 'trial' : 'full') : 'free'}
-          trialDaysRemaining={trialDaysRemaining}
+          hasGuideAccess={hasGuideAccess}
           onUpgrade={() => router.push('/paywall')}
         />
 
@@ -789,13 +728,11 @@ const lib = StyleSheet.create({
     borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3,
     borderWidth: 1, alignSelf: 'flex-start', flexShrink: 0,
   },
-  badgeFull:  { backgroundColor: colors.primaryTint, borderColor: colors.primary + '50' },
-  badgeTrial: { backgroundColor: '#FDF8E7', borderColor: '#D4AF3760' },
-  badgeFree:  { backgroundColor: colors.bg, borderColor: colors.border },
+  badgeFull:   { backgroundColor: colors.primaryTint, borderColor: colors.primary + '50' },
+  badgeLocked: { backgroundColor: '#FDF8E7', borderColor: '#D4AF3760' },
   statusBadgeText: { fontSize: 10, fontWeight: '700' },
-  badgeFullText:  { color: colors.primary },
-  badgeTrialText: { color: '#9E7C00' },
-  badgeFreeText:  { color: colors.textMuted },
+  badgeFullText:   { color: colors.primary },
+  badgeLockedText: { color: '#9E7C00' },
 
   divider: { height: 1, backgroundColor: colors.divider },
 
@@ -823,12 +760,6 @@ const lib = StyleSheet.create({
   },
   checkText: { color: '#FFFFFF', fontSize: 11, fontWeight: '800' },
   lockIcon:  { fontSize: 16, flexShrink: 0 },
-  newBadge: {
-    backgroundColor: '#D4AF3720', borderRadius: 999,
-    paddingHorizontal: 7, paddingVertical: 3,
-    borderWidth: 1, borderColor: '#D4AF3770', flexShrink: 0,
-  },
-  newBadgeText: { color: '#9E7C00', fontSize: 9, fontWeight: '700' },
 
   // ── Full access — download ──
   downloadButton: {
@@ -842,16 +773,9 @@ const lib = StyleSheet.create({
   },
   downloadButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 14 },
 
-  // ── Trial — countdown box ──
-  trialBox: { padding: 14 },
-  trialCountdownRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 },
-  trialCountdownIcon: { fontSize: 16 },
-  trialCountdown: { color: '#9E7C00', fontWeight: '800', fontSize: 14 },
-  trialInfo: { color: colors.textMuted, fontSize: 12, lineHeight: 17 },
-
-  // ── Free — upgrade box ──
-  freeBox: { padding: 14, alignItems: 'center', gap: 12 },
-  freeBoxText: { color: colors.textMid, fontSize: 13, textAlign: 'center', lineHeight: 19 },
+  // ── Locked — upgrade box ──
+  lockedBox: { padding: 14, alignItems: 'center', gap: 12 },
+  lockedBoxText: { color: colors.textMid, fontSize: 13, textAlign: 'center', lineHeight: 19 },
   upgradeButton: {
     backgroundColor: colors.primary, borderRadius: 12,
     paddingHorizontal: 24, paddingVertical: 11, alignSelf: 'stretch', alignItems: 'center',

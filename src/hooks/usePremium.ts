@@ -31,6 +31,12 @@ type UsePremiumResult = {
   canUse: (feature: PremiumFeature) => boolean;
   customerInfo: CustomerInfo | null;
   loading: boolean;
+  /**
+   * True only for a confirmed paying subscriber — isPremium AND not in trial AND not loading.
+   * Fail-closed: loading, free, trial, or any uncertain state → false.
+   * Use this as the single gate for guide access (read + PDF download).
+   */
+  hasGuideAccess: boolean;
 };
 
 /** Compute trial state from a CustomerInfo snapshot. */
@@ -118,5 +124,7 @@ export function usePremium(): UsePremiumResult {
     return isPremium;
   };
 
-  return { isPremium, isTrial, trialDaysRemaining, canUse, customerInfo, loading };
+  const hasGuideAccess = isPremium === true && isTrial === false && loading === false;
+
+  return { isPremium, isTrial, trialDaysRemaining, canUse, customerInfo, loading, hasGuideAccess };
 }
