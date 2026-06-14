@@ -18,7 +18,7 @@ import { useProfileStore } from '../../src/store/profileStore';
 import { useHistoryStore } from '../../src/store/historyStore';
 import { usePremium } from '../../src/hooks/usePremium';
 import { computeHourlyRate } from '../../src/core/converter';
-import { getCurrency, formatPriceDisplay } from '../../src/core/currencies';
+import { getCurrencyLabel, formatPriceDisplay } from '../../src/core/currencies';
 import { useLocaleStore } from '../../src/store/localeStore';
 import { t } from '../../src/i18n';
 import { colors } from '../../src/theme';
@@ -291,7 +291,7 @@ function EditProfileModal({ profile, visible, onClose, onSave }: EditModalProps)
               placeholder="0"
               placeholderTextColor={colors.textMuted}
             />
-            <Text style={edit.currency}>{getCurrency(profile.currency).badge ?? profile.currency}</Text>
+            <Text style={edit.currency}>{getCurrencyLabel(profile.currency)}</Text>
           </View>
 
           {/* Net salary */}
@@ -305,7 +305,7 @@ function EditProfileModal({ profile, visible, onClose, onSave }: EditModalProps)
               placeholder="0"
               placeholderTextColor={colors.textMuted}
             />
-            <Text style={edit.currency}>{getCurrency(profile.currency).badge ?? profile.currency}</Text>
+            <Text style={edit.currency}>{getCurrencyLabel(profile.currency)}</Text>
           </View>
 
           {/* Use net toggle */}

@@ -9,13 +9,13 @@ export type CurrencyInfo = {
 
 export const ALL_CURRENCIES: CurrencyInfo[] = [
   // ── Afrique de l'Ouest ──────────────────────────────────────────────────
-  { code: 'XOF', flag: '🌍', nameFr: 'Franc CFA Afrique de l\'Ouest', nameEn: 'CFA Franc West Africa', badge: 'F CFA' },
+  { code: 'XOF', flag: '🌍', nameFr: 'Franc CFA (BCEAO)', nameEn: 'Franc CFA (BCEAO)', badge: 'F CFA' },
   { code: 'GNF', flag: '🇬🇳', nameFr: 'Franc guinéen', nameEn: 'Guinean Franc' },
   { code: 'NGN', flag: '🇳🇬', nameFr: 'Naira nigérian', nameEn: 'Nigerian Naira' },
   { code: 'GHS', flag: '🇬🇭', nameFr: 'Cédi ghanéen', nameEn: 'Ghanaian Cedi' },
   { code: 'SLL', flag: '🇸🇱', nameFr: 'Leone sierra-léonais', nameEn: 'Sierra Leonean Leone' },
   // ── Afrique Centrale ────────────────────────────────────────────────────
-  { code: 'XAF', flag: '🌍', nameFr: 'Franc CFA Afrique Centrale', nameEn: 'CFA Franc Central Africa', badge: 'F CFA' },
+  { code: 'XAF', flag: '🌍', nameFr: 'Franc CFA (BEAC)', nameEn: 'Franc CFA (BEAC)', badge: 'F CFA' },
   { code: 'CDF', flag: '🇨🇩', nameFr: 'Franc congolais', nameEn: 'Congolese Franc' },
   // ── Afrique du Nord ─────────────────────────────────────────────────────
   { code: 'MAD', flag: '🇲🇦', nameFr: 'Dirham marocain', nameEn: 'Moroccan Dirham' },
@@ -39,6 +39,19 @@ export const ALL_CURRENCIES: CurrencyInfo[] = [
 
 export const DEFAULT_USER_CURRENCIES = ['XOF', 'XAF', 'EUR', 'USD', 'GBP', 'MAD', 'GNF'];
 
+/**
+ * Returns the currency label to display alongside an amount or input field.
+ * XOF/XAF: "F CFA · XOF" / "F CFA · XAF" — disambiguates the two CFA zones.
+ * Others: badge if defined, otherwise the ISO code.
+ */
+export function getCurrencyLabel(currency: string): string {
+  const info = getCurrency(currency);
+  if (currency === 'XOF' || currency === 'XAF') {
+    return `${info.badge} · ${currency}`;
+  }
+  return info.badge ?? currency;
+}
+
 export function getCurrency(code: string): CurrencyInfo {
   return (
     ALL_CURRENCIES.find((c) => c.code === code) ?? {
@@ -53,12 +66,11 @@ export function getCurrency(code: string): CurrencyInfo {
 /**
  * Format a price amount for display:
  * - Uses the badge label (e.g. "CFA") instead of the raw code ("XOF")
- * - XOF/XAF: no decimals, space as thousands separator → "25 000 CFA"
+ * - XOF/XAF: no decimals, space as thousands separator → "25 000 F CFA · XOF"
  * - Other currencies: up to 2 decimals, space separator → "85.50 USD"
  */
 export function formatPriceDisplay(amount: number, currency: string): string {
-  const info = getCurrency(currency);
-  const label = info.badge ?? currency;
+  const label = getCurrencyLabel(currency);
   const noCents = currency === 'XOF' || currency === 'XAF';
 
   if (noCents) {

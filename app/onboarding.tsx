@@ -19,7 +19,7 @@ import { nanoid } from 'nanoid/non-secure';
 import { useProfileStore } from '../src/store/profileStore';
 import { t } from '../src/i18n';
 import { colors } from '../src/theme';
-import { ALL_CURRENCIES } from '../src/core/currencies';
+import { ALL_CURRENCIES, getCurrencyLabel } from '../src/core/currencies';
 import type { SalaryFrequency, UserProfile } from '../src/types';
 
 // ─── Validation schemas ───────────────────────────────────────────────────────
@@ -318,8 +318,17 @@ export default function OnboardingScreen() {
                             <Text style={s.currencyFlagText}>{c.flag}</Text>
                           </View>
                           <View style={{ flex: 1 }}>
-                            <Text style={s.currencyCode}>{c.code}{c.badge ? ` · ${c.badge}` : ''}</Text>
-                            <Text style={s.currencyLabel}>{c.nameFr}</Text>
+                            {c.badge ? (
+                              <>
+                                <Text style={s.currencyCode}>{c.nameFr}</Text>
+                                <Text style={s.currencyLabel}>{c.code}</Text>
+                              </>
+                            ) : (
+                              <>
+                                <Text style={s.currencyCode}>{c.code}</Text>
+                                <Text style={s.currencyLabel}>{c.nameFr}</Text>
+                              </>
+                            )}
                           </View>
                           {selected && (
                             <View style={s.currencyCheck}>
@@ -377,7 +386,7 @@ export default function OnboardingScreen() {
               />
 
               {/* Salaire brut */}
-              <Text style={s.label}>{t('onboarding.grossLabel')} ({step1Data.currency})</Text>
+              <Text style={s.label}>{t('onboarding.grossLabel')} ({getCurrencyLabel(step1Data.currency)})</Text>
               <Controller
                 control={form2.control}
                 name="grossSalary"
@@ -399,7 +408,7 @@ export default function OnboardingScreen() {
               />
 
               {/* Salaire net */}
-              <Text style={[s.label, { marginTop: 16 }]}>{t('onboarding.netLabel')} ({step1Data.currency})</Text>
+              <Text style={[s.label, { marginTop: 16 }]}>{t('onboarding.netLabel')} ({getCurrencyLabel(step1Data.currency)})</Text>
               <Controller
                 control={form2.control}
                 name="netSalary"

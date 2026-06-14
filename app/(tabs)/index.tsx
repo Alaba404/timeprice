@@ -107,10 +107,21 @@ function CurrencyRow({
     >
       <Text style={styles.currencyFlag}>{info.flag}</Text>
       <View style={styles.currencyInfo}>
-        <Text style={[styles.currencyCode, selected && styles.currencyCodeActive]}>
-          {info.code}{info.badge ? ` · ${info.badge}` : ''}
-        </Text>
-        <Text style={styles.currencyName}>{currencyName}</Text>
+        {info.badge ? (
+          <>
+            <Text style={[styles.currencyCode, selected && styles.currencyCodeActive]}>
+              {currencyName}
+            </Text>
+            <Text style={styles.currencyName}>{info.code}</Text>
+          </>
+        ) : (
+          <>
+            <Text style={[styles.currencyCode, selected && styles.currencyCodeActive]}>
+              {info.code}
+            </Text>
+            <Text style={styles.currencyName}>{currencyName}</Text>
+          </>
+        )}
       </View>
       {selected && (
         <View style={styles.currencyCheck}>
