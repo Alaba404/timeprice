@@ -301,7 +301,7 @@ export default function PaywallScreen() {
 
         <View style={styles.legalLinks}>
           <TouchableOpacity
-            onPress={() => Linking.openURL('https://owodalabs.com/terms.html')}
+            onPress={() => Linking.openURL(t('premium.termsUrl'))}
             accessibilityRole="link"
             accessibilityLabel={t('premium.terms')}
           >
@@ -309,7 +309,7 @@ export default function PaywallScreen() {
           </TouchableOpacity>
           <Text style={styles.legalSep}>·</Text>
           <TouchableOpacity
-            onPress={() => Linking.openURL('https://owodalabs.com/privacy.html')}
+            onPress={() => Linking.openURL(t('premium.privacyUrl'))}
             accessibilityRole="link"
             accessibilityLabel={t('premium.privacy')}
           >

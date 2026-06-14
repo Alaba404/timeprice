@@ -158,6 +158,8 @@ export default {
     close: 'Close',
     terms: 'Terms of Use',
     privacy: 'Privacy Policy',
+    termsUrl: 'https://owodalabs.com/terms-en.html',
+    privacyUrl: 'https://owodalabs.com/privacy-en.html',
     features: {
       scanner: 'Price scanner (OCR)',
       widget: 'Home screen widget',
