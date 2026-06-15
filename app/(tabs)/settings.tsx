@@ -25,7 +25,7 @@ import { colors } from '../../src/theme';
 import type { Locale, SalaryFrequency, UserProfile } from '../../src/types';
 import Constants from 'expo-constants';
 
-const GUIDE_URL = 'https://owodalabs.com/guide/owoda-guide-pratique.pdf';
+const GUIDE_URL = 'https://pub-a6629518d11a4f689348be122e035b5f.r2.dev/owoda-guide-900cb8e1bb3a44368c7dfd5e58dc8dce.pdf';
 
 // ── Guide chapters ───────────────────────────────────────────────────────────
 const GUIDE_CHAPTERS_FR = [
