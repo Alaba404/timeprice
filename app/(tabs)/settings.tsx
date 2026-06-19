@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Switch,
   ScrollView,
+  KeyboardAvoidingView,
   Alert,
   Linking,
   Platform,
@@ -208,9 +209,10 @@ function EditProfileModal({ profile, visible, onClose, onSave }: EditModalProps)
 
   return (
     <Modal visible={visible} animationType="slide" transparent onRequestClose={onClose}>
-      <View style={edit.overlay}>
+      <KeyboardAvoidingView style={edit.overlay} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <View style={edit.sheet}>
           <View style={edit.handle} />
+          <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
           <Text style={edit.title}>{t('settings.editProfile')}</Text>
 
           {/* Name */}
@@ -344,8 +346,9 @@ function EditProfileModal({ profile, visible, onClose, onSave }: EditModalProps)
               <Text style={edit.saveText}>{t('common.save')}</Text>
             </TouchableOpacity>
           </View>
+          </ScrollView>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 }
