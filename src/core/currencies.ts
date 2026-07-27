@@ -37,7 +37,7 @@ export const ALL_CURRENCIES: CurrencyInfo[] = [
   { code: 'AED', flag: '🇦🇪', nameFr: 'Dirham des Émirats', nameEn: 'UAE Dirham' },
 ];
 
-export const DEFAULT_USER_CURRENCIES = ['XOF', 'XAF', 'EUR', 'USD', 'GBP', 'MAD', 'GNF'];
+export const DEFAULT_USER_CURRENCIES = ['XOF', 'XAF', 'NGN', 'EUR', 'USD'];
 
 /**
  * Returns the currency label to display alongside an amount or input field.

@@ -59,7 +59,7 @@ type Step3Data = z.infer<typeof step3Schema>;
 const FREQUENCIES: SalaryFrequency[] = ['hourly', 'daily', 'weekly', 'monthly', 'annual'];
 
 // Featured currencies shown on step 1
-const FEATURED_CURRENCIES = ['XOF', 'XAF', 'EUR', 'USD', 'GBP', 'MAD', 'GNF', 'CAD'];
+const FEATURED_CURRENCIES = ['XOF', 'XAF', 'NGN', 'EUR', 'USD'];
 const ONBOARDING_CURRENCIES = ALL_CURRENCIES.filter((c) =>
   FEATURED_CURRENCIES.includes(c.code)
 );

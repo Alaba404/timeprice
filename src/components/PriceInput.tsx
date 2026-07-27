@@ -18,7 +18,7 @@ type Props = {
 };
 
 // Keep exporting for other screens that might use a simple string list
-export const DISPLAY_CURRENCIES = ['XOF', 'XAF', 'EUR', 'USD', 'GBP', 'MAD', 'GNF', 'CAD', 'NGN', 'GHS'];
+export const DISPLAY_CURRENCIES = ['XOF', 'XAF', 'NGN', 'EUR', 'USD'];
 
 export function PriceInput({ value, onChangeText, currencyInfo, onCurrencyPress }: Props) {
   const inputRef = useRef<TextInput>(null);
