@@ -62,10 +62,6 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="onboarding" options={{ animation: 'fade' }} />
           <Stack.Screen
-            name="scanner"
-            options={{ presentation: 'fullScreenModal', animation: 'slide_from_bottom' }}
-          />
-          <Stack.Screen
             name="paywall"
             options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
           />

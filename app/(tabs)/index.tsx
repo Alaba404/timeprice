@@ -150,7 +150,7 @@ export default function ConverterScreen() {
   const addEntry = useHistoryStore((s) => s.addEntry);
   const getActiveProfile = useProfileStore((s) => s.getActiveProfile);
   const activeProfileId = useProfileStore((s) => s.activeProfileId);
-  const { isPremium, canUse } = usePremium();
+  const { isPremium } = usePremium();
   const entriesCount = useHistoryStore((s) => s.entries.length);
 
   const { locale } = useLocaleStore();
@@ -279,12 +279,6 @@ export default function ConverterScreen() {
     Alert.alert('✓', t('converter.saved'));
     setRawPrice('');
   }, [result, profile, price, currency, category, isPremium, addEntry, router]);
-
-  const handleScan = useCallback(() => {
-    Keyboard.dismiss();
-    if (!canUse('scanner')) { router.push('/paywall'); return; }
-    router.push('/scanner');
-  }, [canUse, router]);
 
   const handleRemoveCurrency = useCallback((code: string) => {
     if (userCurrencies.length <= 1) return;
@@ -473,18 +467,6 @@ export default function ConverterScreen() {
 
             {/* Action buttons */}
             <View style={styles.actionsRow}>
-              <TouchableOpacity
-                onPress={handleScan}
-                style={styles.scanButton}
-                accessibilityRole="button"
-                accessibilityLabel={t('converter.scan')}
-              >
-                <Text style={styles.scanEmoji}>📷</Text>
-                {!canUse('scanner') && (
-                  <View style={styles.proBadge}><Text style={styles.proBadgeText}>PRO</Text></View>
-                )}
-              </TouchableOpacity>
-
               <TouchableOpacity
                 onPress={handleSave}
                 disabled={!result}
@@ -689,8 +671,6 @@ const styles = StyleSheet.create({
 
   // Actions
   actionsRow: { flexDirection: 'row', gap: 12, paddingHorizontal: 20, paddingVertical: 12, borderTopWidth: 1, borderTopColor: colors.divider, backgroundColor: colors.bg },
-  scanButton: { width: 54, height: 54, borderRadius: 14, backgroundColor: colors.accentTint, borderWidth: 1.5, borderColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
-  scanEmoji: { fontSize: 22 },
   proBadge: { position: 'absolute', top: -4, right: -4, backgroundColor: colors.accent, borderRadius: 6, paddingHorizontal: 4, paddingVertical: 1 },
   proBadgeText: { color: '#FFFFFF', fontSize: 8, fontWeight: '800' },
   saveButton: { flex: 1, height: 54, borderRadius: 14, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.primary, shadowColor: colors.primary, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.35, shadowRadius: 8, elevation: 6 },

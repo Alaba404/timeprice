@@ -33,7 +33,7 @@ export default {
   converter: {
     placeholder: '0.00',
     save: 'Save',
-    scan: 'Scan',
+
     currency: 'Currency',
     result: 'Result',
     noProfile: 'Set up a profile to get started',
@@ -124,7 +124,7 @@ export default {
     premiumRequired: 'Multiple profiles are available with Premium.',
     noTrackers: 'No analytics, no trackers, no data sent.',
     dangerZone: 'Danger zone',
-    premiumFeatures: 'Scanner, widget, export, dashboard…',
+    premiumFeatures: 'Widget, export, dashboard…',
     deleteProfile: 'Delete this profile?',
     deleteProfileLastBody: "Deleting your profile will erase your information. You'll start from scratch and can choose a different currency. Continue?",
     editLabel: 'Edit',
@@ -142,7 +142,7 @@ export default {
 
   premium: {
     unlockTitle: 'Unlock Owoda Premium',
-    unlockSubtitle: 'OCR scanner, widget, CSV export and more',
+    unlockSubtitle: 'Widget, CSV export, dashboard and more',
     guideOffer: '🎁 Practical Guide (in French) included with Premium',
     guideBanner: 'Subscribe to Premium and receive our practical guide for free.',
     cta: 'Try 7 days. Decide after.',
@@ -162,7 +162,6 @@ export default {
     privacyUrl: 'https://owodalabs.com/privacy-en.html',
     guideLanguageNote: 'The guide is available in French.',
     features: {
-      scanner: 'Price scanner (OCR)',
       widget: 'Home screen widget',
       csv_export: 'CSV export',
       dashboard: 'Analytics dashboard',
@@ -174,22 +173,12 @@ export default {
       headerFree: 'FREE',
       headerPremium: 'PREMIUM',
       history: 'History',
-      scanner: 'OCR Scanner',
       widget: 'Widget',
       dashboard: 'Dashboard',
       csv: 'CSV Export',
       profiles: 'Multi-profiles',
       guide: 'Practical Guide 17p',
     },
-  },
-
-  scanner: {
-    title: 'Scan a price',
-    hint: 'Point the camera at a price',
-    detected: 'Price detected',
-    confirm: 'Use this price',
-    cancel: 'Cancel',
-    permissionDenied: 'Camera access denied',
   },
 
   // Validation

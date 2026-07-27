@@ -31,7 +31,7 @@ export type Category =
   | 'health'
   | 'other';
 
-export type ConversionSource = 'manual' | 'scanner' | 'share_extension';
+export type ConversionSource = 'manual' | 'share_extension';
 
 export type ConversionEntry = {
   id: string;
@@ -78,7 +78,6 @@ export type Locale = 'fr' | 'en';
 // ─── Premium ──────────────────────────────────────────────────────────────────
 
 export type PremiumFeature =
-  | 'scanner'
   | 'widget'
   | 'csv_export'
   | 'dashboard'

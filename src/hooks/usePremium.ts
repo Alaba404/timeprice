@@ -14,7 +14,6 @@ try {
 }
 
 const PREMIUM_FEATURES = new Set<PremiumFeature>([
-  'scanner',
   'widget',
   'csv_export',
   'dashboard',

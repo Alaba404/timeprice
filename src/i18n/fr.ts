@@ -35,7 +35,7 @@ export default {
   converter: {
     placeholder: '0,00',
     save: 'Sauvegarder',
-    scan: 'Scanner',
+
     currency: 'Devise',
     result: 'Résultat',
     noProfile: 'Configurez un profil pour commencer',
@@ -129,7 +129,7 @@ export default {
     premiumRequired: 'Les profils multiples sont disponibles en Premium.',
     noTrackers: 'Aucune analytics, aucun tracker, aucune donnée envoyée.',
     dangerZone: 'Zone danger',
-    premiumFeatures: 'Scanner, widget, export, dashboard…',
+    premiumFeatures: 'Widget, export, dashboard…',
     deleteProfile: 'Supprimer ce profil ?',
     deleteProfileLastBody: "Supprimer ton profil effacera tes informations. Tu repartiras de la configuration de départ et pourras choisir une autre devise. Continuer ?",
     editLabel: 'Modifier',
@@ -148,7 +148,7 @@ export default {
   // Premium
   premium: {
     unlockTitle: 'Débloquer Owoda Premium',
-    unlockSubtitle: 'Scanner OCR, widget, export CSV et plus',
+    unlockSubtitle: 'Widget, export CSV, dashboard et plus',
     guideOffer: '🎁 Guide Pratique offert avec Premium',
     guideBanner: 'Abonne-toi au Premium et reçois notre guide pratique offert.',
     cta: 'Essaie 7 jours. Tu décides après.',
@@ -168,7 +168,6 @@ export default {
     privacyUrl: 'https://owodalabs.com/privacy.html',
     guideLanguageNote: '',
     features: {
-      scanner: 'Scanner de prix (OCR)',
       widget: "Widget écran d'accueil",
       csv_export: 'Export CSV',
       dashboard: 'Tableau de bord analytique',
@@ -180,23 +179,12 @@ export default {
       headerFree: 'GRATUIT',
       headerPremium: 'PREMIUM',
       history: 'Historique',
-      scanner: 'Scanner OCR',
       widget: 'Widget',
       dashboard: 'Tableau de bord',
       csv: 'Export CSV',
       profiles: 'Multi-profils',
       guide: 'Guide Pratique 17p',
     },
-  },
-
-  // Scanner
-  scanner: {
-    title: 'Scanner un prix',
-    hint: 'Pointez la caméra vers un prix',
-    detected: 'Prix détecté',
-    confirm: 'Utiliser ce prix',
-    cancel: 'Annuler',
-    permissionDenied: 'Accès à la caméra refusé',
   },
 
   // Validation
