@@ -34,12 +34,6 @@
     "plugins": [
       "expo-router",
       "expo-secure-store",
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "Owoda utilise la caméra pour scanner les prix."
-        }
-      ]
     ],
     "scheme": "owoda",
     "experiments": {
