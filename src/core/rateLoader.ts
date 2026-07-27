@@ -6,13 +6,11 @@ const API_URL = 'https://open.er-api.com/v6/latest/EUR';
 
 // Fallback rates (EUR-based, approximate) used when offline and no cache exists
 const FALLBACK_RATES: ExchangeRates = {
-  EUR: 1,
-  USD: 1.08,
-  GBP: 0.86,
-  XOF: 655.96,
-  MAD: 10.85,
-  TND: 3.32,
-  CAD: 1.47,
+  EUR: 1, USD: 1.08, GBP: 0.86,
+  XOF: 655.957,   // aligné sur la parité exacte
+  XAF: 655.957,
+  NGN: 1560,      // fallback hors ligne, valeur de repli au 2026-07
+  MAD: 10.85, TND: 3.32, CAD: 1.47,
 };
 
 // ─── Storage abstraction ───────────────────────────────────────────────────────
