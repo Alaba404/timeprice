@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Owoda — Connais la vraie valeur de ton argent</title>
-  <meta name="description" content="Owoda convertit chaque prix en temps de travail réel. Conçu pour l'Afrique. 100% privé. Fonctionne hors ligne." />
+  <title>Owoda — Know the true value of your money</title>
+  <meta name="description" content="Owoda converts every price into real working time. Built for Africa. 100% private. Works offline." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -94,6 +94,12 @@
       letter-spacing: 0.3px;
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -110,28 +116,7 @@
 
     .nav-links a:hover { color: var(--green); }
 
-    /* ── Hamburger ────────────────────────────────────────────────────────── */
-    .nav-hamburger {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
-      color: var(--text-mid);
-      font-size: 24px;
-      line-height: 1;
-      border-radius: 8px;
-      transition: background 0.15s, color 0.15s;
-    }
-    .nav-hamburger:hover { background: var(--bg-alt); color: var(--green); }
-
     /* ── Language switcher ────────────────────────────────────────────────── */
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
     .lang-switch {
       display: flex;
       align-items: center;
@@ -149,6 +134,21 @@
     .lang-switch a:hover { color: var(--green); }
     .lang-sep { color: var(--border); font-weight: 400; }
     .lang-active { color: var(--green); }
+
+    /* ── Hamburger ────────────────────────────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      color: var(--text-mid);
+      font-size: 24px;
+      line-height: 1;
+      border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-hamburger:hover { background: var(--bg-alt); color: var(--green); }
 
     /* ── Hero ─────────────────────────────────────────────────────────────── */
     .hero {
@@ -782,7 +782,6 @@
     .s2 .journey-step-desc { color: var(--text-mid); }
 
     /* ── 3 Actes narratifs ────────────────────────────────────────────────── */
-    /* Mobile-first : colonne par défaut, row à partir de 768px */
     .actes-container {
       display: flex;
       flex-direction: column;
@@ -841,9 +840,8 @@
   <!-- ── Navigation ──────────────────────────────────────────────────────── -->
   <nav>
     <div class="nav-inner">
-      <a href="/" class="logo" aria-label="Owoda Labs — accueil">
+      <a href="index-en.html" class="logo" aria-label="Owoda Labs — home">
         <div class="logo-mark">
-          <!-- Owoda "◎" monogram -->
           <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="none"/>
             <circle cx="10" cy="10" r="3" fill="white"/>
@@ -855,20 +853,20 @@
         </div>
       </a>
       <div class="nav-right">
-        <button class="nav-hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-menu">
+        <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
           ☰
         </button>
         <ul class="nav-links" id="nav-menu" role="list">
-          <li><a href="#features">Fonctionnalités</a></li>
-          <li><a href="#how">Comment ça marche</a></li>
-          <li><a href="#pricing">Tarifs</a></li>
-          <li><a href="guide.html" style="color:var(--gold);font-weight:700;">📘 Guide Pratique</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="guide-en.html" style="color:var(--gold);font-weight:700;">📘 Practical Guide</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="lang-switch">
-          <span class="lang-active">FR</span>
+          <a href="index.html">FR</a>
           <span class="lang-sep">|</span>
-          <a href="index-en.html">EN</a>
+          <span class="lang-active">EN</span>
         </div>
       </div>
     </div>
@@ -876,66 +874,66 @@
 
   <!-- ── Hero ────────────────────────────────────────────────────────────── -->
   <section class="hero">
-    <div class="hero-badge">📱 Application mobile · Conçue pour l'Afrique</div>
-    <span class="hero-edit-tagline">L'étape zéro de ton éducation financière</span>
-    <h1>Connais la vraie valeur<br /><span>de ton argent</span></h1>
+    <div class="hero-badge">📱 Mobile app · Built for Africa</div>
+    <span class="hero-edit-tagline">The foundation of your financial education</span>
+    <h1>Know the true value<br /><span>of your money</span></h1>
     <p>
-      Owoda ne dit pas non. Il montre ce que chaque achat coûte vraiment
-      en heures de vie.<br />
-      Parce que 50 000 F CFA, ce n'est pas un chiffre — c'est près de 7 jours de ta vie.
+      Owoda doesn't say no. It shows you what every purchase really costs
+      in hours of your life.<br />
+      Because 50,000 CFA isn't just a number — it's nearly 7 days of your life (about a week's work on a typical local salary).
     </p>
     <div class="hero-journey">
-      <span class="hero-journey-step">Prends conscience</span>
+      <span class="hero-journey-step">Gain awareness</span>
       <span class="hero-journey-arrow">→</span>
-      <span class="hero-journey-step">Applique le guide</span>
+      <span class="hero-journey-step">Apply the guide</span>
       <span class="hero-journey-arrow">→</span>
-      <span class="hero-journey-step">Reprends le contrôle</span>
+      <span class="hero-journey-step">Take back control</span>
       <span class="hero-journey-arrow">→</span>
-      <span class="hero-journey-step">Décide librement</span>
+      <span class="hero-journey-step">Decide freely</span>
     </div>
     <a href="https://play.google.com/store/apps/details?id=com.owodalabs.owoda"
        class="hero-cta"
        target="_blank"
        rel="noopener noreferrer"
-       aria-label="Télécharger Owoda sur Google Play">
-      📥 Télécharger Owoda gratuitement
+       aria-label="Download Owoda on Google Play">
+      📥 Download Owoda for free
     </a>
-    <p class="hero-secondary" style="color:#D4AF37; margin-top:10px;">Essai gratuit 7 jours, puis 2 990 F CFA/an · 4,99 €/an · 4,99 $/an. Annulable à tout moment.</p>
-    <p class="hero-secondary">Bientôt sur l'App Store</p>
+    <p class="hero-secondary" style="color:#D4AF37; margin-top:10px;">7-day free trial, then 2,990 CFA/year · €4.99/year · $4.99/year. Cancel anytime.</p>
+    <p class="hero-secondary">Coming soon on the App Store</p>
   </section>
 
   <!-- ── Différenciation ─────────────────────────────────────────────────── -->
   <section class="section">
     <div class="section-inner" style="text-align:center;">
-      <div class="section-label">Positionnement</div>
-      <h2 class="section-title">Owoda, ce n'est pas une app de budget</h2>
+      <div class="section-label">Positioning</div>
+      <h2 class="section-title">Owoda isn't a budgeting app</h2>
       <p class="section-sub" style="margin:0 auto;">
-        Les autres apps culpabilisent. Owoda éclaire.
+        Other apps make you feel guilty. Owoda sheds light.
       </p>
 
-      <div class="diff-table" role="table" aria-label="Comparaison Owoda vs autres apps">
-        <div class="diff-head others" role="columnheader">Les autres apps</div>
+      <div class="diff-table" role="table" aria-label="Owoda vs other apps comparison">
+        <div class="diff-head others" role="columnheader">Other apps</div>
         <div class="diff-head owoda"  role="columnheader">Owoda</div>
 
-        <div class="diff-cell others" role="cell">Budgéter, restreindre</div>
-        <div class="diff-cell owoda"  role="cell">Prendre conscience</div>
+        <div class="diff-cell others" role="cell">Budget, restrict</div>
+        <div class="diff-cell owoda"  role="cell">Gain awareness</div>
 
-        <div class="diff-cell others" role="cell">Culpabilité</div>
-        <div class="diff-cell owoda"  role="cell">Liberté</div>
+        <div class="diff-cell others" role="cell">Guilt</div>
+        <div class="diff-cell owoda"  role="cell">Freedom</div>
 
-        <div class="diff-cell others" role="cell">"Tu dépenses trop"</div>
-        <div class="diff-cell owoda"  role="cell">"Voici ce que ça te coûte"</div>
+        <div class="diff-cell others" role="cell">"You spend too much"</div>
+        <div class="diff-cell owoda"  role="cell">"Here's what it costs you"</div>
 
-        <div class="diff-cell others" role="cell">Après la dépense</div>
-        <div class="diff-cell owoda"  role="cell">Avant la dépense</div>
+        <div class="diff-cell others" role="cell">After the purchase</div>
+        <div class="diff-cell owoda"  role="cell">Before the purchase</div>
 
-        <div class="diff-cell others" role="cell">Occidental</div>
-        <div class="diff-cell owoda"  role="cell">Afrique + Diaspora</div>
+        <div class="diff-cell others" role="cell">Western</div>
+        <div class="diff-cell owoda"  role="cell">Africa + Diaspora</div>
       </div>
 
       <p class="diff-key">
-        Les autres apps te disent <strong>NON</strong>.<br />
-        Owoda te donne les moyens de dire <em>OUI</em> — aux bonnes choses.
+        Other apps tell you <strong>NO</strong>.<br />
+        Owoda gives you the means to say <em>YES</em> — to the right things.
       </p>
     </div>
   </section>
@@ -944,50 +942,49 @@
   <section class="section section-alt" id="features">
     <div class="section-inner">
       <div class="features-header">
-        <div class="section-label">La promesse</div>
-        <h2 class="section-title">Trois actes. Une vie financière différente.</h2>
+        <div class="section-label">The promise</div>
+        <h2 class="section-title">Three acts. A different financial life.</h2>
         <p class="section-sub">
-          Owoda n'est pas juste un outil de calcul. C'est le début d'un parcours
-          vers une liberté financière réelle — pensée pour l'Afrique, utile partout.
+          Owoda is more than a calculator. It's the start of a journey toward
+          real financial freedom — built for Africa, useful everywhere.
         </p>
       </div>
 
       <div class="actes-container">
 
-        <!-- Acte 1 -->
+        <!-- Act 1 -->
         <div class="act-card a1">
           <div class="act-num">I</div>
-          <div class="act-label">Acte 1 — La prise de conscience</div>
-          <div class="act-title">Tu ne savais pas où partait ton argent. Maintenant tu vois.</div>
+          <div class="act-label">Act 1 — The awakening</div>
+          <div class="act-title">You didn't know where your money was going. Now you see.</div>
           <p class="act-desc">
-            Owoda convertit chaque prix en temps de travail réel. Ce smartphone
-            à 450 000 F CFA ? Près de 3 mois. Ce dîner à 1 500 F CFA ? Environ
-            une heure et demie. Une fois que tu vois, tu ne peux plus faire
-            semblant de ne pas savoir.
+            Owoda converts every price into real working time. That smartphone
+            at 450,000 CFA? Nearly 3 months. That dinner at 1,500 CFA? About
+            an hour and a half. Once you see it, you can't unsee it.
           </p>
         </div>
 
-        <!-- Acte 2 -->
+        <!-- Act 2 -->
         <div class="act-card a2">
           <div class="act-num">II</div>
-          <div class="act-label">Acte 2 — La transformation</div>
-          <div class="act-title">7 leçons. De nouveaux réflexes. Un nouveau rapport à l'argent.</div>
+          <div class="act-label">Act 2 — The transformation</div>
+          <div class="act-title">7 lessons. New habits. A new relationship with money.</div>
           <p class="act-desc">
-            Le Guide Pratique Owoda ancre les comportements financiers qui
-            changent tout. Stoppe les achats impulsifs. Libère de l'argent.
-            Offert avec ton abonnement Premium.
+            The Owoda Practical Guide (in French) anchors the financial behaviours
+            that change everything. Stop impulse buying. Free up money.
+            Included with your Premium subscription.
           </p>
         </div>
 
-        <!-- Acte 3 -->
+        <!-- Act 3 -->
         <div class="act-card a3">
           <div class="act-num">III</div>
-          <div class="act-label">Acte 3 — La liberté</div>
-          <div class="act-title">Tu as de l'argent. Tu investis sur toi. Tu décides sans stress.</div>
+          <div class="act-label">Act 3 — Freedom</div>
+          <div class="act-title">You have money. You invest in yourself. You decide without stress.</div>
           <p class="act-desc">
-            Avec une discipline installée et de l'argent disponible,
-            tu passes à l'épargne structurée et à l'investissement.
-            Tu dépenses librement — parce que tu choisis.
+            With discipline in place and money available, you move on to
+            structured savings and investment.
+            You spend freely — because you choose to.
           </p>
         </div>
 
@@ -999,46 +996,46 @@
   <section class="section">
     <div class="section-inner">
       <div style="text-align:center;">
-        <div class="section-label">La vision</div>
-        <h2 class="section-title">Un parcours en 3 étapes</h2>
+        <div class="section-label">The vision</div>
+        <h2 class="section-title">A 3-step journey</h2>
         <p class="section-sub" style="margin:0 auto;">
-          Owoda est l'étape zéro. La fondation sur laquelle tout le reste repose.
+          Owoda is step zero. The foundation everything else is built on.
         </p>
       </div>
 
       <div class="journey-steps" role="list">
 
         <div class="journey-step s0" role="listitem">
-          <div class="journey-step-num">Étape 0</div>
+          <div class="journey-step-num">Step 0</div>
           <div class="journey-step-app">Owoda</div>
-          <div class="journey-step-title">Prendre conscience</div>
+          <div class="journey-step-title">Gain awareness</div>
           <p class="journey-step-desc">
-            Comprendre ce que coûtent vraiment tes dépenses
-            en temps de travail réel. L'ancrage dans la réalité.
+            Understand what your spending really costs in real working time.
+            Grounding yourself in reality.
           </p>
         </div>
 
         <div class="journey-arrow" aria-hidden="true">→</div>
 
         <div class="journey-step s1" role="listitem">
-          <div class="journey-step-num">Étape 1</div>
-          <div class="journey-step-app">Le Guide Owoda</div>
-          <div class="journey-step-title">Ancrer de nouveaux comportements</div>
+          <div class="journey-step-num">Step 1</div>
+          <div class="journey-step-app">The Owoda Guide</div>
+          <div class="journey-step-title">Build new habits</div>
           <p class="journey-step-desc">
-            Stopper les achats impulsifs. Libérer de l'argent.
-            Installer une discipline financière durable.
+            Stop impulse buying. Free up money.
+            Build lasting financial discipline.
           </p>
         </div>
 
         <div class="journey-arrow" aria-hidden="true">→</div>
 
         <div class="journey-step s2" role="listitem">
-          <div class="journey-step-num">Étape 2</div>
-          <div class="journey-step-app">Épargne &amp; Investissement</div>
-          <div class="journey-step-title">Décider librement</div>
+          <div class="journey-step-num">Step 2</div>
+          <div class="journey-step-app">Savings &amp; Investment</div>
+          <div class="journey-step-title">Decide freely</div>
           <p class="journey-step-desc">
-            Avec de l'argent disponible et une discipline installée,
-            passer à l'épargne structurée et à l'investissement.
+            With money available and discipline in place,
+            move on to structured savings and investment.
           </p>
         </div>
 
@@ -1050,43 +1047,42 @@
   <section class="section" id="how">
     <div class="section-inner">
       <div style="text-align:center;">
-        <div class="section-label">Simple et rapide</div>
-        <h2 class="section-title">Comment ça marche</h2>
+        <div class="section-label">Simple and fast</div>
+        <h2 class="section-title">How it works</h2>
         <p class="section-sub" style="margin:0 auto;">
-          Trois étapes pour ne plus jamais voir un prix de la même façon.
+          Three steps that will change the way you see every price, forever.
         </p>
       </div>
 
       <div class="steps">
         <div>
           <div class="step-number">1</div>
-          <div class="step-title">Renseigne ton salaire</div>
+          <div class="step-title">Enter your salary</div>
           <p class="step-desc">
-            Salaire brut ou net, mensuel, hebdomadaire ou horaire. Owoda
-            calcule ton taux horaire réel en tenant compte des congés et
-            du temps de trajet.
+            Gross or net, monthly, weekly or hourly. Owoda calculates your
+            real hourly rate, accounting for holidays and commute time.
           </p>
         </div>
         <div>
           <div class="step-number">2</div>
-          <div class="step-title">Entre un prix</div>
+          <div class="step-title">Enter a price</div>
           <p class="step-desc">
-            Tape n'importe quel montant — un loyer, un téléphone, un repas.
-            Owoda convertit instantanément dans ta devise, même depuis une
-            devise étrangère.
+            Type any amount — rent, a phone, a meal.
+            Owoda instantly converts it into your currency, even from a
+            foreign currency.
           </p>
         </div>
         <div>
           <div class="step-number">3</div>
-          <div class="step-title">Vois la vérité</div>
+          <div class="step-title">See the truth</div>
           <p class="step-desc">
-            Ce smartphone à 450 000 F CFA coûte près de 3 mois de travail.
-            Ce loyer à 75 000 F CFA, 10 jours. Ce repas à 1 500 F CFA,
-            environ une heure et demie. Décide en connaissance de cause.
+            That smartphone at 450,000 CFA costs nearly 3 months of work.
+            That rent at 75,000 CFA, 10 days. That meal at 1,500 CFA,
+            about an hour and a half. Decide with full knowledge.
           </p>
         </div>
       </div>
-      <p style="margin-top:20px;text-align:center;font-size:11px;color:var(--text-muted);">Exemples calculés pour un salaire de 150 000 F CFA/mois.</p>
+      <p style="margin-top:20px;text-align:center;font-size:11px;color:var(--text-muted);">Examples calculated for a salary of 150,000 CFA/month.</p>
     </div>
   </section>
 
@@ -1094,11 +1090,11 @@
   <section class="section section-alt" id="pricing">
     <div class="section-inner">
       <div style="text-align:center;">
-        <div class="section-label">Tarifs</div>
-        <h2 class="section-title">Gratuit ou Premium ?</h2>
+        <div class="section-label">Pricing</div>
+        <h2 class="section-title">Free or Premium?</h2>
         <p class="section-sub" style="margin:0 auto;">
-          Owoda est gratuit pour toujours. Premium débloque les outils avancés
-          et offre le Guide Pratique.
+          Owoda is free forever. Premium unlocks advanced tools
+          and includes the Practical Guide.
         </p>
       </div>
 
@@ -1106,17 +1102,17 @@
 
         <!-- Free -->
         <div class="pricing-card free">
-          <div class="pricing-plan-label">Gratuit</div>
+          <div class="pricing-plan-label">Free</div>
           <div class="pricing-plan-name">Owoda Free</div>
-          <div class="pricing-plan-price">Pour toujours · <strong>0 F CFA</strong></div>
+          <div class="pricing-plan-price">Forever · <strong>0 CFA</strong></div>
           <ul class="pricing-list">
-            <li class="yes"><span class="pi">✓</span> Calculateur prix → temps instantané</li>
-            <li class="yes"><span class="pi">✓</span> 7 conversions en historique</li>
-            <li class="yes"><span class="pi">✓</span> Toutes les devises africaines</li>
-            <li class="yes"><span class="pi">✓</span> Fonctionne hors ligne</li>
-            <li class="no"><span class="pi">✗</span> Historique limité à 7 entrées</li>
-            <li class="no"><span class="pi">✗</span> Pas de widget écran d'accueil</li>
-            <li class="no"><span class="pi">✗</span> Pas de tableau de bord analytique</li>
+            <li class="yes"><span class="pi">✓</span> Instant price → time calculator</li>
+            <li class="yes"><span class="pi">✓</span> 7 conversions in history</li>
+            <li class="yes"><span class="pi">✓</span> All African currencies</li>
+            <li class="yes"><span class="pi">✓</span> Works offline</li>
+            <li class="no"><span class="pi">✗</span> History limited to 7 entries</li>
+            <li class="no"><span class="pi">✗</span> No home screen widget</li>
+            <li class="no"><span class="pi">✗</span> No analytics dashboard</li>
           </ul>
         </div>
 
@@ -1124,25 +1120,25 @@
         <div class="pricing-card premium">
           <div class="pricing-plan-label">Premium</div>
           <div class="pricing-plan-name">Owoda Premium</div>
-          <div class="pricing-plan-price">Annuel · <strong>2 990 F CFA/an</strong> · 4,99 €/an · 4,99 $/an</div>
+          <div class="pricing-plan-price">Annual · <strong>2,990 CFA/year</strong> · €4.99/year · $4.99/year</div>
           <ul class="pricing-list">
-            <li class="yes"><span class="pi">✓</span> Tout le Free, sans limites</li>
-            <li class="yes"><span class="pi">✓</span> Historique illimité</li>
-            <li class="yes"><span class="pi">✓</span> Widget écran d'accueil</li>
-            <li class="yes"><span class="pi">✓</span> Tableau de bord analytique</li>
-            <li class="yes"><span class="pi">✓</span> Export CSV</li>
-            <li class="yes"><span class="pi">✓</span> Multi-profils</li>
-            <li class="bonus"><span class="pi">🎁</span> Guide Pratique complet (17 pages) offert</li>
+            <li class="yes"><span class="pi">✓</span> Everything in Free, without limits</li>
+            <li class="yes"><span class="pi">✓</span> Unlimited history</li>
+            <li class="yes"><span class="pi">✓</span> Home screen widget</li>
+            <li class="yes"><span class="pi">✓</span> Analytics dashboard</li>
+            <li class="yes"><span class="pi">✓</span> CSV export</li>
+            <li class="yes"><span class="pi">✓</span> Multiple profiles</li>
+            <li class="bonus"><span class="pi">🎁</span> Full Practical Guide (in French, 17 pages) included</li>
           </ul>
           <a href="https://play.google.com/store/apps/details?id=com.owodalabs.owoda"
              class="pricing-cta"
              target="_blank" rel="noopener noreferrer"
-             aria-label="Essayer Premium gratuitement 7 jours">
-            Essai gratuit 7 jours →
+             aria-label="Try Premium free for 7 days">
+            Start 7-day free trial →
           </a>
           <p style="margin-top:12px;font-size:11px;color:rgba(255,255,255,0.45);line-height:1.65;text-align:center;">
-            Essai gratuit 7 jours, puis renouvellement automatique.<br />
-            L'app s'utilise gratuitement.
+            7-day free trial, then automatic renewal.<br />
+            The app is free to use.
           </p>
         </div>
 
@@ -1153,8 +1149,8 @@
   <!-- ── Quote ────────────────────────────────────────────────────────────── -->
   <div class="quote-strip">
     <blockquote>
-      "Le temps, c'est la seule devise universelle.<br />
-      Owoda te le rappelle à chaque achat."
+      "Time is the only universal currency.<br />
+      Owoda reminds you of that with every purchase."
     </blockquote>
     <cite>— Owoda Labs</cite>
   </div>
@@ -1163,9 +1159,9 @@
   <section class="section" id="contact">
     <div class="section-inner">
       <div class="contact-card">
-        <h2 class="section-title">Une question ?</h2>
+        <h2 class="section-title">Got a question?</h2>
         <p class="section-sub">
-          Pour tout retour, suggestion ou partenariat, envoyez-nous un email.
+          For any feedback, suggestion or partnership, send us an email.
         </p>
         <a href="mailto:hello@owodalabs.com" class="contact-link">
           ✉️&nbsp; hello@owodalabs.com
@@ -1179,8 +1175,8 @@
     <div class="footer-inner">
       <span class="footer-copy">© 2026 Owoda Labs</span>
       <ul class="footer-links">
-        <li><a href="privacy.html">Politique de confidentialité</a></li>
-        <li><a href="terms.html">CGU</a></li>
+        <li><a href="privacy-en.html">Privacy Policy</a></li>
+        <li><a href="terms-en.html">Terms of Use</a></li>
       </ul>
     </div>
   </footer>
