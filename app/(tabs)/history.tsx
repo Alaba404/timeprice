@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import * as Sharing from 'expo-sharing';
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import { useHistoryStore } from '../../src/store/historyStore';
 import { usePremium } from '../../src/hooks/usePremium';
 import { useProfileStore } from '../../src/store/profileStore';
@@ -178,11 +178,16 @@ export default function HistoryScreen() {
       await FileSystem.writeAsStringAsync(path, csv, {
         encoding: FileSystem.EncodingType.UTF8,
       });
+      const isAvailable = await Sharing.isAvailableAsync();
+      if (!isAvailable) {
+        Alert.alert(t('common.error'), t('history.exportError'));
+        return;
+      }
       await Sharing.shareAsync(path, {
         mimeType: 'text/csv',
         UTI: 'public.comma-separated-values-text',
       });
-    } catch {
+    } catch (err) {
       Alert.alert(t('common.error'), t('history.exportError'));
     }
   }, [entries, canUse]);
