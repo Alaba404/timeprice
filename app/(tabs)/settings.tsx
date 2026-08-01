@@ -518,7 +518,7 @@ export default function SettingsScreen() {
           ))}
           <TouchableOpacity onPress={handleAddProfile} style={styles.addProfileRow} accessibilityRole="button" accessibilityLabel={t('settings.addProfile')}>
             <Text style={styles.addProfileText}>+ {t('settings.addProfile')}</Text>
-            {!canUse('multi_profile') && <Text style={styles.proBadge}>PRO</Text>}
+            {!canUse('multi_profile') && <Text style={styles.proBadge}>PREMIUM</Text>}
           </TouchableOpacity>
         </View>
 

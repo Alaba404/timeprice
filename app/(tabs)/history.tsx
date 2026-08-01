@@ -208,7 +208,7 @@ export default function HistoryScreen() {
           accessibilityLabel={t('history.exportCSV')}
         >
           <Text style={styles.exportText}>↑ CSV</Text>
-          {!canUse('csv_export') && <Text style={styles.proBadge}>PRO</Text>}
+          {!canUse('csv_export') && <Text style={styles.proBadge}>PREMIUM</Text>}
         </TouchableOpacity>
       </View>
 
