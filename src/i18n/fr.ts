@@ -80,6 +80,7 @@ export default {
     all: 'Tout',
     premiumTitle: 'Premium requis',
     premiumBody: "L'export CSV est une fonctionnalité Premium.",
+    exportError: "L'export a échoué, réessaie.",
     total: 'Total',
     conversions: 'conversion(s)',
   },

@@ -68,18 +68,24 @@ function groupToFlat(entries: ConversionEntry[], dateLocale: string): FlatRow[] 
   return rows;
 }
 
+function safeISODate(ts: number | null | undefined): string {
+  if (ts == null) return '';
+  const d = new Date(ts);
+  return isNaN(d.getTime()) ? '' : d.toISOString();
+}
+
 function buildCSV(entries: ConversionEntry[]): string {
   const header = 'id,date,label,priceAmount,priceCurrency,durationMinutes,category,source\n';
   const rows = entries.map((e) =>
     [
-      e.id,
-      new Date(e.createdAt).toISOString(),
+      e.id ?? '',
+      safeISODate(e.createdAt),
       `"${(e.label ?? '').replace(/"/g, '""')}"`,
-      e.priceAmount,
-      e.priceCurrency,
-      e.durationMinutes.toFixed(2),
-      e.category,
-      e.source,
+      e.priceAmount ?? '',
+      e.priceCurrency ?? '',
+      (e.durationMinutes ?? 0).toFixed(2),
+      e.category ?? '',
+      e.source ?? '',
     ].join(','),
   );
   return header + rows.join('\n');
@@ -162,15 +168,23 @@ export default function HistoryScreen() {
       Alert.alert(t('history.premiumTitle'), t('history.premiumBody'));
       return;
     }
-    const csv = buildCSV(entries);
-    const path = `${FileSystem.cacheDirectory}owoda_history.csv`;
-    await FileSystem.writeAsStringAsync(path, csv, {
-      encoding: FileSystem.EncodingType.UTF8,
-    });
-    await Sharing.shareAsync(path, {
-      mimeType: 'text/csv',
-      UTI: 'public.comma-separated-values-text',
-    });
+    try {
+      if (!FileSystem.cacheDirectory) {
+        Alert.alert(t('common.error'), t('history.exportError'));
+        return;
+      }
+      const csv = buildCSV(entries);
+      const path = `${FileSystem.cacheDirectory}owoda_history.csv`;
+      await FileSystem.writeAsStringAsync(path, csv, {
+        encoding: FileSystem.EncodingType.UTF8,
+      });
+      await Sharing.shareAsync(path, {
+        mimeType: 'text/csv',
+        UTI: 'public.comma-separated-values-text',
+      });
+    } catch {
+      Alert.alert(t('common.error'), t('history.exportError'));
+    }
   }, [entries, canUse]);
 
   // Stable delete handler keyed by entry id — avoids creating a new function

@@ -77,6 +77,7 @@ export default {
     all: 'All',
     premiumTitle: 'Premium required',
     premiumBody: 'CSV export is a Premium feature.',
+    exportError: 'Export failed, please try again.',
     total: 'Total',
     conversions: 'conversion(s)',
   },
