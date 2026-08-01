@@ -23,7 +23,7 @@ const CATEGORY_KEYS: Category[] = ['food', 'transport', 'housing', 'tech', 'clot
 const BAR_CHART_HEIGHT = 160;
 const BAR_CHART_WIDTH = Dimensions.get('window').width - 80;
 
-type CategoryStat = { category: Category; minutes: number; count: number };
+type CategoryStat = { category: Category; minutes: number; count: number; label: string };
 
 function computeStats(entries: ConversionEntry[]): CategoryStat[] {
   const map = new Map<Category, { minutes: number; count: number }>();
@@ -32,7 +32,7 @@ function computeStats(entries: ConversionEntry[]): CategoryStat[] {
     map.set(e.category, { minutes: existing.minutes + e.durationMinutes, count: existing.count + 1 });
   }
   return Array.from(map.entries())
-    .map(([category, s]) => ({ category, ...s }))
+    .map(([category, s]) => ({ category, ...s, label: '' }))
     .sort((a, b) => b.minutes - a.minutes);
 }
 
@@ -51,7 +51,7 @@ function BarChart({ stats }: { stats: CategoryStat[] }) {
           <G key={s.category}>
             <Rect x={x} y={y} width={barWidth} height={barH} rx={6} fill={CATEGORY_COLORS[s.category]} opacity={0.85} />
             <SvgText x={x + barWidth / 2} y={BAR_CHART_HEIGHT - 2} fontSize={8} fill={colors.textMuted} textAnchor="middle">
-              {categoryLabel(s.category).slice(0, 3)}
+              {s.label}
             </SvgText>
           </G>
         );
@@ -83,7 +83,13 @@ export default function DashboardScreen() {
     ? Math.round(((thisMonthMinutes - lastMonthMinutes) / lastMonthMinutes) * 100)
     : null;
 
-  const stats = useMemo(() => computeStats(thisMonthEntries), [thisMonthEntries]);
+  const stats = useMemo(
+    () => computeStats(thisMonthEntries).map((s) => ({
+      ...s,
+      label: (t(`converter.categories.${s.category}`) ?? s.category).slice(0, 3),
+    })),
+    [thisMonthEntries, locale],
+  );
   const top5 = useMemo(() => [...thisMonthEntries].sort((a, b) => b.durationMinutes - a.durationMinutes).slice(0, 5), [thisMonthEntries]);
 
   // Locale-aware month name
