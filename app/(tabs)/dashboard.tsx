@@ -51,7 +51,7 @@ function BarChart({ stats }: { stats: CategoryStat[] }) {
           <G key={s.category}>
             <Rect x={x} y={y} width={barWidth} height={barH} rx={6} fill={CATEGORY_COLORS[s.category]} opacity={0.85} />
             <SvgText x={x + barWidth / 2} y={BAR_CHART_HEIGHT - 2} fontSize={8} fill={colors.textMuted} textAnchor="middle">
-              {s.category.slice(0, 4)}
+              {categoryLabel(s.category).slice(0, 3)}
             </SvgText>
           </G>
         );
