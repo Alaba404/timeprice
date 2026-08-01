@@ -78,7 +78,6 @@ export type Locale = 'fr' | 'en';
 // ─── Premium ──────────────────────────────────────────────────────────────────
 
 export type PremiumFeature =
-  | 'widget'
   | 'csv_export'
   | 'dashboard'
   | 'unlimited_history'

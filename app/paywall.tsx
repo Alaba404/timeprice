@@ -45,7 +45,6 @@ const PRICING: PricingTier[] = [
 type CompPremiumType = 'check' | 'value' | 'gift';
 const COMP_ROWS: Array<{ labelKey: string; free: string; premium: string; type: CompPremiumType }> = [
   { labelKey: 'premium.comp.history',  free: '7',  premium: '∞',  type: 'value' },
-  { labelKey: 'premium.comp.widget',   free: '—',  premium: '✓',  type: 'check' },
   { labelKey: 'premium.comp.dashboard',free: '—',  premium: '✓',  type: 'check' },
   { labelKey: 'premium.comp.csv',      free: '—',  premium: '✓',  type: 'check' },
   { labelKey: 'premium.comp.profiles', free: '—',  premium: '✓',  type: 'check' },
@@ -54,7 +53,6 @@ const COMP_ROWS: Array<{ labelKey: string; free: string; premium: string; type: 
 
 // 'guide' is not a gated feature — it's a paywall bonus displayed last
 const FEATURE_LIST: Array<{ key: string; icon: string; isBonus?: boolean }> = [
-  { key: 'widget',            icon: '🔲' },
   { key: 'csv_export',        icon: '📊' },
   { key: 'dashboard',         icon: '📈' },
   { key: 'unlimited_history', icon: '∞'  },

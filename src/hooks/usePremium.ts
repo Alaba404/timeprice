@@ -14,7 +14,6 @@ try {
 }
 
 const PREMIUM_FEATURES = new Set<PremiumFeature>([
-  'widget',
   'csv_export',
   'dashboard',
   'unlimited_history',

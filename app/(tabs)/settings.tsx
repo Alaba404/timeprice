@@ -33,9 +33,9 @@ const GUIDE_CHAPTERS_FR = [
   'Comprendre la dépense impulsive',
   'Les 7 pièges qui vident ton compte',
   'La pression sociale et le regard des autres',
-  'Le syndrome FOMO et la peur de rater',
-  "Les abonnements qui s'accumulent",
-  'Construire ton budget-temps',
+  'Les transferts familiaux, en parler sans briser les liens',
+  'La règle des 100x, ta boussole financière',
+  'Construire une épargne avec un petit salaire',
   "Ton plan d'action sur 30 jours",
 ] as const;
 
@@ -43,9 +43,9 @@ const GUIDE_CHAPTERS_EN = [
   'Understanding impulse spending',
   'The 7 traps emptying your account',
   'Social pressure and the gaze of others',
-  'FOMO syndrome and the fear of missing out',
-  'Accumulating subscriptions',
-  'Building your time budget',
+  'Family transfers — talking about it without breaking ties',
+  'The 100x rule — your financial compass',
+  'Building savings on a small salary',
   'Your 30-day action plan',
 ] as const;
 

@@ -124,7 +124,7 @@ export default {
     premiumRequired: 'Multiple profiles are available with Premium.',
     noTrackers: 'No analytics, no trackers, no data sent.',
     dangerZone: 'Danger zone',
-    premiumFeatures: 'Widget, export, dashboard…',
+    premiumFeatures: 'Export, dashboard…',
     deleteProfile: 'Delete this profile?',
     deleteProfileLastBody: "Deleting your profile will erase your information. You'll start from scratch and can choose a different currency. Continue?",
     editLabel: 'Edit',
@@ -142,7 +142,7 @@ export default {
 
   premium: {
     unlockTitle: 'Unlock Owoda Premium',
-    unlockSubtitle: 'Widget, CSV export, dashboard and more',
+    unlockSubtitle: 'CSV export, dashboard and more',
     guideOffer: '🎁 Practical Guide (in French) included with Premium',
     guideBanner: 'Subscribe to Premium and receive our practical guide for free.',
     cta: 'Try 7 days. Decide after.',
@@ -162,7 +162,6 @@ export default {
     privacyUrl: 'https://owodalabs.com/privacy-en.html',
     guideLanguageNote: 'The guide is available in French.',
     features: {
-      widget: 'Home screen widget',
       csv_export: 'CSV export',
       dashboard: 'Analytics dashboard',
       unlimited_history: 'Unlimited history',
@@ -173,7 +172,6 @@ export default {
       headerFree: 'FREE',
       headerPremium: 'PREMIUM',
       history: 'History',
-      widget: 'Widget',
       dashboard: 'Dashboard',
       csv: 'CSV Export',
       profiles: 'Multi-profiles',

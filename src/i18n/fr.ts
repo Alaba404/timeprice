@@ -129,7 +129,7 @@ export default {
     premiumRequired: 'Les profils multiples sont disponibles en Premium.',
     noTrackers: 'Aucune analytics, aucun tracker, aucune donnée envoyée.',
     dangerZone: 'Zone danger',
-    premiumFeatures: 'Widget, export, dashboard…',
+    premiumFeatures: 'Export, dashboard…',
     deleteProfile: 'Supprimer ce profil ?',
     deleteProfileLastBody: "Supprimer ton profil effacera tes informations. Tu repartiras de la configuration de départ et pourras choisir une autre devise. Continuer ?",
     editLabel: 'Modifier',
@@ -148,7 +148,7 @@ export default {
   // Premium
   premium: {
     unlockTitle: 'Débloquer Owoda Premium',
-    unlockSubtitle: 'Widget, export CSV, dashboard et plus',
+    unlockSubtitle: 'Export CSV, dashboard et plus',
     guideOffer: '🎁 Guide Pratique offert avec Premium',
     guideBanner: 'Abonne-toi au Premium et reçois notre guide pratique offert.',
     cta: 'Essaie 7 jours. Tu décides après.',
@@ -168,7 +168,6 @@ export default {
     privacyUrl: 'https://owodalabs.com/privacy.html',
     guideLanguageNote: '',
     features: {
-      widget: "Widget écran d'accueil",
       csv_export: 'Export CSV',
       dashboard: 'Tableau de bord analytique',
       unlimited_history: 'Historique illimité',
@@ -179,7 +178,6 @@ export default {
       headerFree: 'GRATUIT',
       headerPremium: 'PREMIUM',
       history: 'Historique',
-      widget: 'Widget',
       dashboard: 'Tableau de bord',
       csv: 'Export CSV',
       profiles: 'Multi-profils',
