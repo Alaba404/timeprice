@@ -68,27 +68,34 @@ function groupToFlat(entries: ConversionEntry[], dateLocale: string): FlatRow[] 
   return rows;
 }
 
-function safeISODate(ts: number | null | undefined): string {
-  if (ts == null) return '';
-  const d = new Date(ts);
-  return isNaN(d.getTime()) ? '' : d.toISOString();
+function csvField(val: string): string {
+  if (/[",\n\r]/.test(val)) return `"${val.replace(/"/g, '""')}"`;
+  return val;
 }
 
-function buildCSV(entries: ConversionEntry[]): string {
-  const header = 'id,date,label,priceAmount,priceCurrency,durationMinutes,category,source\n';
+function formatReadableDate(ts: number | null | undefined): string {
+  if (ts == null) return '';
+  const d = new Date(ts);
+  if (isNaN(d.getTime())) return '';
+  const p = (n: number) => String(n).padStart(2, '0');
+  return `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+
+function buildCSV(entries: ConversionEntry[], locale: string, weeklyHours: number): string {
+  const header = locale === 'en'
+    ? 'Date,Label,Category,Amount,Currency,Working time'
+    : 'Date,Libellé,Catégorie,Montant,Devise,Temps de travail';
   const rows = entries.map((e) =>
     [
-      e.id ?? '',
-      safeISODate(e.createdAt),
-      `"${(e.label ?? '').replace(/"/g, '""')}"`,
+      formatReadableDate(e.createdAt),
+      csvField(e.label ?? ''),
+      csvField(t(`converter.categories.${e.category ?? 'other'}`)),
       e.priceAmount ?? '',
       e.priceCurrency ?? '',
-      (e.durationMinutes ?? 0).toFixed(2),
-      e.category ?? '',
-      e.source ?? '',
+      csvField(formatDuration(e.durationMinutes ?? 0, weeklyHours, locale as 'fr' | 'en')),
     ].join(','),
   );
-  return header + rows.join('\n');
+  return header + '\n' + rows.join('\n');
 }
 
 // ── Screen ────────────────────────────────────────────────────────────────────
@@ -173,7 +180,7 @@ export default function HistoryScreen() {
         Alert.alert(t('common.error'), t('history.exportError'));
         return;
       }
-      const csv = buildCSV(entries);
+      const csv = buildCSV(entries, locale, weeklyHours);
       const path = `${FileSystem.cacheDirectory}owoda_history.csv`;
       await FileSystem.writeAsStringAsync(path, csv, {
         encoding: FileSystem.EncodingType.UTF8,
@@ -190,7 +197,7 @@ export default function HistoryScreen() {
     } catch (err) {
       Alert.alert(t('common.error'), t('history.exportError'));
     }
-  }, [entries, canUse]);
+  }, [entries, locale, weeklyHours, canUse]);
 
   // Stable delete handler keyed by entry id — avoids creating a new function
   // reference on every render, which would bypass React.memo on ConversionCard
