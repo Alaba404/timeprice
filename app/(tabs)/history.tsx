@@ -95,7 +95,7 @@ function buildCSV(entries: ConversionEntry[], locale: string, weeklyHours: numbe
       csvField(formatDuration(e.durationMinutes ?? 0, weeklyHours, locale as 'fr' | 'en')),
     ].join(','),
   );
-  return header + '\n' + rows.join('\n');
+  return '﻿' + header + '\n' + rows.join('\n');
 }
 
 // ── Screen ────────────────────────────────────────────────────────────────────
