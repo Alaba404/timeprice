@@ -834,6 +834,80 @@
     .act-desc {
       font-size: 14px; color: var(--text-mid); line-height: 1.65;
     }
+
+    /* ── Why section ──────────────────────────────────────────────────────── */
+    .why-body {
+      max-width: 680px;
+      margin: 40px auto 0;
+    }
+
+    .why-p {
+      font-size: 16px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 22px;
+    }
+
+    .why-callout {
+      background: var(--green-light);
+      border-left: 4px solid var(--green);
+      border-radius: 0 12px 12px 0;
+      padding: 18px 24px;
+      margin: 4px 0 22px;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── FAQ ──────────────────────────────────────────────────────────────── */
+    .faq-list {
+      max-width: 720px;
+      margin: 44px auto 0;
+    }
+
+    .faq-item {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 10px;
+      background: var(--bg);
+    }
+
+    .faq-item summary {
+      padding: 18px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text);
+      user-select: none;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary::after {
+      content: '+';
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--green);
+      flex-shrink: 0;
+      margin-left: 16px;
+      line-height: 1;
+    }
+
+    .faq-item[open] summary::after { content: '−'; }
+    .faq-item[open] summary { color: var(--green); }
+
+    .faq-answer {
+      padding: 4px 22px 20px;
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.75;
+    }
   </style>
 </head>
 <body>
@@ -861,7 +935,9 @@
         <ul class="nav-links" id="nav-menu" role="list">
           <li><a href="#features">Fonctionnalités</a></li>
           <li><a href="#how">Comment ça marche</a></li>
+          <li><a href="#why">Pourquoi Owoda</a></li>
           <li><a href="#pricing">Tarifs</a></li>
+          <li><a href="#faq">FAQ</a></li>
           <li><a href="guide.html" style="color:var(--gold);font-weight:700;">📘 Guide Pratique</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -1090,6 +1166,22 @@
     </div>
   </section>
 
+  <!-- ── Pourquoi Owoda ─────────────────────────────────────────────────── -->
+  <section class="section" id="why">
+    <div class="section-inner">
+      <div style="text-align:center;">
+        <div class="section-label">Notre différence</div>
+        <h2 class="section-title">Pourquoi Owoda</h2>
+      </div>
+      <div class="why-body">
+        <p class="why-p">Les autres apps de finances personnelles te demandent de tracer tes dépenses, de faire des tableaux, de te fixer des limites. Elles te culpabilisent quand tu dépasses. Elles te parlent en chiffres, en euros ou en dollars, comme si l'argent était une abstraction.</p>
+        <p class="why-p">Owoda pose une question différente : combien d'heures de ta vie vas-tu travailler pour cet achat ?</p>
+        <div class="why-callout">Un téléphone à 450 000 F CFA, ce n'est pas juste un chiffre — c'est trois mois de ton temps. Une fois que tu vois ça, la décision devient consciente.</div>
+        <p class="why-p">Owoda est pensée pour l'Afrique et sa diaspora. Nos catégories, nos exemples, notre guide parlent d'une réalité que les apps occidentales ignorent : la pression sociale, les transferts familiaux, l'intimité financière. Nous ne te disons pas quoi acheter. Nous te montrons ce que ça te coûte vraiment, et te laissons décider.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ── Pricing comparison ─────────────────────────────────────────────── -->
   <section class="section section-alt" id="pricing">
     <div class="section-inner">
@@ -1144,6 +1236,38 @@
           </p>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ──────────────────────────────────────────────────────────────── -->
+  <section class="section" id="faq">
+    <div class="section-inner">
+      <div style="text-align:center;">
+        <div class="section-label">On répond</div>
+        <h2 class="section-title">Questions fréquentes</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Comment fonctionne Owoda ?</summary>
+          <div class="faq-answer">Tu entres ton salaire une fois. À chaque achat que tu envisages, tu tapes le prix et Owoda te dit combien d'heures ou de jours de travail ça représente. C'est tout. Pas de tableaux, pas de leçons — juste la vraie question posée avant de dépenser.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Owoda est-elle gratuite ?</summary>
+          <div class="faq-answer">Oui, la conversion prix-temps est gratuite, avec un historique limité à 7 conversions. L'abonnement Premium débloque l'historique illimité, le tableau de bord, l'export CSV, les profils multiples, et t'offre le Guide Pratique Owoda.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Combien coûte l'abonnement Premium ?</summary>
+          <div class="faq-answer">2 990 F CFA par an, ou 4,99 € / 4,99 $ selon ta région. Un essai gratuit de 7 jours te permet de tester avant de t'engager. Tu peux annuler à tout moment depuis les paramètres de ton compte Google Play ou App Store.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Owoda gère-t-elle mon argent ou fait-elle des placements ?</summary>
+          <div class="faq-answer">Non. Owoda est un outil de calcul et d'éducation financière. Nous ne collectons pas ton argent, nous ne faisons pas de placement, nous ne prêtons pas. Tous les calculs se font sur ton appareil, tes données restent privées.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Le Guide Pratique est-il en français ?</summary>
+          <div class="faq-answer">Oui, le guide de 17 pages est disponible en français. L'application, elle, est disponible en français et en anglais.</div>
+        </details>
       </div>
     </div>
   </section>

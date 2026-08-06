@@ -833,6 +833,80 @@
     .act-desc {
       font-size: 14px; color: var(--text-mid); line-height: 1.65;
     }
+
+    /* ── Why section ──────────────────────────────────────────────────────── */
+    .why-body {
+      max-width: 680px;
+      margin: 40px auto 0;
+    }
+
+    .why-p {
+      font-size: 16px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 22px;
+    }
+
+    .why-callout {
+      background: var(--green-light);
+      border-left: 4px solid var(--green);
+      border-radius: 0 12px 12px 0;
+      padding: 18px 24px;
+      margin: 4px 0 22px;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── FAQ ──────────────────────────────────────────────────────────────── */
+    .faq-list {
+      max-width: 720px;
+      margin: 44px auto 0;
+    }
+
+    .faq-item {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 10px;
+      background: var(--bg);
+    }
+
+    .faq-item summary {
+      padding: 18px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text);
+      user-select: none;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary::after {
+      content: '+';
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--green);
+      flex-shrink: 0;
+      margin-left: 16px;
+      line-height: 1;
+    }
+
+    .faq-item[open] summary::after { content: '−'; }
+    .faq-item[open] summary { color: var(--green); }
+
+    .faq-answer {
+      padding: 4px 22px 20px;
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.75;
+    }
   </style>
 </head>
 <body>
@@ -859,7 +933,9 @@
         <ul class="nav-links" id="nav-menu" role="list">
           <li><a href="#features">Features</a></li>
           <li><a href="#how">How it works</a></li>
+          <li><a href="#why">Why Owoda</a></li>
           <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
           <li><a href="guide-en.html" style="color:var(--gold);font-weight:700;">📘 Practical Guide</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -1086,6 +1162,22 @@
     </div>
   </section>
 
+  <!-- ── Why Owoda ──────────────────────────────────────────────────────── -->
+  <section class="section" id="why">
+    <div class="section-inner">
+      <div style="text-align:center;">
+        <div class="section-label">Our difference</div>
+        <h2 class="section-title">Why Owoda</h2>
+      </div>
+      <div class="why-body">
+        <p class="why-p">Other personal finance apps ask you to track expenses, build tables, set limits. They make you feel guilty when you go over. They speak to you in numbers, in euros or dollars, as if money were an abstraction.</p>
+        <p class="why-p">Owoda asks a different question: how many hours of your life will you work for this purchase?</p>
+        <div class="why-callout">A phone at 450,000 CFA isn't just a number — it's three months of your time. Once you see that, the decision becomes conscious.</div>
+        <p class="why-p">Owoda is designed for Africa and its diaspora. Our categories, our examples, our guide speak to a reality that Western apps ignore: social pressure, family transfers, financial intimacy. We don't tell you what to buy. We show you what it truly costs, and let you decide.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ── Pricing comparison ─────────────────────────────────────────────── -->
   <section class="section section-alt" id="pricing">
     <div class="section-inner">
@@ -1140,6 +1232,38 @@
           </p>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ──────────────────────────────────────────────────────────────── -->
+  <section class="section" id="faq">
+    <div class="section-inner">
+      <div style="text-align:center;">
+        <div class="section-label">Answers</div>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>How does Owoda work?</summary>
+          <div class="faq-answer">You enter your salary once. For every purchase you're considering, you type the price and Owoda tells you how many hours or days of work it represents. That's it. No tables, no lessons — just the real question asked before you spend.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Is Owoda free?</summary>
+          <div class="faq-answer">Yes, price-to-time conversion is free, with a history limited to 7 conversions. The Premium subscription unlocks unlimited history, the analytics dashboard, CSV export, multiple profiles, and includes the Owoda Practical Guide.</div>
+        </details>
+        <details class="faq-item">
+          <summary>How much is Premium?</summary>
+          <div class="faq-answer">2,990 CFA per year, or €4.99 / $4.99 depending on your region. A 7-day free trial lets you test before committing. You can cancel anytime from your Google Play or App Store account settings.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Does Owoda manage my money or make investments?</summary>
+          <div class="faq-answer">No. Owoda is a calculation and financial education tool. We don't collect your money, we don't invest, we don't lend. All calculations happen on your device, your data stays private.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Is the Practical Guide in English?</summary>
+          <div class="faq-answer">The 17-page guide is written in French. The application itself is available in both French and English.</div>
+        </details>
       </div>
     </div>
   </section>
