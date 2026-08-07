@@ -835,6 +835,52 @@
       font-size: 14px; color: var(--text-mid); line-height: 1.65;
     }
 
+    /* ── Guide chapters preview ──────────────────────────────────────────── */
+    .guide-preview {
+      margin-top: 32px;
+      background: var(--gold-light);
+      border: 1.5px solid rgba(212,175,55,0.25);
+      border-radius: 20px;
+      padding: 28px 32px;
+    }
+    .guide-preview-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.5px; color: #9E7C00; margin-bottom: 10px;
+    }
+    .guide-preview-note {
+      font-size: 13px; color: var(--text-mid); margin-bottom: 20px;
+    }
+    .guide-chapters {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 40px;
+    }
+    @media (max-width: 640px) {
+      .guide-chapters { grid-template-columns: 1fr; }
+    }
+    .guide-chapters li {
+      font-size: 13px;
+      color: var(--text-mid);
+      display: flex;
+      gap: 10px;
+      line-height: 1.5;
+    }
+    .guide-ch-num {
+      flex-shrink: 0; font-weight: 800;
+      color: var(--gold); width: 16px;
+    }
+
+    /* ── Diff section explainer ───────────────────────────────────────────── */
+    .diff-explainer {
+      max-width: 620px;
+      margin: 24px auto 0;
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.75;
+      text-align: center;
+    }
+
     /* ── Why section ──────────────────────────────────────────────────────── */
     .why-body {
       max-width: 680px;
@@ -1013,6 +1059,9 @@
         Les autres apps te disent <strong>NON</strong>.<br />
         Owoda te donne les moyens de dire <em>OUI</em> — aux bonnes choses.
       </p>
+      <p class="diff-explainer">
+        Owoda n'est pas une alternative aux apps de budget. C'est l'étape zéro. Elle vient avant. Les tableaux, les enveloppes, les alertes de dépassement sont utiles — mais ils supposent que tu as déjà pris conscience de ce que ton argent coûte. Owoda installe cette conscience. Ce que tu fais ensuite dépend de toi.
+      </p>
     </div>
   </section>
 
@@ -1067,6 +1116,20 @@
           </p>
         </div>
 
+      </div>
+
+      <div class="guide-preview">
+        <div class="guide-preview-label">Le Guide Pratique Owoda</div>
+        <p class="guide-preview-note">Un guide de 17 pages, offert avec Premium (en français).</p>
+        <ul class="guide-chapters">
+          <li><span class="guide-ch-num">1.</span>Comprendre pourquoi tu achètes ce dont tu n'as pas besoin</li>
+          <li><span class="guide-ch-num">2.</span>Les 7 pièges qui vident ton compte chaque mois</li>
+          <li><span class="guide-ch-num">3.</span>La pression sociale : comment dire non sans briser les liens</li>
+          <li><span class="guide-ch-num">4.</span>Les transferts familiaux : en parler honnêtement</li>
+          <li><span class="guide-ch-num">5.</span>La règle des 100x : ta boussole financière</li>
+          <li><span class="guide-ch-num">6.</span>Construire une épargne avec un petit salaire</li>
+          <li><span class="guide-ch-num">7.</span>Le plan d'action 30 jours pour changer tes habitudes</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -1163,6 +1226,9 @@
         </div>
       </div>
       <p style="margin-top:20px;text-align:center;font-size:11px;color:var(--text-muted);">Exemples calculés pour un salaire de 150 000 F CFA/mois.</p>
+      <div class="why-callout" style="margin-top:32px; font-weight:400; font-size:15px;">
+        Owoda est manuelle par design. Automatiser le tracking, c'est traiter tes dépenses après coup — regarder un tableau qui te dit ce que tu as déjà fait. Owoda t'arrête avant. Le geste de saisir un montant est le moment de conscience. Il n'y a pas de raccourci : personne ne peut te rendre libre à ta place.
+      </div>
     </div>
   </section>
 

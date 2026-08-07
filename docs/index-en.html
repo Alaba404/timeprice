@@ -834,6 +834,52 @@
       font-size: 14px; color: var(--text-mid); line-height: 1.65;
     }
 
+    /* ── Guide chapters preview ──────────────────────────────────────────── */
+    .guide-preview {
+      margin-top: 32px;
+      background: var(--gold-light);
+      border: 1.5px solid rgba(212,175,55,0.25);
+      border-radius: 20px;
+      padding: 28px 32px;
+    }
+    .guide-preview-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.5px; color: #9E7C00; margin-bottom: 10px;
+    }
+    .guide-preview-note {
+      font-size: 13px; color: var(--text-mid); margin-bottom: 20px;
+    }
+    .guide-chapters {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 40px;
+    }
+    @media (max-width: 640px) {
+      .guide-chapters { grid-template-columns: 1fr; }
+    }
+    .guide-chapters li {
+      font-size: 13px;
+      color: var(--text-mid);
+      display: flex;
+      gap: 10px;
+      line-height: 1.5;
+    }
+    .guide-ch-num {
+      flex-shrink: 0; font-weight: 800;
+      color: var(--gold); width: 16px;
+    }
+
+    /* ── Diff section explainer ───────────────────────────────────────────── */
+    .diff-explainer {
+      max-width: 620px;
+      margin: 24px auto 0;
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.75;
+      text-align: center;
+    }
+
     /* ── Why section ──────────────────────────────────────────────────────── */
     .why-body {
       max-width: 680px;
@@ -1011,6 +1057,9 @@
         Other apps tell you <strong>NO</strong>.<br />
         Owoda gives you the means to say <em>YES</em> — to the right things.
       </p>
+      <p class="diff-explainer">
+        Owoda is not an alternative to budgeting apps. It's step zero. It comes before. Tables, envelopes, overspending alerts are useful — but they assume you've already understood what your money costs. Owoda installs that awareness. What you do next is up to you.
+      </p>
     </div>
   </section>
 
@@ -1064,6 +1113,20 @@
           </p>
         </div>
 
+      </div>
+
+      <div class="guide-preview">
+        <div class="guide-preview-label">The Owoda Practical Guide</div>
+        <p class="guide-preview-note">A 17-page guide, included with Premium (in French).</p>
+        <ul class="guide-chapters">
+          <li><span class="guide-ch-num">1.</span>Understanding why you buy things you don't need</li>
+          <li><span class="guide-ch-num">2.</span>The 7 traps that drain your account every month</li>
+          <li><span class="guide-ch-num">3.</span>Social pressure — how to say no without breaking relationships</li>
+          <li><span class="guide-ch-num">4.</span>Family transfers — talking about it honestly</li>
+          <li><span class="guide-ch-num">5.</span>The 100x rule — your financial compass</li>
+          <li><span class="guide-ch-num">6.</span>Building savings on a small salary</li>
+          <li><span class="guide-ch-num">7.</span>The 30-day action plan to change your habits</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -1159,6 +1222,9 @@
         </div>
       </div>
       <p style="margin-top:20px;text-align:center;font-size:11px;color:var(--text-muted);">Examples calculated for a salary of 150,000 CFA/month.</p>
+      <div class="why-callout" style="margin-top:32px; font-weight:400; font-size:15px;">
+        Owoda is manual by design. Automating tracking means dealing with your expenses after the fact — looking at a table that tells you what you've already done. Owoda stops you before. The gesture of entering an amount is the moment of consciousness. There is no shortcut: no one can make you free in your place.
+      </div>
     </div>
   </section>
 
