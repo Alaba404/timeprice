@@ -1,2 +1,4 @@
 User-agent: *
-Disallow: /guide/
+Allow: /
+
+Sitemap: https://owodalabs.com/sitemap.xml
