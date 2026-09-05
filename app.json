@@ -6,15 +6,12 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#00A86B"
-    },
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.owoda.app",
-      "appGroupEntitlements": ["group.com.owoda.widget"]
+      "appGroupEntitlements": [
+        "group.com.owoda.widget"
+      ]
     },
     "android": {
       "adaptiveIcon": {
@@ -34,11 +31,19 @@
     "plugins": [
       "expo-router",
       "expo-secure-store",
+      "expo-localization",
+      "expo-sharing",
+      "expo-sqlite",
+      "expo-status-bar",
+      ["expo-splash-screen", {
+        "image": "./assets/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#00A86B"
+      }]
     ],
     "scheme": "owoda",
     "experiments": {
       "typedRoutes": true
-    },
-    "newArchEnabled": true
+    }
   }
 }
