@@ -38,7 +38,6 @@ const PRICING: PricingTier[] = [
   { currency: 'XAF', flag: '🌍', amount: '2 990 F CFA', packageId: 'annual_xaf' },
   { currency: 'EUR', flag: '🇪🇺', amount: '4,99 €',     packageId: 'annual_eur' },
   { currency: 'USD', flag: '🇺🇸', amount: '4,99 $',     packageId: 'annual_usd' },
-  { currency: 'NGN', flag: '🇳🇬', amount: '₦ 2 500',   packageId: 'annual_ngn' },
 ];
 
 // ── Comparison table rows ─────────────────────────────────────────────────────
@@ -406,7 +405,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   pricingCard: {
-    // Each card is ~45% width so 2 fit per row; 5th card fills a row alone
+    // Each card is ~45% width so 2 fit per row; 4 cards = clean 2×2 grid
     minWidth: '44%',
     flex: 1,
     backgroundColor: colors.card,
