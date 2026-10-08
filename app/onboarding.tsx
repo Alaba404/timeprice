@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   View,
   Text,
@@ -16,10 +16,12 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { nanoid } from 'nanoid/non-secure';
+import { getLocales } from 'expo-localization';
 import { useProfileStore } from '../src/store/profileStore';
 import { t } from '../src/i18n';
 import { colors } from '../src/theme';
-import { ALL_CURRENCIES, getCurrencyLabel } from '../src/core/currencies';
+import { ALL_CURRENCIES, getCurrencyLabel, getCurrencyFromLocale } from '../src/core/currencies';
+import { useLocaleStore } from '../src/store/localeStore';
 import type { SalaryFrequency, UserProfile } from '../src/types';
 
 // ─── Validation schemas ───────────────────────────────────────────────────────
@@ -58,11 +60,6 @@ type Step3Data = z.infer<typeof step3Schema>;
 
 const FREQUENCIES: SalaryFrequency[] = ['hourly', 'daily', 'weekly', 'monthly', 'annual'];
 
-// Featured currencies shown on step 1
-const FEATURED_CURRENCIES = ['XOF', 'XAF', 'NGN', 'EUR', 'USD'];
-const ONBOARDING_CURRENCIES = ALL_CURRENCIES.filter((c) =>
-  FEATURED_CURRENCIES.includes(c.code)
-);
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
 
@@ -166,9 +163,19 @@ const s = StyleSheet.create({
 export default function OnboardingScreen() {
   const router = useRouter();
   const addProfile = useProfileStore((s) => s.addProfile);
+  const { locale } = useLocaleStore();
+
+  const detectedCurrency = useMemo(() => {
+    try {
+      const locales = getLocales();
+      return locales.length > 0 ? getCurrencyFromLocale(locales[0].languageTag) : 'EUR';
+    } catch {
+      return 'EUR';
+    }
+  }, []);
 
   const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [step1Data, setStep1Data] = useState<Step1Data>({ name: '', currency: 'XOF' });
+  const [step1Data, setStep1Data] = useState<Step1Data>({ name: '', currency: detectedCurrency });
   const [step2Data, setStep2Data] = useState<Step2Data>({
     grossSalary: 0,
     netSalary: 0,
@@ -180,7 +187,7 @@ export default function OnboardingScreen() {
   const [commuteUnit, setCommuteUnit] = useState<'min' | 'h'>('min');
   const [commuteDisplay, setCommuteDisplay] = useState('0');
 
-  const form1 = useForm<Step1Data>({ resolver: zodResolver(step1Schema), defaultValues: { name: '', currency: 'XOF' } });
+  const form1 = useForm<Step1Data>({ resolver: zodResolver(step1Schema), defaultValues: { name: '', currency: detectedCurrency } });
   const form2 = useForm<Step2Data>({ resolver: zodResolver(step2Schema), defaultValues: step2Data });
   const form3 = useForm<Step3Data>({
     resolver: zodResolver(step3Schema),
@@ -302,8 +309,9 @@ export default function OnboardingScreen() {
                 name="currency"
                 render={({ field }) => (
                   <View>
-                    {ONBOARDING_CURRENCIES.map((c) => {
+                    {ALL_CURRENCIES.map((c) => {
                       const selected = field.value === c.code;
+                      const name = locale === 'en' ? c.nameEn : c.nameFr;
                       return (
                         <TouchableOpacity
                           key={c.code}
@@ -311,7 +319,7 @@ export default function OnboardingScreen() {
                           style={selected ? s.currencyRowSelected : s.currencyRow}
                           activeOpacity={0.7}
                           accessibilityRole="radio"
-                          accessibilityLabel={c.nameFr}
+                          accessibilityLabel={name}
                           accessibilityState={{ checked: selected }}
                         >
                           <View style={selected ? s.currencyFlagSel : s.currencyFlag}>
@@ -320,13 +328,13 @@ export default function OnboardingScreen() {
                           <View style={{ flex: 1 }}>
                             {c.badge ? (
                               <>
-                                <Text style={s.currencyCode}>{c.nameFr}</Text>
+                                <Text style={s.currencyCode}>{name}</Text>
                                 <Text style={s.currencyLabel}>{c.code}</Text>
                               </>
                             ) : (
                               <>
                                 <Text style={s.currencyCode}>{c.code}</Text>
-                                <Text style={s.currencyLabel}>{c.nameFr}</Text>
+                                <Text style={s.currencyLabel}>{name}</Text>
                               </>
                             )}
                           </View>

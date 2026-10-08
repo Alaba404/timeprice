@@ -29,6 +29,7 @@ export default {
     defaultProfileName: 'Mon profil',
     nameLabel: 'Nom du profil',
     namePlaceholder: 'Ex : Mon profil, Freelance, Conjoint(e)…',
+    pickerLabel: 'Votre devise de paiement',
   },
 
   // Converter
@@ -140,6 +141,11 @@ export default {
     netSalary: 'Salaire net',
     weeklyHours: 'Heures / semaine',
     save: 'Enregistrer',
+    referenceCurrency: 'Devise de référence',
+    changeCurrencyTitle: 'Changer de devise de référence',
+    changeCurrencyMessage: 'Changer de devise effacera ton revenu saisi. Tu devras le ressaisir dans la nouvelle devise.',
+    changeCurrencyCancel: 'Annuler',
+    changeCurrencyContinue: 'Continuer',
     contact: 'Nous contacter',
     contactEmailSubject: '[Owoda] Retour utilisateur',
     contactEmailBody: "Bonjour,\n\nVersion de l'app : {{version}}\nAppareil : {{device}}\n\nMon retour :\n",

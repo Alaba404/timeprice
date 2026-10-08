@@ -39,6 +39,29 @@ export const ALL_CURRENCIES: CurrencyInfo[] = [
 
 export const DEFAULT_USER_CURRENCIES = ['XOF', 'XAF', 'NGN', 'EUR', 'USD'];
 
+const COUNTRY_CURRENCY: Record<string, string> = {
+  // XOF zone (BCEAO)
+  SN: 'XOF', CI: 'XOF', ML: 'XOF', BF: 'XOF', BJ: 'XOF', TG: 'XOF', NE: 'XOF', GW: 'XOF',
+  // XAF zone (BEAC)
+  CM: 'XAF', CF: 'XAF', TD: 'XAF', CG: 'XAF', GQ: 'XAF', GA: 'XAF',
+  // Other African currencies
+  NG: 'NGN', GN: 'GNF', GH: 'GHS', SL: 'SLL',
+  CD: 'CDF', MA: 'MAD', TN: 'TND', DZ: 'DZD', EG: 'EGP',
+  KE: 'KES', ZA: 'ZAR', ET: 'ETB', TZ: 'TZS',
+  // International
+  US: 'USD', GB: 'GBP', CA: 'CAD', CH: 'CHF', CN: 'CNY', AE: 'AED',
+  // Euro zone
+  FR: 'EUR', DE: 'EUR', IT: 'EUR', ES: 'EUR', PT: 'EUR', BE: 'EUR',
+  NL: 'EUR', AT: 'EUR', FI: 'EUR', IE: 'EUR', LU: 'EUR',
+};
+
+/** Returns the most likely currency code for a BCP 47 languageTag (e.g. "fr-SN", "en-US"). Falls back to EUR. */
+export function getCurrencyFromLocale(languageTag: string): string {
+  const parts = languageTag.split('-');
+  const country = parts.length >= 2 ? parts[parts.length - 1].toUpperCase() : '';
+  return COUNTRY_CURRENCY[country] ?? 'EUR';
+}
+
 /**
  * Returns the currency label to display alongside an amount or input field.
  * XOF/XAF: "F CFA · XOF" / "F CFA · XAF" — disambiguates the two CFA zones.

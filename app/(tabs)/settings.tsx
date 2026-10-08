@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Switch,
   ScrollView,
+  FlatList,
   KeyboardAvoidingView,
   Alert,
   Linking,
@@ -19,7 +20,7 @@ import { useProfileStore } from '../../src/store/profileStore';
 import { useHistoryStore } from '../../src/store/historyStore';
 import { usePremium } from '../../src/hooks/usePremium';
 import { computeHourlyRate } from '../../src/core/converter';
-import { getCurrencyLabel, formatPriceDisplay } from '../../src/core/currencies';
+import { ALL_CURRENCIES, getCurrency, getCurrencyLabel, formatPriceDisplay } from '../../src/core/currencies';
 import { useLocaleStore } from '../../src/store/localeStore';
 import { t } from '../../src/i18n';
 import { colors } from '../../src/theme';
@@ -353,6 +354,101 @@ function EditProfileModal({ profile, visible, onClose, onSave }: EditModalProps)
   );
 }
 
+// ── Currency picker modal ────────────────────────────────────────────────────
+type CurrencyPickerModalProps = {
+  currentCurrency: string;
+  visible: boolean;
+  locale: string;
+  onClose: () => void;
+  onConfirm: (code: string) => void;
+};
+
+function CurrencyPickerModal({ currentCurrency, visible, locale, onClose, onConfirm }: CurrencyPickerModalProps) {
+  const [selected, setSelected] = useState(currentCurrency);
+
+  return (
+    <Modal visible={visible} animationType="slide" transparent onRequestClose={onClose}>
+      <View style={picker.overlay}>
+        <View style={picker.sheet}>
+          <View style={picker.handle} />
+          <Text style={picker.title}>{t('settings.referenceCurrency')}</Text>
+          <FlatList
+            data={ALL_CURRENCIES}
+            keyExtractor={(item) => item.code}
+            showsVerticalScrollIndicator={false}
+            style={picker.list}
+            renderItem={({ item: c }) => {
+              const isSelected = selected === c.code;
+              const name = locale === 'en' ? c.nameEn : c.nameFr;
+              return (
+                <TouchableOpacity
+                  onPress={() => setSelected(c.code)}
+                  style={[picker.row, isSelected && picker.rowSelected]}
+                  accessibilityRole="radio"
+                  accessibilityLabel={name}
+                  accessibilityState={{ checked: isSelected }}
+                >
+                  <Text style={picker.flag}>{c.flag}</Text>
+                  <View style={{ flex: 1 }}>
+                    {c.badge ? (
+                      <>
+                        <Text style={[picker.code, isSelected && picker.codeSelected]}>{name}</Text>
+                        <Text style={picker.name}>{c.code}</Text>
+                      </>
+                    ) : (
+                      <>
+                        <Text style={[picker.code, isSelected && picker.codeSelected]}>{c.code}</Text>
+                        <Text style={picker.name}>{name}</Text>
+                      </>
+                    )}
+                  </View>
+                  {isSelected && (
+                    <View style={picker.check}>
+                      <Text style={picker.checkText}>✓</Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+              );
+            }}
+          />
+          <View style={picker.buttons}>
+            <TouchableOpacity onPress={onClose} style={picker.cancelBtn}>
+              <Text style={picker.cancelText}>{t('settings.changeCurrencyCancel')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => onConfirm(selected)}
+              style={picker.confirmBtn}
+            >
+              <Text style={picker.confirmText}>{t('common.confirm')}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
+const picker = StyleSheet.create({
+  overlay:      { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(13,31,15,0.45)' },
+  sheet:        { backgroundColor: colors.card, borderTopLeftRadius: 28, borderTopRightRadius: 28, paddingHorizontal: 20, paddingBottom: 36, paddingTop: 12, maxHeight: '85%' },
+  handle:       { width: 40, height: 4, borderRadius: 2, backgroundColor: colors.border, alignSelf: 'center', marginBottom: 16 },
+  title:        { color: colors.textDark, fontWeight: '800', fontSize: 18, marginBottom: 12 },
+  list:         { flexGrow: 0 },
+  row:          { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, paddingHorizontal: 4, borderRadius: 12, gap: 12, marginBottom: 2 },
+  rowSelected:  { backgroundColor: colors.primaryTint },
+  flag:         { fontSize: 22, width: 32, textAlign: 'center' },
+  code:         { fontSize: 14, fontWeight: '700', color: colors.textDark },
+  codeSelected: { color: colors.primary },
+  name:         { fontSize: 12, color: colors.textMuted, marginTop: 1 },
+  check:        { width: 22, height: 22, borderRadius: 11, backgroundColor: colors.primary, alignItems: 'center', justifyContent: 'center' },
+  checkText:    { color: '#FFFFFF', fontSize: 12, fontWeight: '800' },
+  buttons:      { flexDirection: 'row', gap: 12, marginTop: 16 },
+  cancelBtn:    { flex: 1, paddingVertical: 14, borderRadius: 14, alignItems: 'center', backgroundColor: colors.bg, borderWidth: 1.5, borderColor: colors.border },
+  cancelText:   { color: colors.textMid, fontWeight: '700', fontSize: 15 },
+  confirmBtn:   { flex: 2, paddingVertical: 14, borderRadius: 14, alignItems: 'center', backgroundColor: colors.primary },
+  confirmText:  { color: '#FFFFFF', fontWeight: '800', fontSize: 15 },
+});
+
 const edit = StyleSheet.create({
   overlay:  { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(13,31,15,0.45)' },
   sheet:    { backgroundColor: colors.card, borderTopLeftRadius: 28, borderTopRightRadius: 28, paddingHorizontal: 24, paddingBottom: 36, paddingTop: 12, maxHeight: '92%' },
@@ -394,6 +490,8 @@ export default function SettingsScreen() {
   const { locale, setLocale } = useLocaleStore();
 
   const [editingProfile, setEditingProfile] = useState<UserProfile | null>(null);
+  const [currencyPickerVisible, setCurrencyPickerVisible] = useState(false);
+  const [pickerCurrency, setPickerCurrency] = useState('EUR');
 
   const activeProfile = profiles.find((p) => p.id === activeId) ?? null;
 
@@ -425,6 +523,30 @@ export default function SettingsScreen() {
       { text: t('common.cancel'), style: 'cancel' },
       { text: t('common.delete'), style: 'destructive', onPress: clearHistory },
     ]);
+  };
+
+  const handleCurrencyPickerConfirm = (newCurrency: string) => {
+    if (!activeProfile) return;
+    if (newCurrency === activeProfile.currency) {
+      setCurrencyPickerVisible(false);
+      return;
+    }
+    Alert.alert(
+      t('settings.changeCurrencyTitle'),
+      t('settings.changeCurrencyMessage'),
+      [
+        { text: t('settings.changeCurrencyCancel'), style: 'cancel' },
+        {
+          text: t('settings.changeCurrencyContinue'),
+          onPress: async () => {
+            await updateProfile(activeProfile.id, { currency: newCurrency, grossSalary: 0, netSalary: 0 });
+            setCurrencyPickerVisible(false);
+            const fresh = useProfileStore.getState().profiles.find((p) => p.id === activeProfile.id);
+            if (fresh) setEditingProfile(fresh);
+          },
+        },
+      ],
+    );
   };
 
   const handleAddProfile = () => {
@@ -538,6 +660,19 @@ export default function SettingsScreen() {
                 value={activeProfile.includeCommute}
                 onToggle={() => updateProfile(activeProfile.id, { includeCommute: !activeProfile.includeCommute })}
               />
+              <View style={styles.divider} />
+              <TouchableOpacity
+                onPress={() => { setPickerCurrency(activeProfile.currency); setCurrencyPickerVisible(true); }}
+                style={styles.currencyTapRow}
+                accessibilityRole="button"
+                accessibilityLabel={t('settings.referenceCurrency')}
+              >
+                <Text style={styles.toggleLabel}>{t('settings.referenceCurrency')}</Text>
+                <View style={styles.currencyTapRight}>
+                  <Text style={styles.currencyTapCode}>{activeProfile.currency}</Text>
+                  <Text style={styles.contactArrow}>›</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </>
         )}
@@ -629,6 +764,17 @@ export default function SettingsScreen() {
           onSave={(patch) => updateProfile(editingProfile.id, patch)}
         />
       )}
+
+      {/* Currency picker modal */}
+      {activeProfile && (
+        <CurrencyPickerModal
+          currentCurrency={pickerCurrency}
+          visible={currencyPickerVisible}
+          locale={locale}
+          onClose={() => setCurrencyPickerVisible(false)}
+          onConfirm={handleCurrencyPickerConfirm}
+        />
+      )}
     </SafeAreaView>
   );
 }
@@ -697,6 +843,9 @@ const styles = StyleSheet.create({
   contactText: { flex: 1, color: colors.textDark, fontWeight: '600', fontSize: 14 },
   contactArrow: { color: colors.textMuted, fontSize: 22, fontWeight: '300' },
   versionText: { color: colors.textMuted, fontSize: 11, textAlign: 'center', marginTop: 8 },
+  currencyTapRow:   { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 14, paddingVertical: 14 },
+  currencyTapRight: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  currencyTapCode:  { color: colors.textMid, fontWeight: '700', fontSize: 14 },
 
 });
 
