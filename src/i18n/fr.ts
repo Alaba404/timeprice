@@ -41,7 +41,7 @@ export default {
     result: 'Résultat',
     noProfile: 'Configurez un profil pour commencer',
     category: 'Catégorie',
-    tagline: 'Connais la vraie valeur de ton argent',
+    tagline: 'Mesure le temps de travail que te coûte chaque dépense.',
     amountLabel: 'Montant à convertir',
     equates: 'Équivaut à',
     ofWorkTime: 'de ton temps de travail',

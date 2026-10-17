@@ -39,7 +39,7 @@ export default {
     result: 'Result',
     noProfile: 'Set up a profile to get started',
     category: 'Category',
-    tagline: 'Know the real value of your money',
+    tagline: 'Measure the work time each expense costs you.',
     amountLabel: 'Amount to convert',
     equates: 'Equals',
     ofWorkTime: 'of your work time',
