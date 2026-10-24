@@ -351,7 +351,7 @@ export default function OnboardingScreen() {
               />
 
               <TouchableOpacity
-                onPress={goToStep2}
+                onPress={() => { void goToStep2(); }}
                 style={s.btnPrimary}
                 accessibilityRole="button"
                 accessibilityLabel={t('onboarding.next')}
@@ -479,7 +479,7 @@ export default function OnboardingScreen() {
                   <Text style={s.btnSecondaryText}>← {t('common.back')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={goToStep3}
+                  onPress={() => { void goToStep3(); }}
                   style={s.btnPrimaryFull}
                   accessibilityRole="button"
                   accessibilityLabel={t('onboarding.next')}
@@ -600,7 +600,7 @@ export default function OnboardingScreen() {
                   <Text style={s.btnSecondaryText}>← {t('common.back')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={finish}
+                  onPress={() => { void finish(); }}
                   style={s.btnPrimaryFull}
                   accessibilityRole="button"
                   accessibilityLabel={t('onboarding.finish')}

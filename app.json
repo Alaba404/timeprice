@@ -8,10 +8,7 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.owoda.app",
-      "appGroupEntitlements": [
-        "group.com.owoda.widget"
-      ]
+      "bundleIdentifier": "com.owoda.app"
     },
     "android": {
       "adaptiveIcon": {
@@ -19,10 +16,7 @@
         "backgroundColor": "#00A86B"
       },
       "package": "com.owodalabs.owoda",
-      "versionCode": 1,
-      "navigationBar": {
-        "backgroundColor": "#FFFFFF"
-      }
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",

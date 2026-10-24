@@ -20,7 +20,7 @@ const FALLBACK_RATES: ExchangeRates = {
 type KVStorage = {
   getString(key: string): string | undefined;
   set(key: string, value: string): void;
-  delete(key: string): void;
+  remove(key: string): void;
 };
 
 function buildStorage(): KVStorage {
@@ -34,7 +34,7 @@ function buildStorage(): KVStorage {
     return {
       getString: (key) => _map.get(key),
       set: (key, value) => { _map.set(key, value); },
-      delete: (key) => { _map.delete(key); },
+      remove: (key) => { _map.delete(key); },
     };
   }
 }
@@ -98,7 +98,7 @@ export async function loadExchangeRates(): Promise<ExchangeRates> {
 
 /** Force-invalidate the cache (useful in tests or settings reset). */
 export function clearRateCache(): void {
-  storage.delete(MMKV_KEY);
+  storage.remove(MMKV_KEY);
 }
 
 /** Returns cached rates synchronously (null if no cache). Used in the render path. */

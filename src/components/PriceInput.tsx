@@ -21,7 +21,7 @@ type Props = {
 export const DISPLAY_CURRENCIES = ['XOF', 'XAF', 'NGN', 'EUR', 'USD'];
 
 export function PriceInput({ value, onChangeText, currencyInfo, onCurrencyPress }: Props) {
-  const inputRef = useRef<TextInput>(null);
+  const inputRef = useRef<React.ComponentRef<typeof TextInput>>(null);
 
   const inputProps: TextInputProps = {
     keyboardType: 'decimal-pad',

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, type NativeSyntheticEvent, type TextLayoutEventData } from 'react-native';
+import { View, Text, StyleSheet, type TextLayoutEvent } from 'react-native';
 import Animated, {
   useSharedValue,
   withTiming,
@@ -99,7 +99,7 @@ export function DurationBadge({ result, weeklyHours, size = 'lg' }: Props) {
   }, [accessibleText, isLarge]);
 
   const handleMeasureLayout = useCallback(
-    (e: NativeSyntheticEvent<TextLayoutEventData>) => {
+    (e: TextLayoutEvent) => {
       // More than 1 line at current size → shrink by one step
       if (e.nativeEvent.lines.length > 1 && lgFontSize > FONT_MIN) {
         setLgFontSize((prev) => Math.max(prev - FONT_STEP, FONT_MIN));
