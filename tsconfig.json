@@ -13,6 +13,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "types": ["jest"],
     "paths": {
       "@/*": [
         "./src/*"
@@ -29,6 +30,5 @@
     "expo-env.d.ts",
     "nativewind-env.d.ts",
     ".expo/types/**/*.ts"
-  ],
-  "exclude": ["tests/**"]
+  ]
 }
