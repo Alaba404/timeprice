@@ -2,6 +2,7 @@
   "expo": {
     "name": "Owoda",
     "slug": "owoda",
+    "owner": "korvedion",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -38,6 +39,11 @@
     "scheme": "owoda",
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5bba43f2-6172-4105-be12-7d9204067a31"
+      }
     }
   }
 }
