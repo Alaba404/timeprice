@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Politique de confidentialité · Owoda</title>
-  <meta name="description" content="Politique de confidentialité de l'application Owoda par Owoda Labs." />
+  <meta name="description" content="Politique de confidentialité de l'application Owoda et des sites owodalabs.com et owoda.app, par Korvedion." />
   <style>
     @font-face {
       font-family: 'Inter';
@@ -135,6 +135,20 @@
 
     footer a { color: var(--gold); }
     footer a:hover { text-decoration: underline; }
+
+    .footer-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copy { font-size: 13px; }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); transition: color 0.15s; }
+    .footer-links a:hover { color: var(--gold); text-decoration: none; }
   </style>
 
   <!-- ── Schema.org JSON-LD ─────────────────────────────────────────────── -->
@@ -143,9 +157,10 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Owoda Labs",
+    "legalName": "Korvedion SASU",
     "url": "https://owodalabs.com",
-    "email": "contact@owoda.app",
-    "description": "Owoda Labs conçoit Owoda, l'étape zéro de l'éducation financière pensée pour l'Afrique et sa diaspora."
+    "email": "apps@korvedion.com",
+    "description": "Korvedion édite Owoda, l'application pensée pour l'Afrique et sa diaspora."
   }
   </script>
 </head>
@@ -160,100 +175,83 @@
 
   <div class="page-header">
     <h1>Politique de confidentialité</h1>
-    <p>Dernière mise à jour : juin 2026</p>
+    <p>Dernière mise à jour : novembre 2026</p>
   </div>
 
   <main class="content">
 
     <div class="highlight-box">
-      🔒 En résumé : Owoda ne collecte aucune donnée personnelle. Vos données financières restent sur votre appareil. Aucun compte requis, aucun tracker comportemental, aucune publicité.
+      En résumé<br>
+      Owoda ne vous demande ni compte, ni nom, ni e-mail. Votre profil et votre historique restent sur votre appareil. Aucune publicité, aucun outil de mesure d'audience, aucun tracker.
     </div>
 
-    <h2>1. Présentation</h2>
-    <p>
-      Owoda Labs («&nbsp;nous&nbsp;», «&nbsp;notre&nbsp;») développe et publie l'application mobile
-      <strong>Owoda</strong>. La présente politique de confidentialité décrit comment nous traitons
-      les informations dans le cadre de l'utilisation de l'application.
-    </p>
-    <p>
-      En utilisant Owoda, vous acceptez les pratiques décrites dans ce document.
-    </p>
+    <h2>1. Responsable du traitement</h2>
+    <p>Korvedion, SASU au capital de 1&nbsp;000&nbsp;€, 40 rue de la Tour d'Auvergne, 44200 Nantes, France, RCS Nantes 132&nbsp;147&nbsp;075, éditrice de l'application Owoda et des sites owodalabs.com et owoda.app.</p>
+    <p>Contact pour toute question sur vos données : <a href="mailto:apps@korvedion.com">apps@korvedion.com</a></p>
 
-    <h2>2. Données collectées</h2>
-    <p>
-      <strong>Owoda ne collecte aucune donnée personnelle.</strong> L'application fonctionne
-      entièrement en local sur votre appareil. En particulier :
-    </p>
+    <h2>2. Les données qui restent sur votre appareil</h2>
+    <p>Votre profil (revenus, heures de travail, temps de trajet, congés, devise) et votre historique de conversions sont enregistrés uniquement sur votre téléphone, dans un espace de stockage sécurisé. Korvedion n'y a pas accès et ne les reçoit jamais. Vous pouvez les supprimer à tout moment depuis les Réglages de l'application, ou en désinstallant Owoda.</p>
+
+    <h2>3. Les données traitées et pourquoi</h2>
+
+    <p><strong>Gestion de l'abonnement Premium</strong><br>
+    Les achats passent par l'App Store (Apple) ou Google Play (Google), qui traitent le paiement selon leurs propres politiques de confidentialité. Korvedion ne reçoit jamais vos coordonnées bancaires.<br>
+    Pour vérifier votre accès Premium, l'application utilise le service RevenueCat, qui reçoit un identifiant pseudonyme généré par l'application, l'historique de vos achats transmis par les stores et des informations techniques (type d'appareil, versions du système et de l'application). Aucun nom ni e-mail ne lui est transmis.<br>
+    Base légale : l'exécution du contrat d'abonnement.<br>
+    Durée de conservation : pendant la durée de votre abonnement, puis 3 ans après sa fin, sauf demande de suppression de votre part.</p>
+
+    <p><strong>Mise à jour des taux de change</strong><br>
+    Une fois par jour au maximum, l'application interroge le service ExchangeRate-API pour obtenir les taux de change du jour. La requête ne contient aucune donnée vous concernant. Comme pour toute connexion internet, le service reçoit l'adresse IP de l'appareil.<br>
+    Base légale : l'intérêt légitime de Korvedion à faire fonctionner l'application.</p>
+
+    <p><strong>Téléchargement du Guide Pratique</strong><br>
+    Le Guide est hébergé chez Cloudflare. Son ouverture transmet à Cloudflare l'adresse IP de l'appareil, comme pour toute page web.<br>
+    Base légale : l'exécution du contrat d'abonnement.</p>
+
+    <p><strong>Échanges par e-mail</strong><br>
+    Si vous nous écrivez, nous utilisons votre adresse e-mail, le contenu de votre message et, si vous écrivez depuis l'application, les versions de l'application et du système ajoutées automatiquement au message, uniquement pour vous répondre.<br>
+    Base légale : l'intérêt légitime de Korvedion à répondre à vos demandes.<br>
+    Durée de conservation : 3 ans après notre dernier échange.</p>
+
+    <p><strong>Consultation des sites owodalabs.com et owoda.app</strong><br>
+    Les sites ne comportent ni formulaire, ni cookie, ni outil de mesure d'audience. Leur hébergeur, GitHub, peut enregistrer des données techniques de connexion, dont l'adresse IP, pour assurer la sécurité du service.</p>
+
+    <h2>4. Destinataires</h2>
+    <p>Vos données ne sont jamais vendues ni utilisées à des fins publicitaires. Elles ne sont accessibles qu'à Korvedion et aux prestataires techniques suivants, dans la limite de leur mission :</p>
     <ul>
-      <li>Vos données de salaire sont stockées exclusivement dans la base de données locale de votre appareil (SQLite).</li>
-      <li>Votre historique de conversions est conservé uniquement sur votre appareil.</li>
-      <li>Aucune information d'identification (nom, email, téléphone) n'est demandée ni stockée.</li>
-      <li>Aucun compte utilisateur n'est créé.</li>
+      <li>RevenueCat, Inc. (États-Unis) : gestion des abonnements</li>
+      <li>AYR Tech (Pty) Ltd, éditeur d'ExchangeRate-API : taux de change</li>
+      <li>Cloudflare, Inc. (États-Unis) : hébergement du Guide Pratique</li>
+      <li>GitHub, Inc. (États-Unis) : hébergement des sites</li>
+      <li>nos prestataires de messagerie électronique</li>
     </ul>
-    <p>Exception : la gestion de votre abonnement Premium implique la collecte de votre historique d'achats par RevenueCat (voir section 4).</p>
+    <p>Apple et Google traitent les paiements en tant que responsables de traitement indépendants.</p>
 
-    <h2>3. Taux de change</h2>
-    <p>
-      Pour mettre à jour les taux de change, l'application peut contacter
-      un service tiers de taux de change (requête anonyme sans identifiant).
-      Cette requête ne contient aucune donnée personnelle et est purement
-      technique. En l'absence de connexion, les derniers taux mis en cache
-      sont utilisés.
-    </p>
+    <h2>5. Transferts hors de l'Union européenne</h2>
+    <p>Certains de ces prestataires sont établis hors de l'Union européenne. Les transferts vers RevenueCat sont encadrés par les clauses contractuelles types de la Commission européenne. Cloudflare et GitHub appliquent le cadre de protection des données UE-États-Unis (Data Privacy Framework). Pour ExchangeRate-API, seule l'adresse IP de l'appareil est transmise, au moment de la requête technique.</p>
 
-    <h2>4. Achats intégrés (Premium)</h2>
-    <p>
-      Les achats Premium sont gérés via <strong>RevenueCat</strong>, avec Google Play (Android) ou l'Apple App Store (iOS).
-      Pour gérer votre abonnement, RevenueCat collecte votre historique d'achats et un identifiant client anonyme.
-      Ces données servent au fonctionnement de l'application (gérer votre accès Premium) et à des analyses.
-      Les plateformes de paiement traitent les paiements selon leurs propres politiques.
-      Owoda Labs ne stocke aucune information de paiement sur ses serveurs.
-      Vous pouvez demander la suppression des données détenues par RevenueCat en écrivant à <a href="mailto:contact@owoda.app">contact@owoda.app</a>.
-    </p>
+    <h2>6. Vos droits</h2>
+    <p>Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité sur vos données. Pour les exercer, écrivez à <a href="mailto:apps@korvedion.com">apps@korvedion.com</a>. Nous vous répondons dans un délai d'un mois.</p>
+    <p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL (www.cnil.fr).</p>
 
-    <h2>5. Permissions utilisées</h2>
-    <ul>
-      <li><strong>Internet</strong> : utilisé uniquement pour la mise à jour des taux de change et les achats Premium.</li>
-    </ul>
-    <p>Aucune autre permission n'est requise ou utilisée.</p>
+    <h2>7. Mineurs</h2>
+    <p>Owoda s'adresse aux personnes qui perçoivent un revenu. L'application n'est pas destinée aux moins de 15 ans.</p>
 
-    <h2>6. Analytics et trackers</h2>
-    <p>
-      Owoda n'affiche aucune publicité et n'intègre aucun tracker comportemental.
-      En dehors de RevenueCat (gestion des abonnements, voir section 4), aucun SDK tiers ne collecte de données.
-    </p>
-
-    <h2>7. Données des mineurs</h2>
-    <p>
-      Owoda n'est pas destiné aux personnes de moins de 13 ans. Nous ne
-      collectons pas sciemment de données provenant de mineurs.
-    </p>
-
-    <h2>8. Vos droits</h2>
-    <p>
-      Vos données locales (salaire, historique) peuvent être supprimées à tout moment depuis les Réglages de l'application.
-      Concernant l'historique d'achats traité par RevenueCat, vous pouvez en demander la suppression en nous contactant à <a href="mailto:contact@owoda.app">contact@owoda.app</a>.
-    </p>
-
-    <h2>9. Modifications de cette politique</h2>
-    <p>
-      Nous pouvons mettre à jour cette politique de confidentialité occasionnellement.
-      En cas de changement significatif, la date de mise à jour en haut de cette
-      page sera modifiée. Nous vous encourageons à consulter cette page
-      périodiquement.
-    </p>
-
-    <h2>10. Contact</h2>
-    <p>
-      Pour toute question relative à cette politique de confidentialité,
-      contactez-nous à : <a href="mailto:contact@owoda.app">contact@owoda.app</a>
-    </p>
+    <h2>8. Modifications</h2>
+    <p>Nous pouvons mettre à jour cette politique. En cas de changement important, la date en haut de cette page sera modifiée et, si nécessaire, vous en serez informé dans l'application.</p>
 
   </main>
 
   <footer>
-    © 2026 Owoda Labs &nbsp;·&nbsp;
-    <a href="terms.html">Conditions d'utilisation</a>
+    <div class="footer-inner">
+      <span class="footer-copy">© 2026 Owoda par Korvedion · Tous droits réservés</span>
+      <ul class="footer-links">
+        <li><a href="about.html">À propos</a></li>
+        <li><a href="legal.html">Mentions légales</a></li>
+        <li><a href="privacy.html">Confidentialité</a></li>
+        <li><a href="terms.html">CGU</a></li>
+      </ul>
+    </div>
   </footer>
 
 </body>

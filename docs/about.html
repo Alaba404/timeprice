@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>À propos · Owoda</title>
+  <meta name="description" content="Owoda est une application conçue pour l'Afrique et sa diaspora, éditée par Korvedion." />
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('fonts/inter-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:      #00A86B;
+      --green-dark: #007A4D;
+      --gold:       #D4AF37;
+      --text:       #111827;
+      --text-mid:   #4B5563;
+      --border:     #E5E7EB;
+      --bg:         #FFFFFF;
+      --bg-alt:     #F9FAFB;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      background: #0D2B1A;
+      padding: 0 20px;
+    }
+    .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo-link {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: 0.5px;
+    }
+    .nav-back {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: white; text-decoration: none; }
+
+    .page-header {
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 20px 36px;
+      text-align: center;
+    }
+    .page-header h1 {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 800;
+    }
+
+    .content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+
+    .content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 40px;
+      margin-bottom: 12px;
+      color: var(--text);
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .content h2:first-child { border-top: none; margin-top: 0; }
+
+    .content p {
+      font-size: 15px;
+      color: var(--text-mid);
+      margin-bottom: 14px;
+    }
+
+    .content strong { color: var(--text); }
+
+    footer {
+      background: #0D1F14;
+      color: rgba(255,255,255,0.45);
+      padding: 24px 20px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    footer a { color: var(--gold); }
+    footer a:hover { text-decoration: underline; }
+
+    .footer-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copy { font-size: 13px; }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); transition: color 0.15s; }
+    .footer-links a:hover { color: var(--gold); text-decoration: none; }
+  </style>
+
+  <!-- ── Schema.org JSON-LD ─────────────────────────────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Owoda Labs",
+    "legalName": "Korvedion SASU",
+    "url": "https://owodalabs.com",
+    "email": "hello@owodalabs.com",
+    "description": "Korvedion édite Owoda, l'application pensée pour l'Afrique et sa diaspora."
+  }
+  </script>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo-link">Owoda Labs</a>
+      <a href="index.html" class="nav-back">← Retour à l'accueil</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>À propos</h1>
+  </div>
+
+  <main class="content">
+
+    <p>Nous partons d'une conviction simple. Comme l'écrit Morgan Housel dans <em>La psychologie de l'argent</em> : «&nbsp;Votre réussite financière ne dépend pas forcément de vos connaissances. Elle dépend de votre attitude. Or l'attitude n'est pas quelque chose qui s'apprend facilement, même quand on est intelligent.&nbsp;»</p>
+
+    <p>La plupart des difficultés financières ne viennent pas d'un manque d'informations. Elles viennent d'un manque de recul au moment de décider. Housel le rappelle : «&nbsp;Le plus souvent, la finance est enseignée comme une discipline mathématique. Pourtant, dans la vraie vie, nous ne prenons pas nos décisions financières devant des feuilles de calcul. Nous les prenons à la table du dîner familial ou dans une salle de réunion.&nbsp;»</p>
+
+    <p>Owoda part de ce constat. Un budget se fait après coup, quand il faut faire les comptes. Owoda intervient avant. Elle calcule ton taux horaire réel, puis transforme un prix abstrait en temps de travail concret, pour que chaque dépense soit décidée en connaissance de cause, au moment où elle se décide vraiment : face au choix.</p>
+
+    <p>C'est l'étape zéro. Elle ne se trouve pas dans un bilan mensuel. Elle se joue dans la seconde qui précède le paiement.</p>
+
+    <h2>Qui sommes-nous</h2>
+    <p>Owoda est une application conçue pour l'Afrique et sa diaspora, éditée par Korvedion, société basée à Nantes.</p>
+    <p>Nous pensons que le développement passe aussi par les décisions financières prises chaque jour par chacun.</p>
+    <p>Pour nous écrire : <a href="mailto:hello@owodalabs.com">hello@owodalabs.com</a></p>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-copy">© 2026 Owoda par Korvedion · Tous droits réservés</span>
+      <ul class="footer-links">
+        <li><a href="about.html">À propos</a></li>
+        <li><a href="legal.html">Mentions légales</a></li>
+        <li><a href="privacy.html">Confidentialité</a></li>
+        <li><a href="terms.html">CGU</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About · Owoda</title>
+  <meta name="description" content="Owoda is an app designed for Africa and its diaspora, published by Korvedion." />
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('fonts/inter-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:      #00A86B;
+      --green-dark: #007A4D;
+      --gold:       #D4AF37;
+      --text:       #111827;
+      --text-mid:   #4B5563;
+      --border:     #E5E7EB;
+      --bg:         #FFFFFF;
+      --bg-alt:     #F9FAFB;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      background: #0D2B1A;
+      padding: 0 20px;
+    }
+    .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo-link {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: 0.5px;
+    }
+    .nav-back {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: white; text-decoration: none; }
+
+    .page-header {
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 20px 36px;
+      text-align: center;
+    }
+    .page-header h1 {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 800;
+    }
+
+    .content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+
+    .content h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 40px;
+      margin-bottom: 12px;
+      color: var(--text);
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .content h2:first-child { border-top: none; margin-top: 0; }
+
+    .content p {
+      font-size: 15px;
+      color: var(--text-mid);
+      margin-bottom: 14px;
+    }
+
+    .content strong { color: var(--text); }
+
+    footer {
+      background: #0D1F14;
+      color: rgba(255,255,255,0.45);
+      padding: 24px 20px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    footer a { color: var(--gold); }
+    footer a:hover { text-decoration: underline; }
+
+    .footer-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copy { font-size: 13px; }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); transition: color 0.15s; }
+    .footer-links a:hover { color: var(--gold); text-decoration: none; }
+  </style>
+
+  <!-- ── Schema.org JSON-LD ─────────────────────────────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Owoda Labs",
+    "legalName": "Korvedion SASU",
+    "url": "https://owodalabs.com",
+    "email": "hello@owodalabs.com",
+    "description": "Korvedion publishes Owoda, the app designed for Africa and its diaspora."
+  }
+  </script>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index-en.html" class="logo-link">Owoda Labs</a>
+      <a href="index-en.html" class="nav-back">← Back to home</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>About</h1>
+  </div>
+
+  <main class="content">
+
+    <p>We start from a simple conviction. As Morgan Housel writes in <em>The Psychology of Money</em>: &ldquo;Doing well with money has a little to do with how smart you are and a lot to do with how you behave. And behavior is hard to teach, even to really smart people.&rdquo;</p>
+
+    <p>Most financial difficulties do not come from a lack of information. They come from a lack of perspective at the moment of deciding. As Housel puts it: &ldquo;In the real world people do not make financial decisions on a spreadsheet. They make them at the dinner table, or in a meeting room.&rdquo;</p>
+
+    <p>Owoda starts from there. A budget is done after the fact, when it is time to do the accounts. Owoda comes in before. It calculates your real hourly rate, then turns an abstract price into concrete working time, so that every expense is decided with full knowledge, at the moment it is really decided: when you face the choice.</p>
+
+    <p>This is step zero. It is not found in a monthly statement. It happens in the second before you pay.</p>
+
+    <h2>Who we are</h2>
+    <p>Owoda is an app designed for Africa and its diaspora, published by Korvedion, a company based in Nantes.</p>
+    <p>We believe that development also depends on the financial decisions each of us makes every day.</p>
+    <p>To write to us: <a href="mailto:hello@owodalabs.com">hello@owodalabs.com</a></p>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-copy">© 2026 Owoda by Korvedion · All rights reserved</span>
+      <ul class="footer-links">
+        <li><a href="about-en.html">About</a></li>
+        <li><a href="legal-en.html">Legal notice</a></li>
+        <li><a href="privacy-en.html">Privacy</a></li>
+        <li><a href="terms-en.html">Terms</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
