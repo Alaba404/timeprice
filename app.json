@@ -9,7 +9,7 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.owoda.app"
+      "bundleIdentifier": "com.owodalabs.owoda"
     },
     "android": {
       "adaptiveIcon": {
