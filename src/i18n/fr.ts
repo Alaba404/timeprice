@@ -156,7 +156,7 @@ export default {
   premium: {
     unlockTitle: 'Débloquer Owoda Premium',
     unlockSubtitle: 'Export CSV, dashboard et plus',
-    guideOffer: '🎁 Guide Pratique offert avec Premium',
+    guideOffer: 'Guide Pratique offert avec Premium',
     guideBanner: 'Abonne-toi au Premium et reçois notre guide pratique offert.',
     cta: 'Essaie 7 jours. Tu décides après.',
     restore: 'Restaurer les achats',

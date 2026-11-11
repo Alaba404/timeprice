@@ -27,6 +27,7 @@ import { nanoid } from 'nanoid/non-secure';
 import { PriceInput } from '../../src/components/PriceInput';
 import { OwodaLogoHorizontal } from '../../src/components/OwodaLogoHorizontal';
 import { OwodaSymbole } from '../../src/components/OwodaSymbole';
+import { Icon, type IconName } from '../../src/components/Icon';
 import { DurationBadge } from '../../src/components/DurationBadge';
 import { ProfileSelector } from '../../src/components/ProfileSelector';
 import { useConverter } from '../../src/hooks/useConverter';
@@ -47,15 +48,15 @@ import { convertCurrency } from '../../src/core/converter';
 import type { Category, ConversionEntry } from '../../src/types';
 
 // Category value + icon only — labels come from t() at render time
-const CATEGORY_VALUES: { value: Category; icon: string }[] = [
-  { value: 'food',      icon: '🍔' },
-  { value: 'transport', icon: '🚗' },
-  { value: 'housing',   icon: '🏠' },
-  { value: 'tech',      icon: '💻' },
-  { value: 'clothing',  icon: '👕' },
-  { value: 'leisure',   icon: '🎮' },
-  { value: 'health',    icon: '💊' },
-  { value: 'other',     icon: '📦' },
+const CATEGORY_VALUES: { value: Category; icon: IconName }[] = [
+  { value: 'food',      icon: 'utensils' },
+  { value: 'transport', icon: 'car' },
+  { value: 'housing',   icon: 'house' },
+  { value: 'tech',      icon: 'laptop' },
+  { value: 'clothing',  icon: 'shirt' },
+  { value: 'leisure',   icon: 'gamepad-2' },
+  { value: 'health',    icon: 'pill' },
+  { value: 'other',     icon: 'package' },
 ];
 
 // ── Logo ────────────────────────────────────────────────────────────────────
@@ -403,10 +404,11 @@ export default function ConverterScreen() {
                   style={styles.exampleChip}
                   activeOpacity={0.75}
                   accessibilityRole="button"
-                  accessibilityLabel={`💡 ${locale === 'en' ? 'Try with' : 'Essaie avec'} ${formatPriceDisplay(chipAmount, currency)}`}
+                  accessibilityLabel={`${locale === 'en' ? 'Try with' : 'Essaie avec'} ${formatPriceDisplay(chipAmount, currency)}`}
                 >
+                  <Icon name="lightbulb" size={12} color={colors.primary} />
                   <Text style={styles.exampleChipText}>
-                    {`💡 ${locale === 'en' ? 'Try with' : 'Essaie avec'} ${formatPriceDisplay(chipAmount, currency)}`}
+                    {`${locale === 'en' ? 'Try with' : 'Essaie avec'} ${formatPriceDisplay(chipAmount, currency)}`}
                   </Text>
                 </TouchableOpacity>
               )}
@@ -423,7 +425,9 @@ export default function ConverterScreen() {
                   </>
                 ) : (
                   <View style={styles.resultPlaceholder}>
-                    <Text style={styles.resultPlaceholderEmoji}>⏱</Text>
+                    <View style={styles.resultPlaceholderEmoji}>
+                      <Icon name="timer" size={36} color={colors.textMuted} />
+                    </View>
                     <Text style={styles.resultPlaceholderText}>{t('converter.hint')}</Text>
                   </View>
                 )}
@@ -444,7 +448,7 @@ export default function ConverterScreen() {
                         accessibilityLabel={label}
                         accessibilityState={{ checked: category === c.value }}
                       >
-                        <Text style={styles.categoryEmoji}>{c.icon}</Text>
+                        <Icon name={c.icon} size={15} color={category === c.value ? colors.primary : colors.textMid} />
                         <Text style={category === c.value ? styles.categoryTextActive : styles.categoryTextInactive}>
                           {label}
                         </Text>
@@ -622,6 +626,9 @@ const styles = StyleSheet.create({
   // Example chip
   exampleChip: {
     alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
     backgroundColor: colors.primaryTint,
     borderWidth: 1,
     borderColor: colors.primary + '60',
@@ -642,7 +649,7 @@ const styles = StyleSheet.create({
   resultLabel: { fontSize: 11, fontWeight: '700', color: colors.primary, letterSpacing: 1.2, marginBottom: 12 },
   resultSub: { fontSize: 13, color: colors.textMid, marginTop: 8, fontWeight: '500' },
   resultPlaceholder: { alignItems: 'center', gap: 10 },
-  resultPlaceholderEmoji: { fontSize: 36, opacity: 0.35 },
+  resultPlaceholderEmoji: { opacity: 0.35 },
   resultPlaceholderText: { fontSize: 14, color: colors.textMuted, textAlign: 'center', lineHeight: 20 },
 
   // Categories
@@ -653,7 +660,6 @@ const styles = StyleSheet.create({
   categoryRow: { flexDirection: 'row', flexWrap: 'wrap' },
   categoryChip: { flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 999, borderWidth: 1.5, backgroundColor: colors.card, borderColor: colors.border, marginRight: 8, marginBottom: 8 },
   categoryChipActive: { backgroundColor: colors.primaryTint, borderColor: colors.primary },
-  categoryEmoji: { fontSize: 13 },
   categoryTextActive: { color: colors.primary, fontSize: 12, fontWeight: '700' },
   categoryTextInactive: { color: colors.textMid, fontSize: 12, fontWeight: '500' },
 

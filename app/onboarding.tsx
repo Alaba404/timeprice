@@ -23,6 +23,7 @@ import { colors } from '../src/theme';
 import { ALL_CURRENCIES, getCurrencyLabel, getCurrencyFromLocale } from '../src/core/currencies';
 import { useLocaleStore } from '../src/store/localeStore';
 import type { SalaryFrequency, UserProfile } from '../src/types';
+import { OwodaLogoHorizontal } from '../src/components/OwodaLogoHorizontal';
 
 // ─── Validation schemas ───────────────────────────────────────────────────────
 
@@ -74,10 +75,7 @@ const s = StyleSheet.create({
   progressFill:  { height: 4, backgroundColor: colors.primary },
 
   // Logo / brand strip
-  brandRow:   { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 20, gap: 8 },
-  brandDot:   { width: 32, height: 32, borderRadius: 10, backgroundColor: colors.primary, alignItems: 'center', justifyContent: 'center' },
-  brandDotText: { fontSize: 18 },
-  brandName:  { fontSize: 22, fontWeight: '800', color: colors.textDark, letterSpacing: -0.5 },
+  brandRow:   { alignItems: 'center', paddingVertical: 20 },
 
   // Step dots
   stepsRow:  { flexDirection: 'row', justifyContent: 'center', gap: 8, marginBottom: 28 },
@@ -255,10 +253,7 @@ export default function OnboardingScreen() {
         >
           {/* Brand */}
           <View style={s.brandRow}>
-            <View style={s.brandDot}>
-              <Text style={s.brandDotText}>⏱</Text>
-            </View>
-            <Text style={s.brandName}>Owoda</Text>
+            <OwodaLogoHorizontal height={34} />
           </View>
 
           {/* Step dots */}

@@ -16,6 +16,7 @@ import type { PurchasesPackage } from '@revenuecat/purchases-typescript-internal
 import { t } from '../src/i18n';
 import { colors } from '../src/theme';
 import { OwodaSymbole } from '../src/components/OwodaSymbole';
+import { Icon, type IconName } from '../src/components/Icon';
 import { useProfileStore } from '../src/store/profileStore';
 
 let Purchases: typeof PurchasesType | null = null;
@@ -52,12 +53,12 @@ const COMP_ROWS: Array<{ labelKey: string; free: string; premium: string; type: 
 ];
 
 // 'guide' is not a gated feature — it's a paywall bonus displayed last
-const FEATURE_LIST: Array<{ key: string; icon: string; isBonus?: boolean }> = [
-  { key: 'csv_export',        icon: '📊' },
-  { key: 'dashboard',         icon: '📈' },
-  { key: 'unlimited_history', icon: '∞'  },
-  { key: 'multi_profile',     icon: '👥' },
-  { key: 'guide',             icon: '🎁', isBonus: true },
+const FEATURE_LIST: Array<{ key: string; icon: IconName; isBonus?: boolean }> = [
+  { key: 'csv_export',        icon: 'chart-column' },
+  { key: 'dashboard',         icon: 'trending-up'  },
+  { key: 'unlimited_history', icon: 'infinity'     },
+  { key: 'multi_profile',     icon: 'users'        },
+  { key: 'guide',             icon: 'gift', isBonus: true },
 ];
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -162,7 +163,8 @@ export default function PaywallScreen() {
           <Text style={styles.heroTitle}>{t('premium.unlockTitle')}</Text>
           <Text style={styles.heroSubtitle}>{t('premium.unlockSubtitle')}</Text>
           {/* Guide offer badge */}
-          <View style={styles.guideBadge}>
+          <View style={[styles.guideBadge, { flexDirection: 'row', alignItems: 'center', gap: 6 }]}>
+            <Icon name="gift" size={13} color={colors.night} />
             <Text style={styles.guideBadgeText}>{t('premium.guideOffer')}</Text>
           </View>
         </View>
@@ -179,7 +181,7 @@ export default function PaywallScreen() {
               ]}
             >
               <View style={[styles.featureIconWrap, f.isBonus && styles.featureIconWrapBonus]}>
-                <Text style={styles.featureIcon}>{f.icon}</Text>
+                <Icon name={f.icon} size={20} color={colors.primary} />
               </View>
               <View style={styles.featureLabelWrap}>
                 <Text style={[styles.featureLabel, f.isBonus && styles.featureLabelBonus]}>
@@ -187,7 +189,9 @@ export default function PaywallScreen() {
                 </Text>
               </View>
               <View style={[styles.featureCheck, f.isBonus && styles.featureCheckBonus]}>
-                <Text style={styles.featureCheckText}>{f.isBonus ? '🎁' : '✓'}</Text>
+                {f.isBonus
+                  ? <Icon name="gift" size={16} color={colors.primary} />
+                  : <Text style={styles.featureCheckText}>✓</Text>}
               </View>
             </View>
           ))}
@@ -218,13 +222,14 @@ export default function PaywallScreen() {
                 <Text style={styles.compFreeText}>{row.free}</Text>
               </View>
               <View style={styles.compValueCell}>
-                <Text style={
-                  row.type === 'check' ? styles.compPremiumCheck
-                  : row.type === 'gift' ? styles.compPremiumGift
-                  : styles.compPremiumValue
-                }>
-                  {row.premium}
-                </Text>
+                {row.type === 'gift'
+                  ? <Icon name="gift" size={14} color={colors.primary} />
+                  : <Text style={
+                      row.type === 'check' ? styles.compPremiumCheck : styles.compPremiumValue
+                    }>
+                      {row.premium}
+                    </Text>
+                }
               </View>
             </View>
           ))}
@@ -365,7 +370,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   featureIconWrapBonus: { backgroundColor: colors.gold + '25' },
-  featureIcon: { fontSize: 18, lineHeight: 22, textAlign: 'center' },
   featureLabelWrap: { flex: 1 },
   featureLabel: { color: colors.textDark, fontSize: 14, fontWeight: '500' },
   featureLabelBonus: { fontWeight: '700', color: colors.night },
@@ -485,7 +489,6 @@ const styles = StyleSheet.create({
   compFreeText:      { fontSize: 13, color: colors.textMuted, fontWeight: '600' },
   compPremiumCheck:  { fontSize: 13, color: colors.primary,   fontWeight: '900' },
   compPremiumValue:  { fontSize: 13, color: colors.primary,   fontWeight: '900' },
-  compPremiumGift:   { fontSize: 15 },
 
   // CTA
   ctaButton: {

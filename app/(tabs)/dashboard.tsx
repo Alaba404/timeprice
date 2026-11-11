@@ -9,13 +9,8 @@ import { useLocaleStore } from '../../src/store/localeStore';
 import { formatDuration } from '../../src/core/formatter';
 import { t } from '../../src/i18n';
 import { colors } from '../../src/theme';
+import { Icon } from '../../src/components/Icon';
 import type { Category, ConversionEntry } from '../../src/types';
-
-const CATEGORY_COLORS: Record<Category, string> = {
-  food: '#F59E0B', transport: '#3B82F6', housing: '#8B5CF6',
-  tech: '#10B981', clothing: '#EC4899', leisure: '#F97316',
-  health: '#06B6D4', other: '#6B7280',
-};
 
 // Category keys for t() — evaluated at render time, always locale-aware
 const CATEGORY_KEYS: Category[] = ['food', 'transport', 'housing', 'tech', 'clothing', 'leisure', 'health', 'other'];
@@ -49,7 +44,7 @@ function BarChart({ stats }: { stats: CategoryStat[] }) {
         const y = BAR_CHART_HEIGHT - barH - 18;
         return (
           <G key={s.category}>
-            <Rect x={x} y={y} width={barWidth} height={barH} rx={6} fill={CATEGORY_COLORS[s.category]} opacity={0.85} />
+            <Rect x={x} y={y} width={barWidth} height={barH} rx={6} fill={colors.primary} opacity={0.85} />
             <SvgText x={x + barWidth / 2} y={BAR_CHART_HEIGHT - 2} fontSize={8} fill={colors.textMuted} textAnchor="middle">
               {s.label}
             </SvgText>
@@ -104,7 +99,7 @@ export default function DashboardScreen() {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.upsellContainer}>
           <View style={styles.upsellIconWrap}>
-            <Text style={styles.upsellIcon}>📊</Text>
+            <Icon name="chart-column" size={36} color={colors.primary} />
           </View>
           <Text style={styles.upsellTitle}>{t('dashboard.title')}</Text>
           <Text style={styles.upsellBody}>{t('dashboard.premiumBody')}</Text>
@@ -141,14 +136,6 @@ export default function DashboardScreen() {
           <View style={styles.card}>
             <Text style={styles.cardTitle}>{t('dashboard.byCategory')}</Text>
             <BarChart stats={stats} />
-            <View style={styles.legend}>
-              {stats.slice(0, 5).map((s) => (
-                <View key={s.category} style={styles.legendItem}>
-                  <View style={[styles.legendDot, { backgroundColor: CATEGORY_COLORS[s.category] }]} />
-                  <Text style={styles.legendText}>{categoryLabel(s.category)}</Text>
-                </View>
-              ))}
-            </View>
           </View>
         ) : (
           <View style={[styles.card, styles.emptyCard]}>
@@ -200,10 +187,6 @@ const styles = StyleSheet.create({
   deltaTextDown: { color: 'rgba(255,255,255,0.9)' },
   card: { backgroundColor: colors.card, borderRadius: 20, padding: 16, marginBottom: 14, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 6, elevation: 2, borderWidth: 1, borderColor: colors.divider },
   cardTitle: { color: colors.textDark, fontWeight: '800', marginBottom: 14, fontSize: 15 },
-  legend: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 12 },
-  legendItem: { flexDirection: 'row', alignItems: 'center', gap: 5 },
-  legendDot: { width: 8, height: 8, borderRadius: 4 },
-  legendText: { color: colors.textMid, fontSize: 11, fontWeight: '500' },
   emptyCard: { alignItems: 'center' },
   emptyText: { color: colors.textMuted },
   topRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 10 },
@@ -215,9 +198,8 @@ const styles = StyleSheet.create({
   topDuration: { color: colors.primary, fontWeight: '800', fontSize: 14 },
   upsellContainer: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32, gap: 16 },
   upsellIconWrap: { width: 72, height: 72, borderRadius: 20, backgroundColor: colors.primaryTint, alignItems: 'center', justifyContent: 'center' },
-  upsellIcon: { fontSize: 36 },
   upsellTitle: { color: colors.textDark, fontSize: 22, fontWeight: '800', textAlign: 'center' },
   upsellBody: { color: colors.textMid, textAlign: 'center', lineHeight: 22 },
-  premiumBadge: { backgroundColor: colors.accentTint, borderRadius: 10, paddingHorizontal: 16, paddingVertical: 8, borderWidth: 1.5, borderColor: colors.accent },
-  premiumBadgeText: { color: colors.accentDark, fontWeight: '800', fontSize: 13, letterSpacing: 1 },
+  premiumBadge: { backgroundColor: colors.gold, borderRadius: 10, paddingHorizontal: 16, paddingVertical: 8 },
+  premiumBadgeText: { color: colors.night, fontWeight: '800', fontSize: 13, letterSpacing: 1 },
 });

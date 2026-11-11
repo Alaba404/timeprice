@@ -150,7 +150,7 @@ export default {
   premium: {
     unlockTitle: 'Unlock Owoda Premium',
     unlockSubtitle: 'CSV export, dashboard and more',
-    guideOffer: '🎁 Practical Guide (in French) included with Premium',
+    guideOffer: 'Practical Guide (in French) included with Premium',
     guideBanner: 'Subscribe to Premium and receive our practical guide for free.',
     cta: 'Try 7 days. Decide after.',
     restore: 'Restore purchases',

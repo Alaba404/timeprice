@@ -27,6 +27,7 @@ import { colors } from '../../src/theme';
 import type { Locale, SalaryFrequency, UserProfile } from '../../src/types';
 import Constants from 'expo-constants';
 import { OwodaLogoHorizontal } from '../../src/components/OwodaLogoHorizontal';
+import { Icon } from '../../src/components/Icon';
 
 const GUIDE_URL = 'https://pub-a6629518d11a4f689348be122e035b5f.r2.dev/owoda-guide-900cb8e1bb3a44368c7dfd5e58dc8dce.pdf';
 
@@ -65,7 +66,7 @@ function GuideLibrary({ locale, hasGuideAccess, onUpgrade }: GuideLibraryProps) 
       {/* Header row */}
       <View style={lib.header}>
         <View style={lib.iconWrap}>
-          <Text style={lib.icon}>📘</Text>
+          <Icon name="book-open" size={24} color={colors.primary} />
         </View>
         <View style={lib.headerInfo}>
           <Text style={lib.title}>{t('settings.libraryGuideName')}</Text>
@@ -105,7 +106,7 @@ function GuideLibrary({ locale, hasGuideAccess, onUpgrade }: GuideLibraryProps) 
               <Text style={lib.checkText}>✓</Text>
             </View>
           ) : (
-            <Text style={lib.lockIcon}>🔒</Text>
+            <Icon name="lock" size={16} color={colors.textMuted} />
           )}
         </View>
       ))}
@@ -583,7 +584,7 @@ export default function SettingsScreen() {
       if (supported) {
         Linking.openURL(url);
       } else {
-        Alert.alert('✉️', t('settings.contactNoApp'));
+        Alert.alert(t('settings.contactNoApp'));
       }
     });
   };
@@ -627,7 +628,7 @@ export default function SettingsScreen() {
                 accessibilityRole="button"
                 accessibilityLabel={`${t('settings.editLabel')} ${p.name}`}
               >
-                <Text style={styles.editIcon}>✏️</Text>
+                <Icon name="pencil" size={16} color={colors.textMid} />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => handleDeleteProfile(p.id)}
@@ -739,7 +740,7 @@ export default function SettingsScreen() {
             accessibilityRole="button"
             accessibilityLabel={t('settings.contact')}
           >
-            <Text style={styles.contactIcon}>✉️</Text>
+            <Icon name="mail" size={16} color={colors.primary} />
             <Text style={styles.contactText}>{t('settings.contact')}</Text>
             <Text style={styles.contactArrow}>›</Text>
           </TouchableOpacity>
@@ -814,7 +815,6 @@ const styles = StyleSheet.create({
   activeBadge: { backgroundColor: colors.primaryTint, borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3, borderWidth: 1, borderColor: colors.primary + '40' },
   activeBadgeText: { color: colors.primary, fontSize: 11, fontWeight: '700' },
   iconBtn: { padding: 4 },
-  editIcon: { fontSize: 16 },
   deleteIcon: { color: colors.danger, fontSize: 16, fontWeight: '700' },
   addProfileRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, paddingVertical: 14, borderTopWidth: 1, borderTopColor: colors.divider },
   addProfileText: { color: colors.primary, fontWeight: '700', fontSize: 14 },
@@ -839,7 +839,6 @@ const styles = StyleSheet.create({
   dangerRow: { paddingHorizontal: 14, paddingVertical: 14 },
   dangerText: { color: colors.danger, fontWeight: '600', fontSize: 14 },
   contactRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, paddingVertical: 14, gap: 12 },
-  contactIcon: { fontSize: 16 },
   contactText: { flex: 1, color: colors.textDark, fontWeight: '600', fontSize: 14 },
   contactArrow: { color: colors.textMuted, fontSize: 22, fontWeight: '300' },
   versionText: { color: colors.textMuted, fontSize: 11, textAlign: 'center', marginTop: 8 },
@@ -869,11 +868,10 @@ const lib = StyleSheet.create({
   header: { flexDirection: 'row', alignItems: 'flex-start', padding: 14, gap: 12 },
   iconWrap: {
     width: 44, height: 44, borderRadius: 12,
-    backgroundColor: '#E8F4FD',
+    backgroundColor: colors.primaryTint,
     alignItems: 'center', justifyContent: 'center',
     flexShrink: 0,
   },
-  icon: { fontSize: 24, lineHeight: 30 },
   headerInfo: { flex: 1 },
   title: { color: colors.textDark, fontWeight: '800', fontSize: 13, marginBottom: 2 },
   subtitle: { color: colors.textMuted, fontSize: 11, lineHeight: 16 },
@@ -915,7 +913,7 @@ const lib = StyleSheet.create({
     alignItems: 'center', justifyContent: 'center', flexShrink: 0,
   },
   checkText: { color: '#FFFFFF', fontSize: 11, fontWeight: '800' },
-  lockIcon:  { fontSize: 16, flexShrink: 0 },
+  lockIcon:  { flexShrink: 0 },
 
   // ── Full access — download ──
   downloadButton: {

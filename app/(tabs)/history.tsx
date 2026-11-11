@@ -21,6 +21,7 @@ import { formatDuration } from '../../src/core/formatter';
 import { t } from '../../src/i18n';
 import { colors } from '../../src/theme';
 import type { Category, ConversionEntry } from '../../src/types';
+import { Icon, type IconName } from '../../src/components/Icon';
 
 // ── Layout constants ──────────────────────────────────────────────────────────
 // Keeping heights in one place makes getItemLayout exact and easy to maintain.
@@ -28,16 +29,16 @@ const SECTION_HEADER_HEIGHT = 40; // paddingVertical(8*2) + text(11) + marginTop
 // CARD_HEIGHT (82) is imported from ConversionCard so both sides stay in sync.
 
 // ── Category filter chips ─────────────────────────────────────────────────────
-const CATEGORY_VALUES: Array<{ value: Category | 'all'; icon: string }> = [
-  { value: 'all',       icon: '🔍' },
-  { value: 'food',      icon: '🍔' },
-  { value: 'transport', icon: '🚗' },
-  { value: 'housing',   icon: '🏠' },
-  { value: 'tech',      icon: '💻' },
-  { value: 'clothing',  icon: '👕' },
-  { value: 'leisure',   icon: '🎮' },
-  { value: 'health',    icon: '💊' },
-  { value: 'other',     icon: '📦' },
+const CATEGORY_VALUES: Array<{ value: Category | 'all'; icon: IconName }> = [
+  { value: 'all',       icon: 'search' },
+  { value: 'food',      icon: 'utensils' },
+  { value: 'transport', icon: 'car' },
+  { value: 'housing',   icon: 'house' },
+  { value: 'tech',      icon: 'laptop' },
+  { value: 'clothing',  icon: 'shirt' },
+  { value: 'leisure',   icon: 'gamepad-2' },
+  { value: 'health',    icon: 'pill' },
+  { value: 'other',     icon: 'package' },
 ];
 
 // ── Flat list row types ───────────────────────────────────────────────────────
@@ -266,7 +267,7 @@ export default function HistoryScreen() {
             accessibilityLabel={f.label}
             accessibilityState={{ checked: filter === f.value }}
           >
-            <Text style={styles.filterEmoji}>{f.icon}</Text>
+            <Icon name={f.icon} size={14} color={filter === f.value ? colors.primary : colors.textMid} />
             <Text
               style={
                 filter === f.value ? styles.filterTextActive : styles.filterTextInactive
@@ -301,7 +302,7 @@ export default function HistoryScreen() {
       ) : flatData.length === 0 ? (
         /* ── No results for active filter ────────────────────────────────── */
         <View style={styles.emptyContainer}>
-          <Text style={styles.emptyEmoji}>📋</Text>
+          <View style={styles.emptyEmoji}><Icon name="search" size={40} color={colors.textMuted} /></View>
           <Text style={styles.emptyText}>{t('history.empty')}</Text>
         </View>
       ) : (
@@ -391,7 +392,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
   },
   filterChipActive: { backgroundColor: colors.primaryTint, borderColor: colors.primary },
-  filterEmoji: { fontSize: 12 },
   filterTextActive:   { color: colors.primary, fontSize: 12, fontWeight: '700' },
   filterTextInactive: { color: colors.textMid,  fontSize: 12, fontWeight: '500' },
   emptyContainer: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32, gap: 0 },
@@ -420,7 +420,7 @@ const styles = StyleSheet.create({
   },
   emptyButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 15 },
   // Filter-empty state (entries exist but none match filter)
-  emptyEmoji: { fontSize: 40, opacity: 0.3 },
+  emptyEmoji: { opacity: 0.3 },
   emptyText:  { color: colors.textMuted, fontSize: 16 },
   listContent: { paddingHorizontal: 20, paddingBottom: 40 },
   sectionHeader: {
