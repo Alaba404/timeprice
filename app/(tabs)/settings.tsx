@@ -579,7 +579,7 @@ export default function SettingsScreen() {
     const body = encodeURIComponent(
       t('settings.contactEmailBody', { version, device: deviceInfo }),
     );
-    const url = `mailto:hello@owodalabs.com?subject=${subject}&body=${body}`;
+    const url = `mailto:support@owoda.app?subject=${subject}&body=${body}`;
     Linking.canOpenURL(url).then((supported) => {
       if (supported) {
         Linking.openURL(url);

@@ -118,7 +118,7 @@ export default function DashboardScreen() {
 
         {/* Total this month */}
         <View style={styles.heroCard}>
-          <Text style={styles.heroCardLabel}>{t('dashboard.totalTimeThisMonth')} — {monthName}</Text>
+          <Text style={styles.heroCardLabel}>{t('dashboard.totalTimeThisMonth')} · {monthName}</Text>
           <Text style={styles.heroCardValue}>
             {thisMonthMinutes > 0 ? formatDuration(thisMonthMinutes, weeklyHours, locale) : '–'}
           </Text>
