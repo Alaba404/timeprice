@@ -6,6 +6,15 @@
   <meta name="google-site-verification" content="NP-jA_MISzALxjArUlnaiSuorOx2D0e6TFU--DPKdCk" />
   <title>Owoda · Mesure le temps de travail que te coûte chaque dépense.</title>
   <meta name="description" content="Owoda convertit chaque dépense en temps de travail réel, pour mieux arbitrer ses choix. Tes revenus et dépenses restent sur ton appareil." />
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="32x32" href="Owoda_Icone_v01_32.png">
+  <link rel="icon" type="image/svg+xml" href="Owoda_Icone_v01.svg">
+  <link rel="apple-touch-icon" href="Owoda_Icone_v01_180.png">
+  <meta name="theme-color" content="#93401F">
+  <meta property="og:image" content="https://owodalabs.com/Owoda_Partage_Site_v01.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://owodalabs.com/Owoda_Partage_Site_v01.png">
   <style>
     @font-face {
       font-family: 'Inter';
@@ -19,25 +28,27 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --green:       #00A86B;
-      --green-dark:  #007A4D;
-      --green-light: #E6F7F1;
-      --gold:        #D4AF37;
-      --gold-light:  #FDF8E7;
-      --text:        #111827;
-      --text-mid:    #4B5563;
-      --text-muted:  #9CA3AF;
-      --border:      #E5E7EB;
-      --bg:          #FFFFFF;
-      --bg-alt:      #F9FAFB;
-      --radius:      14px;
+      --owoda-terre-cuite:        #93401F;
+      --owoda-terre-cuite-claire: #B4532F;
+      --owoda-creme:              #F6EDE3;
+      --owoda-brun-nuit:          #2B1710;
+      --owoda-or:                 #D4AF37;
+      --owoda-or-clair:           #FDF8E7;
+      --owoda-or-sombre:          #9E7C00;
+      --owoda-texte:              #111827;
+      --owoda-texte-moyen:        #4B5563;
+      --text-muted:               #9CA3AF;
+      --border:                   #E5E7EB;
+      --bg:                       #FFFFFF;
+      --bg-alt:                   #F9FAFB;
+      --radius:                   14px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      color: var(--text);
+      color: var(--owoda-texte);
       background: var(--bg);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
@@ -51,10 +62,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      background: var(--owoda-creme);
     }
 
     .nav-inner {
@@ -76,7 +84,7 @@
     .logo-mark {
       width: 36px;
       height: 36px;
-      background: var(--green);
+      background: var(--owoda-terre-cuite);
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -89,7 +97,7 @@
     .logo-name {
       font-size: 18px;
       font-weight: 800;
-      color: var(--green);
+      color: var(--owoda-terre-cuite);
       letter-spacing: 0.5px;
     }
 
@@ -110,11 +118,11 @@
     .nav-links a {
       font-size: 14px;
       font-weight: 500;
-      color: var(--text-mid);
+      color: var(--owoda-texte);
       transition: color 0.15s;
     }
 
-    .nav-links a:hover { color: var(--green); }
+    .nav-links a:hover { color: var(--owoda-terre-cuite); }
 
     /* ── Hamburger ────────────────────────────────────────────────────────── */
     .nav-hamburger {
@@ -123,13 +131,13 @@
       border: none;
       cursor: pointer;
       padding: 8px;
-      color: var(--text-mid);
+      color: var(--owoda-texte);
       font-size: 24px;
       line-height: 1;
       border-radius: 8px;
       transition: background 0.15s, color 0.15s;
     }
-    .nav-hamburger:hover { background: var(--bg-alt); color: var(--green); }
+    .nav-hamburger:hover { background: var(--bg-alt); color: var(--owoda-terre-cuite); }
 
     /* ── Language switcher ────────────────────────────────────────────────── */
     .nav-right {
@@ -152,13 +160,13 @@
       transition: color 0.15s;
     }
 
-    .lang-switch a:hover { color: var(--green); }
+    .lang-switch a:hover { color: var(--owoda-terre-cuite); }
     .lang-sep { color: var(--border); font-weight: 400; }
-    .lang-active { color: var(--green); }
+    .lang-active { color: var(--owoda-terre-cuite); }
 
     /* ── Hero ─────────────────────────────────────────────────────────────── */
     .hero {
-      background: linear-gradient(160deg, #0D2B1A 0%, #0F3D24 60%, #1A5C38 100%);
+      background: var(--owoda-brun-nuit);
       color: white;
       padding: 80px 20px 100px;
       text-align: center;
@@ -170,7 +178,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,168,107,0.25) 0%, transparent 70%);
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(147,64,31,0.25) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -180,7 +188,7 @@
       gap: 6px;
       background: rgba(212, 175, 55, 0.15);
       border: 1px solid rgba(212, 175, 55, 0.35);
-      color: var(--gold);
+      color: var(--owoda-or);
       font-size: 12px;
       font-weight: 600;
       padding: 6px 14px;
@@ -197,9 +205,10 @@
       letter-spacing: -0.5px;
       max-width: 720px;
       margin: 0 auto 20px;
+      color: var(--owoda-creme);
     }
 
-    .hero h1 span { color: var(--gold); }
+    .hero h1 span { color: var(--owoda-creme); }
 
     .hero p {
       font-size: clamp(15px, 2.5vw, 18px);
@@ -213,19 +222,19 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      background: var(--gold);
-      color: #1A1200;
+      background: var(--owoda-terre-cuite);
+      color: white;
       font-size: 15px;
       font-weight: 700;
       padding: 16px 32px;
       border-radius: var(--radius);
-      transition: transform 0.15s, box-shadow 0.15s;
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);
+      transition: transform 0.15s, background 0.15s;
+      box-shadow: none;
     }
 
     .hero-cta:hover {
+      background: var(--owoda-terre-cuite-claire);
       transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(212, 175, 55, 0.45);
     }
 
     .hero-cta svg { width: 22px; height: 22px; }
@@ -253,7 +262,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      color: var(--green);
+      color: var(--owoda-terre-cuite);
       margin-bottom: 12px;
     }
 
@@ -267,7 +276,7 @@
 
     .section-sub {
       font-size: 16px;
-      color: var(--text-mid);
+      color: var(--owoda-texte-moyen);
       max-width: 520px;
       line-height: 1.7;
     }
@@ -295,15 +304,15 @@
     }
 
     .feature-card:hover {
-      border-color: var(--green);
-      box-shadow: 0 4px 24px rgba(0,168,107,0.10);
+      border-color: var(--owoda-terre-cuite);
+      box-shadow: 0 4px 24px rgba(147,64,31,0.10);
     }
 
     .feature-icon {
       width: 52px;
       height: 52px;
       border-radius: 14px;
-      background: var(--green-light);
+      background: var(--owoda-creme);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -315,12 +324,12 @@
       font-size: 17px;
       font-weight: 700;
       margin-bottom: 10px;
-      color: var(--text);
+      color: var(--owoda-texte);
     }
 
     .feature-desc {
       font-size: 14px;
-      color: var(--text-mid);
+      color: var(--owoda-texte-moyen);
       line-height: 1.7;
     }
 
@@ -337,7 +346,7 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: var(--green);
+      background: var(--owoda-terre-cuite);
       color: white;
       font-size: 18px;
       font-weight: 800;
@@ -355,7 +364,7 @@
 
     .step-desc {
       font-size: 13px;
-      color: var(--text-mid);
+      color: var(--owoda-texte-moyen);
       line-height: 1.65;
     }
 
@@ -379,8 +388,8 @@
     }
 
     .pricing-card.premium {
-      background: #0D2B1A;
-      border-color: var(--green);
+      background: var(--owoda-brun-nuit);
+      border-color: var(--owoda-terre-cuite);
       position: relative;
       overflow: hidden;
     }
@@ -389,7 +398,7 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--green), var(--gold));
+      background: var(--owoda-terre-cuite);
     }
 
     .pricing-plan-label {
@@ -400,14 +409,14 @@
       margin-bottom: 8px;
     }
     .pricing-card.free  .pricing-plan-label { color: var(--text-muted); }
-    .pricing-card.premium .pricing-plan-label { color: var(--green); }
+    .pricing-card.premium .pricing-plan-label { color: var(--owoda-terre-cuite); }
 
     .pricing-plan-name {
       font-size: 22px;
       font-weight: 900;
       margin-bottom: 4px;
     }
-    .pricing-card.free  .pricing-plan-name { color: var(--text); }
+    .pricing-card.free  .pricing-plan-name { color: var(--owoda-texte); }
     .pricing-card.premium .pricing-plan-name { color: #FFFFFF; }
 
     .pricing-plan-price {
@@ -421,7 +430,7 @@
       font-size: 17px;
       font-weight: 800;
     }
-    .pricing-card.premium .pricing-plan-price strong { color: var(--gold); }
+    .pricing-card.premium .pricing-plan-price strong { color: var(--owoda-or); }
 
     .pricing-list {
       list-style: none;
@@ -437,7 +446,7 @@
       font-size: 13px;
       line-height: 1.5;
     }
-    .pricing-card.free  .pricing-list li { color: var(--text-mid); }
+    .pricing-card.free  .pricing-list li { color: var(--owoda-texte-moyen); }
     .pricing-card.premium .pricing-list li { color: rgba(255,255,255,0.80); }
 
     .pricing-list li .pi {
@@ -447,17 +456,17 @@
       margin-top: 1px;
     }
 
-    .pricing-list li.yes .pi { color: var(--green); }
+    .pricing-list li.yes .pi { color: var(--owoda-terre-cuite); }
     .pricing-list li.no  .pi { color: var(--text-muted); }
     .pricing-list li.no { opacity: 0.65; }
     .pricing-list li.bonus .pi { font-size: 14px; }
-    .pricing-list li.bonus { color: var(--gold) !important; font-weight: 600; }
+    .pricing-list li.bonus { color: var(--owoda-or) !important; font-weight: 600; }
 
     .pricing-cta {
       display: block;
       margin-top: 28px;
       text-align: center;
-      background: var(--green);
+      background: var(--owoda-terre-cuite);
       color: white;
       font-size: 14px;
       font-weight: 700;
@@ -465,7 +474,7 @@
       border-radius: 12px;
       transition: background 0.15s, transform 0.15s;
     }
-    .pricing-cta:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .pricing-cta:hover { background: var(--owoda-terre-cuite-claire); transform: translateY(-1px); }
 
     @media (max-width: 640px) {
       .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
@@ -473,7 +482,7 @@
 
     /* ── Quote strip ──────────────────────────────────────────────────────── */
     .quote-strip {
-      background: var(--green);
+      background: var(--owoda-terre-cuite);
       color: white;
       text-align: center;
       padding: 48px 20px;
@@ -509,7 +518,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: var(--green);
+      background: var(--owoda-terre-cuite);
       color: white;
       font-size: 15px;
       font-weight: 600;
@@ -519,14 +528,14 @@
     }
 
     .contact-link:hover {
-      background: var(--green-dark);
+      background: var(--owoda-terre-cuite-claire);
       transform: translateY(-1px);
     }
 
     /* ── Footer ───────────────────────────────────────────────────────────── */
     footer {
-      background: #0D1F14;
-      color: rgba(255,255,255,0.5);
+      background: var(--owoda-texte);
+      color: #F6EDE3;
       padding: 32px 20px;
     }
 
@@ -552,11 +561,11 @@
 
     .footer-links a {
       font-size: 13px;
-      color: rgba(255,255,255,0.5);
+      color: #F6EDE3;
       transition: color 0.15s;
     }
 
-    .footer-links a:hover { color: var(--gold); }
+    .footer-links a:hover { color: var(--owoda-or); }
 
     /* ── Mobile ───────────────────────────────────────────────────────────── */
     @media (max-width: 640px) {
@@ -588,10 +597,10 @@
         font-size: 15px;
         font-weight: 500;
         border-bottom: 1px solid var(--border);
-        color: var(--text-mid);
+        color: var(--owoda-texte-moyen);
       }
       .nav-links li:last-child a { border-bottom: none; }
-      .nav-links li a:hover { background: var(--bg-alt); color: var(--green); }
+      .nav-links li a:hover { background: var(--bg-alt); color: var(--owoda-terre-cuite); }
 
       .hero { padding: 60px 20px 72px; }
       .section { padding: 56px 20px; }
@@ -624,7 +633,7 @@
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--owoda-or);
       margin-bottom: 12px;
       display: block;
     }
@@ -641,7 +650,7 @@
       color: rgba(255,255,255,0.52);
     }
     .hero-journey-step { white-space: nowrap; }
-    .hero-journey-arrow { color: var(--gold); opacity: 0.6; font-size: 11px; padding: 0 2px; }
+    .hero-journey-arrow { color: var(--owoda-or); opacity: 0.6; font-size: 11px; padding: 0 2px; }
 
     .hero-fundament {
       margin: 16px auto 0;
@@ -670,7 +679,7 @@
       text-align: center;
     }
     .diff-head.others { background: #F3F4F6; color: var(--text-muted); }
-    .diff-head.owoda  { background: var(--green); color: white; }
+    .diff-head.owoda  { background: var(--owoda-terre-cuite); color: white; }
 
     .diff-cell {
       padding: 13px 20px;
@@ -684,7 +693,7 @@
     }
     .diff-cell.owoda {
       background: var(--bg);
-      color: var(--text);
+      color: var(--owoda-texte);
       font-weight: 500;
     }
 
@@ -695,9 +704,9 @@
       font-size: 17px;
       font-weight: 700;
       line-height: 1.65;
-      color: var(--text);
+      color: var(--owoda-texte);
     }
-    .diff-key em { color: var(--green); font-style: normal; }
+    .diff-key em { color: var(--owoda-terre-cuite); font-style: normal; }
 
     /* ── Parcours en 3 étapes ─────────────────────────────────────────────── */
     .journey-steps {
@@ -714,7 +723,7 @@
       text-align: center;
     }
     .journey-step.s0 {
-      background: var(--green);
+      background: var(--owoda-terre-cuite);
       position: relative;
     }
     .journey-step.s0::before {
@@ -723,7 +732,7 @@
       top: -12px;
       left: 50%;
       transform: translateX(-50%);
-      background: var(--gold);
+      background: var(--owoda-or);
       color: #1A1200;
       font-size: 10px;
       font-weight: 800;
@@ -767,7 +776,7 @@
     }
     .s0 .journey-step-app { color: rgba(255,255,255,0.85); }
     .s1 .journey-step-app,
-    .s2 .journey-step-app { color: var(--text-mid); }
+    .s2 .journey-step-app { color: var(--owoda-texte-moyen); }
 
     .journey-step-title {
       font-size: 15px;
@@ -777,7 +786,7 @@
     }
     .s0 .journey-step-title { color: white; }
     .s1 .journey-step-title,
-    .s2 .journey-step-title { color: var(--text); }
+    .s2 .journey-step-title { color: var(--owoda-texte); }
 
     .journey-step-desc {
       font-size: 13px;
@@ -785,7 +794,7 @@
     }
     .s0 .journey-step-desc { color: rgba(255,255,255,0.75); }
     .s1 .journey-step-desc,
-    .s2 .journey-step-desc { color: var(--text-mid); }
+    .s2 .journey-step-desc { color: var(--owoda-texte-moyen); }
 
     /* ── 3 Actes narratifs ────────────────────────────────────────────────── */
     /* Mobile-first : colonne par défaut, row à partir de 768px */
@@ -808,8 +817,8 @@
       border-radius: 20px;
       padding: 28px 24px;
     }
-    .act-card.a1 { background: var(--green-light); border: 1.5px solid rgba(0,168,107,0.20); }
-    .act-card.a2 { background: var(--gold-light);  border: 1.5px solid rgba(212,175,55,0.25); }
+    .act-card.a1 { background: var(--owoda-creme); border: 1.5px solid rgba(147,64,31,0.20); }
+    .act-card.a2 { background: var(--owoda-or-clair);  border: 1.5px solid rgba(212,175,55,0.25); }
     .act-card.a3 { background: var(--bg-alt);      border: 1.5px solid var(--border); }
 
     .act-num {
@@ -819,8 +828,8 @@
       font-size: 17px; font-weight: 900;
       margin-bottom: 18px;
     }
-    .a1 .act-num { background: var(--green); color: white; }
-    .a2 .act-num { background: var(--gold);  color: #1A1200; }
+    .a1 .act-num { background: var(--owoda-terre-cuite); color: white; }
+    .a2 .act-num { background: var(--owoda-or);  color: #1A1200; }
     .a3 .act-num { background: #374151;      color: white; }
 
     .act-label {
@@ -828,17 +837,17 @@
       text-transform: uppercase; letter-spacing: 1.5px;
       margin-bottom: 8px;
     }
-    .a1 .act-label { color: var(--green); }
+    .a1 .act-label { color: var(--owoda-terre-cuite); }
     .a2 .act-label { color: #9E7C00; }
     .a3 .act-label { color: var(--text-muted); }
 
     .act-title {
       font-size: 17px; font-weight: 800;
-      margin-bottom: 10px; line-height: 1.3; color: var(--text);
+      margin-bottom: 10px; line-height: 1.3; color: var(--owoda-texte);
     }
 
     .act-desc {
-      font-size: 14px; color: var(--text-mid); line-height: 1.65;
+      font-size: 14px; color: var(--owoda-texte-moyen); line-height: 1.65;
     }
 
     /* ── Trademark symbol ────────────────────────────────────────────────── */
@@ -847,7 +856,7 @@
     /* ── Guide chapters preview ──────────────────────────────────────────── */
     .guide-preview {
       margin-top: 32px;
-      background: var(--gold-light);
+      background: var(--owoda-or-clair);
       border: 1.5px solid rgba(212,175,55,0.25);
       border-radius: 20px;
       padding: 28px 32px;
@@ -857,7 +866,7 @@
       letter-spacing: 1.5px; color: #9E7C00; margin-bottom: 10px;
     }
     .guide-preview-note {
-      font-size: 13px; color: var(--text-mid); margin-bottom: 20px;
+      font-size: 13px; color: var(--owoda-texte-moyen); margin-bottom: 20px;
     }
     .guide-chapters {
       list-style: none;
@@ -875,14 +884,14 @@
     }
     .guide-chapters li {
       font-size: 13px;
-      color: var(--text-mid);
+      color: var(--owoda-texte-moyen);
       display: flex;
       gap: 10px;
       line-height: 1.5;
     }
     .guide-ch-num {
       flex-shrink: 0; font-weight: 800;
-      color: var(--gold); width: 16px;
+      color: var(--owoda-or); width: 16px;
     }
 
     /* ── Diff section explainer ───────────────────────────────────────────── */
@@ -890,7 +899,7 @@
       max-width: 620px;
       margin: 24px auto 0;
       font-size: 15px;
-      color: var(--text-mid);
+      color: var(--owoda-texte-moyen);
       line-height: 1.75;
       text-align: center;
     }
@@ -903,20 +912,20 @@
 
     .why-p {
       font-size: 16px;
-      color: var(--text-mid);
+      color: var(--owoda-texte-moyen);
       line-height: 1.8;
       margin-bottom: 22px;
     }
 
     .why-callout {
-      background: var(--green-light);
-      border-left: 4px solid var(--green);
+      background: var(--owoda-creme);
+      border-left: 4px solid var(--owoda-terre-cuite);
       border-radius: 0 12px 12px 0;
       padding: 18px 24px;
       margin: 4px 0 22px;
       font-size: 17px;
       font-weight: 700;
-      color: var(--text);
+      color: var(--owoda-terre-cuite);
       line-height: 1.6;
     }
 
@@ -943,7 +952,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: var(--text);
+      color: var(--owoda-texte);
       user-select: none;
     }
 
@@ -953,19 +962,19 @@
       content: '+';
       font-size: 22px;
       font-weight: 400;
-      color: var(--green);
+      color: var(--owoda-terre-cuite);
       flex-shrink: 0;
       margin-left: 16px;
       line-height: 1;
     }
 
     .faq-item[open] summary::after { content: '−'; }
-    .faq-item[open] summary { color: var(--green); }
+    .faq-item[open] summary { color: var(--owoda-terre-cuite); }
 
     .faq-answer {
       padding: 4px 22px 20px;
       font-size: 14px;
-      color: var(--text-mid);
+      color: var(--owoda-texte-moyen);
       line-height: 1.75;
     }
   </style>
@@ -1124,17 +1133,7 @@
   <nav>
     <div class="nav-inner">
       <a href="/" class="logo" aria-label="Owoda Labs · accueil">
-        <div class="logo-mark">
-          <!-- Owoda "◎" monogram -->
-          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="10" cy="10" r="8" stroke="white" stroke-width="2" fill="none"/>
-            <circle cx="10" cy="10" r="3" fill="white"/>
-          </svg>
-        </div>
-        <div>
-          <div class="logo-name">Owoda<span class="tm-symbol">®</span> Labs</div>
-          <div class="logo-sub">owodalabs.com</div>
-        </div>
+        <svg width="28" height="28" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="flex-shrink:0;"><path d="M100 0C155.228 0 200 44.7715 200 100C200 155.228 155.228 200 100 200C44.7715 200 0 155.228 0 100C0 44.7715 44.7715 0 100 0ZM128.667 46C102.526 46 81.3332 67.1917 81.333 93.333C81.333 119.474 102.526 140.667 128.667 140.667C154.808 140.667 176 119.474 176 93.333C176 67.1918 154.808 46.0002 128.667 46Z" fill="#93401F"/></svg><span style="font-size:16px;font-weight:600;color:#93401F;">Owoda<sup style="font-size:0.55em;line-height:0;vertical-align:super;">®</sup> Labs</span>
       </a>
       <div class="nav-right">
         <button class="nav-hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-menu">
@@ -1146,7 +1145,7 @@
           <li><a href="#why">Pourquoi Owoda</a></li>
           <li><a href="#pricing">Tarifs</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="guide.html" style="color:var(--gold);font-weight:700;">📘 Guide Pratique</a></li>
+          <li><a href="guide.html" style="font-weight:700;color:var(--owoda-terre-cuite);">📘 Guide Pratique</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="lang-switch">
@@ -1401,7 +1400,7 @@
       <div class="why-body">
         <p class="why-p">Les autres apps de finances personnelles te demandent de tracer tes dépenses, de faire des tableaux, de te fixer des limites. Elles te culpabilisent quand tu dépasses. Elles te parlent en chiffres, en euros ou en dollars, comme si l'argent était une abstraction.</p>
         <p class="why-p">Owoda pose une question différente : combien d'heures de travail cette dépense va-t-elle te coûter ?</p>
-        <div class="why-callout">Un téléphone à 450 000 F CFA, ce n'est pas juste un chiffre. C'est trois mois de travail. Une fois que tu vois ça, la décision devient consciente.</div>
+        <div class="why-callout">Un téléphone à 450 000 F CFA, ce n'est pas juste un chiffre. C'est trois mois de travail*. Une fois que tu vois ça, la décision devient consciente.</div>
         <p style="font-size:10px;color:var(--text-muted);margin-top:8px;font-style:italic;">* Exemple basé sur un taux horaire moyen. Ton résultat réel dépend de tes propres revenus et heures de travail (incluant trajets, congés, et temps hors travail payé).</p>
         <p class="why-p">Owoda est pensée pour l'Afrique et sa diaspora. Nos catégories, nos exemples, notre guide parlent d'une réalité que les apps occidentales ignorent : la pression sociale, les transferts familiaux, l'intimité financière. Nous ne te disons pas quoi acheter. Nous te montrons ce que ça te coûte vraiment, et te laissons décider.</p>
       </div>
@@ -1409,7 +1408,7 @@
   </section>
 
   <!-- ── Accès inconditionnel ──────────────────────────────────────────────── -->
-  <section class="section" style="background:#0D2B1A;">
+  <section class="section" style="background:var(--owoda-brun-nuit);">
     <div class="section-inner" style="text-align:center;">
       <div class="section-label">Vie privée</div>
       <h2 class="section-title" style="color:#fff;">Pas de compte, pas de connexion bancaire, pas de tracker publicitaire.</h2>

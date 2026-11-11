@@ -1,10 +1,19 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About · Owoda</title>
   <meta name="description" content="Owoda is an app designed for Africa and its diaspora, published by Korvedion." />
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="32x32" href="Owoda_Icone_v01_32.png">
+  <link rel="icon" type="image/svg+xml" href="Owoda_Icone_v01.svg">
+  <link rel="apple-touch-icon" href="Owoda_Icone_v01_180.png">
+  <meta name="theme-color" content="#93401F">
+  <meta property="og:image" content="https://owodalabs.com/Owoda_Partage_Site_v01.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://owodalabs.com/Owoda_Partage_Site_v01.png">
   <style>
     @font-face {
       font-family: 'Inter';
@@ -17,29 +26,30 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --green:      #00A86B;
-      --green-dark: #007A4D;
-      --gold:       #D4AF37;
-      --text:       #111827;
-      --text-mid:   #4B5563;
-      --border:     #E5E7EB;
-      --bg:         #FFFFFF;
-      --bg-alt:     #F9FAFB;
+      --owoda-terre-cuite:        #93401F;
+      --owoda-terre-cuite-claire: #B4532F;
+      --owoda-brun-nuit:          #2B1710;
+      --owoda-or:                 #D4AF37;
+      --owoda-texte:              #111827;
+      --owoda-texte-moyen:        #4B5563;
+      --border:                   #E5E7EB;
+      --bg:                       #FFFFFF;
+      --bg-alt:                   #F9FAFB;
     }
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      color: var(--text);
+      color: var(--owoda-texte);
       background: var(--bg);
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
     }
 
-    a { color: var(--green); text-decoration: none; }
+    a { color: var(--owoda-terre-cuite); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
     nav {
-      background: #0D2B1A;
+      background: var(--owoda-creme);
       padding: 0 20px;
     }
     .nav-inner {
@@ -53,15 +63,15 @@
     .logo-link {
       font-size: 16px;
       font-weight: 800;
-      color: var(--green);
-      letter-spacing: 0.5px;
+      color: var(--owoda-terre-cuite);
+      display: flex; align-items: center; gap: 8px;letter-spacing: 0.5px;
     }
     .nav-back {
       font-size: 13px;
-      color: rgba(255,255,255,0.55);
+      color: var(--owoda-texte-moyen);
       transition: color 0.15s;
     }
-    .nav-back:hover { color: white; text-decoration: none; }
+    .nav-back:hover { color: var(--owoda-terre-cuite); text-decoration: none; }
 
     .page-header {
       background: var(--bg-alt);
@@ -85,7 +95,7 @@
       font-weight: 700;
       margin-top: 40px;
       margin-bottom: 12px;
-      color: var(--text);
+      color: var(--owoda-texte);
       padding-top: 8px;
       border-top: 1px solid var(--border);
     }
@@ -94,21 +104,21 @@
 
     .content p {
       font-size: 15px;
-      color: var(--text-mid);
+      color: var(--owoda-texte-moyen);
       margin-bottom: 14px;
     }
 
-    .content strong { color: var(--text); }
+    .content strong { color: var(--owoda-texte); }
 
     footer {
-      background: #0D1F14;
+      background: var(--owoda-texte);
       color: rgba(255,255,255,0.45);
       padding: 24px 20px;
       text-align: center;
       font-size: 13px;
     }
 
-    footer a { color: var(--gold); }
+    footer a { color: var(--owoda-or); }
     footer a:hover { text-decoration: underline; }
 
     .footer-inner {
@@ -122,8 +132,8 @@
     }
     .footer-copy { font-size: 13px; }
     .footer-links { display: flex; gap: 24px; list-style: none; }
-    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); transition: color 0.15s; }
-    .footer-links a:hover { color: var(--gold); text-decoration: none; }
+    .footer-links a { font-size: 13px; color: #F6EDE3; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--owoda-or); text-decoration: none; }
   </style>
 
   <!-- ── Schema.org JSON-LD ─────────────────────────────────────────────── -->
@@ -143,7 +153,7 @@
 
   <nav>
     <div class="nav-inner">
-      <a href="index-en.html" class="logo-link">Owoda Labs</a>
+      <a href="index-en.html" class="logo-link"><svg width="28" height="28" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="flex-shrink:0;"><path d="M100 0C155.228 0 200 44.7715 200 100C200 155.228 155.228 200 100 200C44.7715 200 0 155.228 0 100C0 44.7715 44.7715 0 100 0ZM128.667 46C102.526 46 81.3332 67.1917 81.333 93.333C81.333 119.474 102.526 140.667 128.667 140.667C154.808 140.667 176 119.474 176 93.333C176 67.1918 154.808 46.0002 128.667 46Z" fill="#93401F"/></svg>Owoda<sup style="font-size:0.55em;line-height:0;vertical-align:super;">®</sup> Labs</a>
       <a href="index-en.html" class="nav-back">← Back to home</a>
     </div>
   </nav>
