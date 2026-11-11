@@ -15,6 +15,7 @@ import type PurchasesType from 'react-native-purchases';
 import type { PurchasesPackage } from '@revenuecat/purchases-typescript-internal';
 import { t } from '../src/i18n';
 import { colors } from '../src/theme';
+import { OwodaSymbole } from '../src/components/OwodaSymbole';
 import { useProfileStore } from '../src/store/profileStore';
 
 let Purchases: typeof PurchasesType | null = null;
@@ -156,8 +157,7 @@ export default function PaywallScreen() {
         {/* Hero */}
         <View style={styles.hero}>
           <View style={styles.heroMark}>
-            <Text style={styles.heroMarkInner}>◎</Text>
-            <Text style={styles.heroMarkOverlay}>₣</Text>
+            <OwodaSymbole height={80} />
           </View>
           <Text style={styles.heroTitle}>{t('premium.unlockTitle')}</Text>
           <Text style={styles.heroSubtitle}>{t('premium.unlockSubtitle')}</Text>
@@ -326,21 +326,19 @@ const styles = StyleSheet.create({
 
   // Hero
   hero: { alignItems: 'center', marginBottom: 28 },
-  heroMark: { width: 80, height: 80, alignItems: 'center', justifyContent: 'center', marginBottom: 20 },
-  heroMarkInner: { position: 'absolute', fontSize: 72, color: colors.primary, fontWeight: '900' },
-  heroMarkOverlay: { position: 'absolute', fontSize: 30, color: colors.accent, fontWeight: '900' },
+  heroMark: { marginBottom: 20 },
   heroTitle: { color: colors.textDark, fontSize: 26, fontWeight: '900', textAlign: 'center', marginBottom: 10, letterSpacing: -0.5 },
   heroSubtitle: { color: colors.textMid, textAlign: 'center', fontSize: 15, lineHeight: 22, marginBottom: 14 },
   guideBadge: {
-    backgroundColor: '#D4AF3720',
+    backgroundColor: colors.gold + '20',
     borderWidth: 1,
-    borderColor: '#D4AF3780',
+    borderColor: colors.gold + '80',
     borderRadius: 20,
     paddingHorizontal: 14,
     paddingVertical: 7,
     marginTop: 4,
   },
-  guideBadgeText: { color: '#9E7C00', fontSize: 13, fontWeight: '700', textAlign: 'center' },
+  guideBadgeText: { color: colors.night, fontSize: 13, fontWeight: '700', textAlign: 'center' },
 
   // Features list
   featuresCard: {
@@ -357,7 +355,7 @@ const styles = StyleSheet.create({
   },
   featureRow: { flexDirection: 'row', alignItems: 'center', gap: 14, padding: 14 },
   featureRowBorder: { borderBottomWidth: 1, borderBottomColor: colors.divider },
-  featureRowBonus: { backgroundColor: '#D4AF3712' },
+  featureRowBonus: { backgroundColor: colors.gold + '12' },
   featureIconWrap: {
     width: 36,
     height: 36,
@@ -366,11 +364,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  featureIconWrapBonus: { backgroundColor: '#D4AF3725' },
+  featureIconWrapBonus: { backgroundColor: colors.gold + '25' },
   featureIcon: { fontSize: 18, lineHeight: 22, textAlign: 'center' },
   featureLabelWrap: { flex: 1 },
   featureLabel: { color: colors.textDark, fontSize: 14, fontWeight: '500' },
-  featureLabelBonus: { fontWeight: '700', color: '#6B5400' },
+  featureLabelBonus: { fontWeight: '700', color: colors.night },
   featureValueStrike: {
     color: colors.textMuted,
     fontSize: 11,
@@ -496,11 +494,7 @@ const styles = StyleSheet.create({
     paddingVertical: 18,
     alignItems: 'center',
     marginBottom: 8,
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.4,
-    shadowRadius: 12,
-    elevation: 8,
+    elevation: 2,
   },
   ctaButtonLoading: { opacity: 0.7 },
   ctaText: { color: '#FFFFFF', fontWeight: '900', fontSize: 17, letterSpacing: 0.2 },

@@ -354,7 +354,7 @@ const styles = StyleSheet.create({
   exportButton: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   exportText: { color: colors.primary, fontSize: 14, fontWeight: '700' },
   proBadge: {
-    color: '#FFFFFF',
+    color: colors.night,
     fontSize: 9,
     fontWeight: '800',
     backgroundColor: colors.accent,
@@ -416,11 +416,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     paddingHorizontal: 28,
     paddingVertical: 14,
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
+    elevation: 2,
   },
   emptyButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 15 },
   // Filter-empty state (entries exist but none match filter)

@@ -127,7 +127,7 @@ const s = StyleSheet.create({
   tagline: {
     fontSize: 17,
     fontStyle: 'italic',
-    color: '#00A86B',
+    color: colors.primary,
     textAlign: 'center',
     lineHeight: 26,
     marginBottom: 14,
@@ -135,7 +135,7 @@ const s = StyleSheet.create({
   },
   taglineSep: {
     height: 1,
-    backgroundColor: '#D4AF37',
+    backgroundColor: colors.gold,
     opacity: 0.55,
     marginBottom: 24,
     marginHorizontal: 4,

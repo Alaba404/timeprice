@@ -25,6 +25,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { nanoid } from 'nanoid/non-secure';
 import { PriceInput } from '../../src/components/PriceInput';
+import { OwodaLogoHorizontal } from '../../src/components/OwodaLogoHorizontal';
+import { OwodaSymbole } from '../../src/components/OwodaSymbole';
 import { DurationBadge } from '../../src/components/DurationBadge';
 import { ProfileSelector } from '../../src/components/ProfileSelector';
 import { useConverter } from '../../src/hooks/useConverter';
@@ -59,27 +61,16 @@ const CATEGORY_VALUES: { value: Category; icon: string }[] = [
 // ── Logo ────────────────────────────────────────────────────────────────────
 function OwodaLogo() {
   return (
-    <View style={logo.row}>
-      <View style={logo.mark}>
-        <Text style={logo.markInner}>◎</Text>
-        <Text style={logo.markOverlay}>₣</Text>
-      </View>
-      <View style={logo.wordmark}>
-        <Text style={logo.name}>Owoda</Text>
-        <Text style={logo.tagline}>{t('converter.tagline')}</Text>
-      </View>
+    <View style={logo.container}>
+      <OwodaLogoHorizontal height={38} />
+      <Text style={logo.tagline}>{t('converter.tagline')}</Text>
     </View>
   );
 }
 
 const logo = StyleSheet.create({
-  row:        { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 20 },
-  mark:       { width: 40, height: 40, alignItems: 'center', justifyContent: 'center' },
-  markInner:  { position: 'absolute', fontSize: 36, color: colors.primary, fontWeight: '900' },
-  markOverlay:{ position: 'absolute', fontSize: 16, color: colors.accent,  fontWeight: '900', marginTop: 2 },
-  wordmark:   { flex: 1 },
-  name:       { fontSize: 22, fontWeight: '900', color: colors.primary, letterSpacing: 3 },
-  tagline:    { fontSize: 10, color: colors.accent, fontWeight: '600', letterSpacing: 0.3, marginTop: 1 },
+  container: { marginBottom: 20 },
+  tagline:   { fontSize: 10, color: colors.primary, fontWeight: '600', marginTop: 4 },
 });
 
 // ── Currency row in modal ───────────────────────────────────────────────────
@@ -340,8 +331,7 @@ export default function ConverterScreen() {
       <SafeAreaView style={styles.noProfileSafe}>
         <View style={styles.noProfileContent}>
           <View style={styles.noProfileIconWrap}>
-            <Text style={styles.noProfileIcon}>◎</Text>
-            <Text style={styles.noProfileIconOverlay}>₣</Text>
+            <OwodaSymbole height={80} />
           </View>
           <Text style={styles.noProfileTitle}>{t('converter.welcome')}</Text>
           <Text style={styles.noProfileSub}>{t('converter.noProfile')}</Text>
@@ -597,7 +587,7 @@ const styles = StyleSheet.create({
   guideBanner: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1A3A2A',
+    backgroundColor: colors.night,
     paddingHorizontal: 16,
     paddingVertical: 12,
     gap: 10,
@@ -605,13 +595,13 @@ const styles = StyleSheet.create({
   },
   guideBannerContent: { flex: 1 },
   guideBannerText: {
-    color: '#FFFFFF',
+    color: colors.cream,
     fontSize: 13,
     fontWeight: '600',
     lineHeight: 18,
   },
   guideBannerClose: {
-    color: 'rgba(255,255,255,0.5)',
+    color: colors.cream,
     fontSize: 16,
     fontWeight: '700',
   },
@@ -619,22 +609,20 @@ const styles = StyleSheet.create({
   // No profile
   noProfileSafe: { flex: 1, backgroundColor: colors.bg },
   noProfileContent: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32 },
-  noProfileIconWrap: { width: 80, height: 80, alignItems: 'center', justifyContent: 'center', marginBottom: 20 },
-  noProfileIcon: { position: 'absolute', fontSize: 72, color: colors.primary, fontWeight: '900' },
-  noProfileIconOverlay: { position: 'absolute', fontSize: 32, color: colors.accent, fontWeight: '900' },
+  noProfileIconWrap: { marginBottom: 20 },
   noProfileTitle: { fontSize: 26, fontWeight: '800', color: colors.textDark, textAlign: 'center', marginBottom: 12 },
   noProfileSub: { fontSize: 15, color: colors.textMid, textAlign: 'center', lineHeight: 22, marginBottom: 32 },
   configureButton: { backgroundColor: colors.primary, borderRadius: 14, paddingHorizontal: 40, paddingVertical: 16 },
   configureButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 16 },
 
   // Input card
-  inputCard: { backgroundColor: colors.card, borderRadius: 20, padding: 16, marginBottom: 14, shadowColor: colors.primary, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.08, shadowRadius: 12, elevation: 4 },
+  inputCard: { backgroundColor: colors.card, borderRadius: 20, padding: 16, marginBottom: 14, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.08, shadowRadius: 12, elevation: 4 },
   inputCardLabel: { fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1.2, marginBottom: 10 },
 
   // Example chip
   exampleChip: {
     alignSelf: 'center',
-    backgroundColor: '#E8F8F0',
+    backgroundColor: colors.primaryTint,
     borderWidth: 1,
     borderColor: colors.primary + '60',
     borderRadius: 20,
@@ -672,14 +660,14 @@ const styles = StyleSheet.create({
   // Actions
   actionsRow: { flexDirection: 'row', gap: 12, paddingHorizontal: 20, paddingVertical: 12, borderTopWidth: 1, borderTopColor: colors.divider, backgroundColor: colors.bg },
   proBadge: { position: 'absolute', top: -4, right: -4, backgroundColor: colors.accent, borderRadius: 6, paddingHorizontal: 4, paddingVertical: 1 },
-  proBadgeText: { color: '#FFFFFF', fontSize: 8, fontWeight: '800' },
-  saveButton: { flex: 1, height: 54, borderRadius: 14, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.primary, shadowColor: colors.primary, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.35, shadowRadius: 8, elevation: 6 },
+  proBadgeText: { color: colors.night, fontSize: 8, fontWeight: '800' },
+  saveButton: { flex: 1, height: 54, borderRadius: 14, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.primary },
   saveButtonDisabled: { backgroundColor: colors.border, shadowOpacity: 0, elevation: 0 },
   saveButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 16, letterSpacing: 0.3 },
   saveButtonTextDisabled: { color: colors.textMuted },
 
   // Modal
-  modalOverlay: { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(13,31,15,0.45)' },
+  modalOverlay: { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(43,23,16,0.45)' },
   modalSheet: { backgroundColor: colors.card, borderTopLeftRadius: 28, borderTopRightRadius: 28, paddingHorizontal: 24, paddingBottom: 36, paddingTop: 12, maxHeight: '80%' },
   modalHandle: { width: 40, height: 4, borderRadius: 2, backgroundColor: colors.border, alignSelf: 'center', marginBottom: 20 },
   modalTitle: { color: colors.textDark, fontWeight: '800', fontSize: 20, marginBottom: 4 },

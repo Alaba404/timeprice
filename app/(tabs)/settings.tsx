@@ -26,6 +26,7 @@ import { t } from '../../src/i18n';
 import { colors } from '../../src/theme';
 import type { Locale, SalaryFrequency, UserProfile } from '../../src/types';
 import Constants from 'expo-constants';
+import { OwodaLogoHorizontal } from '../../src/components/OwodaLogoHorizontal';
 
 const GUIDE_URL = 'https://pub-a6629518d11a4f689348be122e035b5f.r2.dev/owoda-guide-900cb8e1bb3a44368c7dfd5e58dc8dce.pdf';
 
@@ -429,7 +430,7 @@ function CurrencyPickerModal({ currentCurrency, visible, locale, onClose, onConf
 }
 
 const picker = StyleSheet.create({
-  overlay:      { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(13,31,15,0.45)' },
+  overlay:      { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(43,23,16,0.45)' },
   sheet:        { backgroundColor: colors.card, borderTopLeftRadius: 28, borderTopRightRadius: 28, paddingHorizontal: 20, paddingBottom: 36, paddingTop: 12, maxHeight: '85%' },
   handle:       { width: 40, height: 4, borderRadius: 2, backgroundColor: colors.border, alignSelf: 'center', marginBottom: 16 },
   title:        { color: colors.textDark, fontWeight: '800', fontSize: 18, marginBottom: 12 },
@@ -450,7 +451,7 @@ const picker = StyleSheet.create({
 });
 
 const edit = StyleSheet.create({
-  overlay:  { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(13,31,15,0.45)' },
+  overlay:  { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(43,23,16,0.45)' },
   sheet:    { backgroundColor: colors.card, borderTopLeftRadius: 28, borderTopRightRadius: 28, paddingHorizontal: 24, paddingBottom: 36, paddingTop: 12, maxHeight: '92%' },
   handle:   { width: 40, height: 4, borderRadius: 2, backgroundColor: colors.border, alignSelf: 'center', marginBottom: 20 },
   title:    { color: colors.textDark, fontWeight: '800', fontSize: 20, marginBottom: 16 },
@@ -592,7 +593,7 @@ export default function SettingsScreen() {
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         {/* Brand */}
         <View style={styles.brandRow}>
-          <Text style={styles.brandName}>Owoda</Text>
+          <OwodaLogoHorizontal height={26} />
           <Text style={styles.brandTagline}>{t('converter.tagline')}</Text>
         </View>
         <Text style={styles.screenTitle}>{t('settings.title')}</Text>
@@ -797,8 +798,7 @@ const styles = StyleSheet.create({
   scroll: { flex: 1, paddingHorizontal: 20 },
   scrollContent: { paddingTop: 16, paddingBottom: 60 },
   brandRow: { marginBottom: 4 },
-  brandName: { fontSize: 13, fontWeight: '900', color: colors.primary, letterSpacing: 3 },
-  brandTagline: { fontSize: 10, color: colors.accent, fontWeight: '600', letterSpacing: 0.3, marginTop: 1 },
+  brandTagline: { fontSize: 10, color: colors.primary, fontWeight: '600', marginTop: 4 },
   screenTitle: { color: colors.textDark, fontSize: 26, fontWeight: '800', marginBottom: 20, marginTop: 8 },
   sectionLabel: { color: colors.textMuted, fontSize: 10, textTransform: 'uppercase', letterSpacing: 1.5, fontWeight: '700', marginBottom: 8, marginLeft: 4 },
   card: { backgroundColor: colors.card, borderRadius: 16, marginBottom: 16, overflow: 'hidden', borderWidth: 1, borderColor: colors.divider, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.04, shadowRadius: 4, elevation: 1 },
@@ -818,7 +818,7 @@ const styles = StyleSheet.create({
   deleteIcon: { color: colors.danger, fontSize: 16, fontWeight: '700' },
   addProfileRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, paddingVertical: 14, borderTopWidth: 1, borderTopColor: colors.divider },
   addProfileText: { color: colors.primary, fontWeight: '700', fontSize: 14 },
-  proBadge: { color: '#FFFFFF', fontSize: 9, fontWeight: '800', backgroundColor: colors.accent, borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2, marginLeft: 8 },
+  proBadge: { color: colors.night, fontSize: 9, fontWeight: '800', backgroundColor: colors.accent, borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2, marginLeft: 8 },
   toggleRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 14, paddingVertical: 14 },
   toggleLabel: { color: colors.textDark, flex: 1, marginRight: 16, fontSize: 14 },
   localeRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, paddingVertical: 14, gap: 12 },
@@ -830,12 +830,12 @@ const styles = StyleSheet.create({
   privacyCard: { backgroundColor: colors.card, borderRadius: 16, padding: 16, marginBottom: 16, borderWidth: 1, borderColor: colors.divider },
   privacyText: { color: colors.textMid, fontSize: 13, lineHeight: 20 },
   privacySubtext: { color: colors.textMuted, fontSize: 11, marginTop: 6 },
-  premiumBanner: { backgroundColor: colors.primary, borderRadius: 16, padding: 16, marginBottom: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  premiumBanner: { backgroundColor: colors.night, borderRadius: 16, padding: 16, marginBottom: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   premiumBannerLeft: { flex: 1 },
-  premiumBannerTitle: { color: '#FFFFFF', fontWeight: '800', fontSize: 15 },
-  premiumBannerSub: { color: 'rgba(255,255,255,0.75)', fontSize: 12, marginTop: 3 },
-  premiumArrowWrap: { width: 32, height: 32, borderRadius: 10, backgroundColor: 'rgba(255,255,255,0.2)', alignItems: 'center', justifyContent: 'center' },
-  premiumArrow: { color: '#FFFFFF', fontSize: 16, fontWeight: '800' },
+  premiumBannerTitle: { color: colors.cream, fontWeight: '800', fontSize: 15 },
+  premiumBannerSub: { color: 'rgba(246,237,227,0.75)', fontSize: 12, marginTop: 3 },
+  premiumArrowWrap: { width: 32, height: 32, borderRadius: 10, backgroundColor: 'rgba(246,237,227,0.15)', alignItems: 'center', justifyContent: 'center' },
+  premiumArrow: { color: colors.cream, fontSize: 16, fontWeight: '800' },
   dangerRow: { paddingHorizontal: 14, paddingVertical: 14 },
   dangerText: { color: colors.danger, fontWeight: '600', fontSize: 14 },
   contactRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, paddingVertical: 14, gap: 12 },
@@ -884,10 +884,10 @@ const lib = StyleSheet.create({
     borderWidth: 1, alignSelf: 'flex-start', flexShrink: 0,
   },
   badgeFull:   { backgroundColor: colors.primaryTint, borderColor: colors.primary + '50' },
-  badgeLocked: { backgroundColor: '#FDF8E7', borderColor: '#D4AF3760' },
+  badgeLocked: { backgroundColor: '#FDF8E7', borderColor: colors.gold + '60' },
   statusBadgeText: { fontSize: 10, fontWeight: '700' },
   badgeFullText:   { color: colors.primary },
-  badgeLockedText: { color: '#9E7C00' },
+  badgeLockedText: { color: colors.night },
 
   divider: { height: 1, backgroundColor: colors.divider },
 
@@ -923,9 +923,7 @@ const lib = StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: 12, paddingVertical: 13,
     alignItems: 'center',
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3, shadowRadius: 8, elevation: 4,
+    elevation: 2,
   },
   downloadButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 14 },
 
