@@ -9,6 +9,7 @@ import { useHistoryStore } from '../src/store/historyStore';
 import { useLocaleStore } from '../src/store/localeStore';
 import { runMigrations } from '../src/db/schema';
 import { colors } from '../src/theme';
+import { markRcConfigured } from '../src/rcConfig';
 
 import type PurchasesType from 'react-native-purchases';
 let Purchases: typeof PurchasesType | null = null;
@@ -17,8 +18,8 @@ try {
 } catch {}
 
 const REVENUECAT_API_KEY = Platform.select({
-  ios: 'YOUR_IOS_REVENUECAT_KEY',
-  android: 'YOUR_ANDROID_REVENUECAT_KEY',
+  ios: process.env.EXPO_PUBLIC_RC_IOS_KEY ?? '',
+  android: process.env.EXPO_PUBLIC_RC_ANDROID_KEY ?? '',
   default: '',
 });
 
@@ -37,6 +38,7 @@ export default function RootLayout() {
     if (Purchases && REVENUECAT_API_KEY) {
       try {
         Purchases.configure({ apiKey: REVENUECAT_API_KEY });
+        markRcConfigured();
       } catch {}
     }
   }, [hydrateProfiles, hydrateHistory]);

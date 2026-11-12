@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Alert,
   ActivityIndicator,
   Linking,
+  Platform,
   StyleSheet,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -17,30 +18,11 @@ import { t } from '../src/i18n';
 import { colors, fonts } from '../src/theme';
 import { OwodaSymbole } from '../src/components/OwodaSymbole';
 import { Icon, type IconName } from '../src/components/Icon';
-import { useProfileStore } from '../src/store/profileStore';
-
+import { isRcConfigured } from '../src/rcConfig';
 let Purchases: typeof PurchasesType | null = null;
 try {
   Purchases = (require('react-native-purchases') as { default: typeof PurchasesType }).default;
 } catch {}
-
-// ── Pricing tiers ─────────────────────────────────────────────────────────────
-// One entry per currency. `packageId` must match the RevenueCat package
-// identifier configured in the dashboard (Offerings → Package identifier).
-// Fallback: if no matching package is found, the first available one is used.
-type PricingTier = {
-  currency: string;
-  flag: string;
-  amount: string;   // display string (no calculation — defined by design)
-  packageId: string; // RevenueCat package identifier
-};
-
-const PRICING: PricingTier[] = [
-  { currency: 'XOF', flag: '🌍', amount: '2 990 F CFA', packageId: 'annual_xof' },
-  { currency: 'XAF', flag: '🌍', amount: '2 990 F CFA', packageId: 'annual_xaf' },
-  { currency: 'EUR', flag: '🇪🇺', amount: '4,99 €',     packageId: 'annual_eur' },
-  { currency: 'USD', flag: '🇺🇸', amount: '4,99 $',     packageId: 'annual_usd' },
-];
 
 // ── Comparison table rows ─────────────────────────────────────────────────────
 type CompPremiumType = 'check' | 'value' | 'gift';
@@ -61,56 +43,62 @@ const FEATURE_LIST: Array<{ key: string; icon: IconName; isBonus?: boolean }> = 
   { key: 'guide',             icon: 'gift', isBonus: true },
 ];
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
-
-/** Find the best RevenueCat package for the selected tier. */
-function findPackage(
-  packages: PurchasesPackage[],
-  packageId: string,
-): PurchasesPackage {
-  return (
-    packages.find((p) => p.identifier === packageId) ??
-    packages[0]
-  );
-}
-
-/** Guess the most relevant pricing tier from the active profile currency. */
-function defaultTierIndex(profileCurrency: string | undefined): number {
-  const idx = PRICING.findIndex((p) => p.currency === profileCurrency);
-  return idx >= 0 ? idx : 0; // fallback: XOF
-}
-
 // ── Screen ────────────────────────────────────────────────────────────────────
 export default function PaywallScreen() {
   const router = useRouter();
-  const getActiveProfile = useProfileStore((s) => s.getActiveProfile);
-  const profile = getActiveProfile();
 
-  const [selectedIndex, setSelectedIndex] = useState(
-    defaultTierIndex(profile?.currency),
-  );
-  const [loading, setLoading] = useState(false);
+  const [annualPkg, setAnnualPkg] = useState<PurchasesPackage | null>(null);
+  const [loadingPkg, setLoadingPkg] = useState(true);
+  const [purchasing, setPurchasing] = useState(false);
+  const [trialEligible, setTrialEligible] = useState(false);
 
-  const selectedTier = PRICING[selectedIndex];
-
-  const handlePurchase = async () => {
-    if (!Purchases) {
-      Alert.alert(t('common.error'), t('premium.purchaseUnavailable'));
+  useEffect(() => {
+    const p = Purchases;
+    if (!p || !isRcConfigured()) {
+      setLoadingPkg(false);
       return;
     }
-    setLoading(true);
-    try {
-      const offerings = await Purchases.getOfferings();
-      const allPackages = offerings.current?.availablePackages ?? [];
-      if (allPackages.length === 0) {
-        Alert.alert(t('common.error'), t('premium.offerUnavailable'));
-        return;
+    void (async () => {
+      try {
+        const offerings = await p.getOfferings();
+        const pkg = offerings.current?.annual ?? null;
+        setAnnualPkg(pkg);
+
+        if (pkg) {
+          let eligible = false;
+          try {
+            if (Platform.OS === 'ios') {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const result: Record<string, any> = await (p as any).checkTrialOrIntroductoryPriceEligibility([pkg.product.identifier]);
+              const entry = result[pkg.product.identifier];
+              const statusCode: number = typeof entry === 'object' ? (entry?.status ?? 0) : (entry ?? 0);
+              eligible = statusCode === 2; // INTRO_ELIGIBILITY_STATUS_ELIGIBLE
+            } else {
+              // Android: Google Play free trial phase
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              eligible = !!((pkg.product as any).defaultOption?.freePhase);
+            }
+          } catch {
+            // Can't determine eligibility — default to no trial (safer)
+          }
+          setTrialEligible(eligible);
+        }
+      } catch {
+        // Offline or unconfigured — pkg stays null
+      } finally {
+        setLoadingPkg(false);
       }
-      const pkg = findPackage(allPackages, selectedTier.packageId);
-      await Purchases.purchasePackage(pkg);
+    })();
+  }, []);
+
+  const handlePurchase = async () => {
+    const p = Purchases;
+    if (!p || !annualPkg) return;
+    setPurchasing(true);
+    try {
+      await p.purchasePackage(annualPkg);
       router.back();
     } catch (e: unknown) {
-      // User cancelled — no alert needed
       if (
         e instanceof Error &&
         (e.message.toLowerCase().includes('cancel') ||
@@ -120,21 +108,22 @@ export default function PaywallScreen() {
       }
       Alert.alert(t('common.error'), t('premium.purchaseFailed'));
     } finally {
-      setLoading(false);
+      setPurchasing(false);
     }
   };
 
   const handleRestore = async () => {
-    if (!Purchases) return;
-    setLoading(true);
+    const p = Purchases;
+    if (!p) return;
+    setPurchasing(true);
     try {
-      await Purchases.restorePurchases();
+      await p.restorePurchases();
       Alert.alert('✓', t('premium.restored'));
       router.back();
     } catch {
       Alert.alert(t('common.error'));
     } finally {
-      setLoading(false);
+      setPurchasing(false);
     }
   };
 
@@ -235,63 +224,48 @@ export default function PaywallScreen() {
           ))}
         </View>
 
-        {/* Pricing selector */}
-        <Text style={styles.pricingLabel}>{t('settings.frequency')}</Text>
-        <View style={styles.pricingGrid}>
-          {PRICING.map((tier, idx) => {
-            const active = selectedIndex === idx;
-            return (
-              <TouchableOpacity
-                key={tier.currency}
-                onPress={() => setSelectedIndex(idx)}
-                style={[styles.pricingCard, active && styles.pricingCardActive]}
-                accessibilityRole="radio"
-                accessibilityLabel={`${tier.currency} ${tier.amount}`}
-                accessibilityState={{ checked: active }}
-                activeOpacity={0.75}
-              >
-                {active && (
-                  <View style={styles.pricingCheckBadge}>
-                    <Text style={styles.pricingCheckText}>✓</Text>
-                  </View>
-                )}
-                <Text style={styles.pricingFlag}>{tier.flag}</Text>
-                <Text style={[styles.pricingCurrency, active && styles.pricingCurrencyActive]}>
-                  {tier.currency}
-                </Text>
-                <Text style={[styles.pricingAmount, active && styles.pricingAmountActive]}>
-                  {tier.amount}
-                </Text>
-                <Text style={[styles.pricingPer, active && styles.pricingPerActive]}>
-                  {t('premium.perYear')}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
+        {/* Price */}
+        <View style={styles.priceRow}>
+          {loadingPkg ? (
+            <ActivityIndicator size="small" color={colors.textMuted} />
+          ) : annualPkg ? (
+            <Text style={styles.priceDisplay}>
+              {annualPkg.product.priceString}
+              <Text style={styles.pricePerYear}>{t('premium.perYear')}</Text>
+            </Text>
+          ) : null}
         </View>
 
         {/* CTA */}
         <TouchableOpacity
           onPress={handlePurchase}
-          disabled={loading}
-          style={[styles.ctaButton, loading && styles.ctaButtonLoading]}
+          disabled={purchasing || loadingPkg || !annualPkg}
+          style={[styles.ctaButton, (purchasing || loadingPkg || !annualPkg) && styles.ctaButtonLoading]}
           accessibilityRole="button"
-          accessibilityLabel={t('premium.cta')}
+          accessibilityLabel={trialEligible ? t('premium.cta') : t('premium.ctaNoTrial')}
         >
-          {loading ? (
+          {purchasing ? (
             <ActivityIndicator color="white" />
           ) : (
-            <Text style={styles.ctaText}>{t('premium.cta')}</Text>
+            <Text style={styles.ctaText}>
+              {trialEligible ? t('premium.cta') : t('premium.ctaNoTrial')}
+            </Text>
           )}
         </TouchableOpacity>
-        <Text style={styles.ctaDisclosure}>
-          {t('premium.trialDisclosure', { price: selectedTier.amount })}
-        </Text>
+        {!loadingPkg && !annualPkg ? (
+          <Text style={styles.ctaDisclosure}>{t('premium.offerUnavailable')}</Text>
+        ) : !loadingPkg && annualPkg ? (
+          <Text style={styles.ctaDisclosure}>
+            {trialEligible
+              ? t('premium.trialDisclosure', { price: annualPkg.product.priceString })
+              : t('premium.disclosureNoTrial', { price: annualPkg.product.priceString })}
+          </Text>
+        ) : null}
         <Text style={styles.ctaSubtext}>{t('premium.annualBilling')}</Text>
 
         <TouchableOpacity
           onPress={handleRestore}
-          disabled={loading}
+          disabled={purchasing}
           style={styles.restoreButton}
           accessibilityRole="button"
           accessibilityLabel={t('premium.restore')}
@@ -391,60 +365,10 @@ const styles = StyleSheet.create({
   featureCheckBonus: { backgroundColor: 'transparent' },
   featureCheckText: { color: '#FFFFFF', fontSize: 12, fontFamily: fonts.extraBold },
 
-  // Pricing grid
-  pricingLabel: {
-    color: colors.textMuted,
-    fontSize: 10,
-    textTransform: 'uppercase',
-    letterSpacing: 1.5,
-    fontFamily: fonts.bold,
-    marginBottom: 10,
-    marginLeft: 2,
-  },
-  pricingGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 10,
-    marginBottom: 24,
-  },
-  pricingCard: {
-    // Each card is ~45% width so 2 fit per row; 4 cards = clean 2×2 grid
-    minWidth: '44%',
-    flex: 1,
-    backgroundColor: colors.card,
-    borderRadius: 16,
-    paddingVertical: 14,
-    paddingHorizontal: 12,
-    alignItems: 'center',
-    borderWidth: 1.5,
-    borderColor: colors.border,
-    gap: 3,
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  pricingCardActive: {
-    borderColor: colors.primary,
-    backgroundColor: colors.primaryTint,
-  },
-  pricingCheckBadge: {
-    position: 'absolute',
-    top: 8,
-    right: 8,
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-    backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  pricingCheckText: { color: '#FFFFFF', fontSize: 10, fontFamily: fonts.black },
-  pricingFlag: { fontSize: 22, lineHeight: 28, textAlign: 'center' },
-  pricingCurrency: { color: colors.textMuted, fontSize: 11, fontFamily: fonts.bold, letterSpacing: 0.5 },
-  pricingCurrencyActive: { color: colors.primary },
-  pricingAmount: { color: colors.textDark, fontSize: 15, fontFamily: fonts.extraBold },
-  pricingAmountActive: { color: colors.primaryDark },
-  pricingPer: { color: colors.textMuted, fontSize: 10, fontFamily: fonts.regular },
-  pricingPerActive: { color: colors.primary },
+  // Price display
+  priceRow: { alignItems: 'center', marginBottom: 16 },
+  priceDisplay: { color: colors.textDark, fontSize: 20, fontFamily: fonts.extraBold },
+  pricePerYear: { color: colors.textMuted, fontSize: 13, fontFamily: fonts.regular },
 
   // Comparison table
   compTable: {

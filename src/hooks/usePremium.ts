@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type Purchases from 'react-native-purchases';
 import type { CustomerInfo } from 'react-native-purchases';
 import type { PremiumFeature } from '../types';
+import { isRcConfigured } from '../rcConfig';
 
 // react-native-purchases uses native modules not available in Expo Go.
 // We load it lazily at runtime so missing native code doesn't crash the bundle.
@@ -22,7 +23,7 @@ const PREMIUM_FEATURES = new Set<PremiumFeature>([
 
 type UsePremiumResult = {
   isPremium: boolean;
-  /** True during the 7-day free trial (RevenueCat isTrialPeriod). */
+  /** True during the free trial (RevenueCat periodType TRIAL). */
   isTrial: boolean;
   /** Days remaining until full access (0 if not in trial). */
   trialDaysRemaining: number;
@@ -42,7 +43,6 @@ function deriveTrialState(info: CustomerInfo): { isPremium: boolean; isTrial: bo
   const entitlement = info.entitlements.active['premium'];
   if (!entitlement) return { isPremium: false, isTrial: false, trialDaysRemaining: 0 };
 
-  const isPremium = true;
   // RevenueCat types vary by SDK version — check both the boolean field and periodType string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ent = entitlement as any;
@@ -51,14 +51,15 @@ function deriveTrialState(info: CustomerInfo): { isPremium: boolean; isTrial: bo
     String(ent.periodType ?? '').toUpperCase() === 'TRIAL';
 
   let trialDaysRemaining = 0;
-  const purchaseDateStr: string | undefined = ent.latestPurchaseDate ?? ent.originalPurchaseDate;
-  if (inTrial && purchaseDateStr) {
-    const purchaseMs = new Date(purchaseDateStr).getTime();
-    const elapsedDays = (Date.now() - purchaseMs) / 86_400_000;
-    trialDaysRemaining = Math.max(0, Math.ceil(7 - elapsedDays));
+  if (inTrial) {
+    const expDateStr: string | null | undefined = ent.expirationDate;
+    if (expDateStr) {
+      const daysLeft = (new Date(expDateStr).getTime() - Date.now()) / 86_400_000;
+      trialDaysRemaining = Math.max(0, Math.ceil(daysLeft));
+    }
   }
 
-  return { isPremium, isTrial: inTrial, trialDaysRemaining };
+  return { isPremium: true, isTrial: inTrial, trialDaysRemaining };
 }
 
 export function usePremium(): UsePremiumResult {
@@ -77,8 +78,7 @@ export function usePremium(): UsePremiumResult {
   };
 
   useEffect(() => {
-    if (!_Purchases) {
-      // No native module available → immediately resolve as free tier
+    if (!_Purchases || !isRcConfigured()) {
       setLoading(false);
       return;
     }
