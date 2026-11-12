@@ -19,7 +19,7 @@ import { nanoid } from 'nanoid/non-secure';
 import { getLocales } from 'expo-localization';
 import { useProfileStore } from '../src/store/profileStore';
 import { t } from '../src/i18n';
-import { colors } from '../src/theme';
+import { colors, fonts } from '../src/theme';
 import { ALL_CURRENCIES, getCurrencyLabel, getCurrencyFromLocale } from '../src/core/currencies';
 import { useLocaleStore } from '../src/store/localeStore';
 import type { SalaryFrequency, UserProfile } from '../src/types';
@@ -83,10 +83,10 @@ const s = StyleSheet.create({
   dotActive: { width: 24, height: 8, borderRadius: 4, backgroundColor: colors.primary },
 
   // Typography
-  heading:    { fontSize: 26, fontWeight: '800', color: colors.textDark, marginBottom: 6 },
-  subheading: { fontSize: 15, color: colors.textMuted, marginBottom: 28, lineHeight: 22 },
-  label:      { fontSize: 14, fontWeight: '600', color: colors.textMid, marginBottom: 6 },
-  errorText:  { fontSize: 13, color: colors.danger, marginTop: 4, marginBottom: 4 },
+  heading:    { fontSize: 26, fontFamily: fonts.extraBold, color: colors.textDark, marginBottom: 6 },
+  subheading: { fontSize: 15, fontFamily: fonts.regular, color: colors.textMuted, marginBottom: 28, lineHeight: 22 },
+  label:      { fontSize: 14, fontFamily: fonts.semiBold, color: colors.textMid, marginBottom: 6 },
+  errorText:  { fontSize: 13, fontFamily: fonts.regular, color: colors.danger, marginTop: 4, marginBottom: 4 },
 
   // Currency row
   currencyRow:         { flexDirection: 'row', alignItems: 'center', padding: 14, borderRadius: 14, borderWidth: 1.5, borderColor: colors.border, backgroundColor: colors.card, marginBottom: 10 },
@@ -94,36 +94,37 @@ const s = StyleSheet.create({
   currencyFlag:        { width: 40, height: 40, borderRadius: 12, backgroundColor: colors.cardAlt, alignItems: 'center', justifyContent: 'center', marginRight: 12 },
   currencyFlagSel:     { width: 40, height: 40, borderRadius: 12, backgroundColor: colors.primary + '30', alignItems: 'center', justifyContent: 'center', marginRight: 12 },
   currencyFlagText:    { fontSize: 22 },
-  currencyCode:        { fontSize: 15, fontWeight: '700', color: colors.textDark },
-  currencyLabel:       { fontSize: 13, color: colors.textMuted, marginTop: 2 },
-  currencyBadge:       { fontSize: 11, color: colors.primary, fontWeight: '700', marginTop: 1 },
+  currencyCode:        { fontSize: 15, fontFamily: fonts.bold, color: colors.textDark },
+  currencyLabel:       { fontSize: 13, fontFamily: fonts.regular, color: colors.textMuted, marginTop: 2 },
+  currencyBadge:       { fontSize: 11, color: colors.primary, fontFamily: fonts.bold, marginTop: 1 },
   currencyCheck:       { marginLeft: 'auto', width: 24, height: 24, borderRadius: 12, backgroundColor: colors.primary, alignItems: 'center', justifyContent: 'center' },
-  currencyCheckText:   { color: '#ffffff', fontSize: 14, fontWeight: '700' },
+  currencyCheckText:   { color: '#ffffff', fontSize: 14, fontFamily: fonts.bold },
 
   // Input
-  textInput: { backgroundColor: colors.card, color: colors.textDark, fontSize: 18, padding: 16, borderRadius: 12, borderWidth: 1.5, borderColor: colors.border },
+  textInput: { backgroundColor: colors.card, color: colors.textDark, fontSize: 18, fontFamily: fonts.regular, padding: 16, borderRadius: 12, borderWidth: 1.5, borderColor: colors.border },
 
   // Gross / Net toggle
   toggleContainer: { flexDirection: 'row', backgroundColor: colors.cardAlt, borderRadius: 12, overflow: 'hidden', marginBottom: 24 },
   toggleBtn:       { flex: 1, paddingVertical: 12, alignItems: 'center' },
   toggleBtnActive: { flex: 1, paddingVertical: 12, alignItems: 'center', backgroundColor: colors.primary, borderRadius: 12 },
-  toggleText:      { fontSize: 15, fontWeight: '600', color: colors.textMuted },
-  toggleTextActive:{ fontSize: 15, fontWeight: '600', color: '#ffffff' },
+  toggleText:      { fontSize: 15, fontFamily: fonts.semiBold, color: colors.textMuted },
+  toggleTextActive:{ fontSize: 15, fontFamily: fonts.semiBold, color: '#ffffff' },
 
   // Frequency chips
   chipsRow:      { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   chip:          { paddingHorizontal: 16, paddingVertical: 9, borderRadius: 20, borderWidth: 1.5, borderColor: colors.border, backgroundColor: colors.card },
   chipActive:    { paddingHorizontal: 16, paddingVertical: 9, borderRadius: 20, borderWidth: 1.5, borderColor: colors.primary, backgroundColor: colors.primary },
-  chipText:      { fontSize: 14, color: colors.textMid },
-  chipTextActive:{ fontSize: 14, color: '#ffffff', fontWeight: '600' },
+  chipText:      { fontSize: 14, fontFamily: fonts.regular, color: colors.textMid },
+  chipTextActive:{ fontSize: 14, color: '#ffffff', fontFamily: fonts.semiBold },
 
   // Switch row
   switchRow:   { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: colors.card, padding: 16, borderRadius: 12, borderWidth: 1.5, borderColor: colors.border, marginTop: 8 },
-  switchLabel: { fontSize: 15, color: colors.textMid, flex: 1, marginRight: 12 },
+  switchLabel: { fontSize: 15, fontFamily: fonts.regular, color: colors.textMid, flex: 1, marginRight: 12 },
 
   // Tagline accroche (step 1)
   tagline: {
     fontSize: 17,
+    fontFamily: fonts.regular,
     fontStyle: 'italic',
     color: colors.primary,
     textAlign: 'center',
@@ -144,15 +145,15 @@ const s = StyleSheet.create({
   commuteInput:   { flex: 1 },
   unitChip:       { paddingHorizontal: 10, paddingVertical: 9, borderRadius: 12, borderWidth: 1.5, borderColor: colors.border, backgroundColor: colors.card },
   unitChipActive: { paddingHorizontal: 10, paddingVertical: 9, borderRadius: 12, borderWidth: 1.5, borderColor: colors.primary, backgroundColor: colors.primaryTint },
-  unitText:       { fontSize: 12, color: colors.textMid, fontWeight: '600' },
-  unitTextActive: { fontSize: 12, color: colors.primary, fontWeight: '700' },
+  unitText:       { fontSize: 12, color: colors.textMid, fontFamily: fonts.semiBold },
+  unitTextActive: { fontSize: 12, color: colors.primary, fontFamily: fonts.bold },
 
   // Buttons
   btnPrimary:     { backgroundColor: colors.primary, borderRadius: 14, paddingVertical: 16, alignItems: 'center', marginTop: 8 },
   btnSecondary:   { flex: 1, borderWidth: 1.5, borderColor: colors.border, borderRadius: 14, paddingVertical: 16, alignItems: 'center' },
   btnPrimaryFull: { flex: 1, backgroundColor: colors.primary, borderRadius: 14, paddingVertical: 16, alignItems: 'center' },
-  btnPrimaryText:   { color: '#ffffff', fontSize: 16, fontWeight: '700' },
-  btnSecondaryText: { color: colors.textMid, fontSize: 16, fontWeight: '600' },
+  btnPrimaryText:   { color: '#ffffff', fontSize: 16, fontFamily: fonts.bold },
+  btnSecondaryText: { color: colors.textMid, fontSize: 16, fontFamily: fonts.semiBold },
   btnRow: { flexDirection: 'row', gap: 12, marginTop: 32 },
 });
 

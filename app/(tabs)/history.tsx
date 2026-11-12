@@ -19,7 +19,7 @@ import { useLocaleStore } from '../../src/store/localeStore';
 import { ConversionCard, CARD_HEIGHT } from '../../src/components/ConversionCard';
 import { formatDuration } from '../../src/core/formatter';
 import { t } from '../../src/i18n';
-import { colors } from '../../src/theme';
+import { colors, fonts } from '../../src/theme';
 import type { Category, ConversionEntry } from '../../src/types';
 import { Icon, type IconName } from '../../src/components/Icon';
 
@@ -351,13 +351,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  title: { color: colors.textDark, fontSize: 26, fontWeight: '800' },
+  title: { color: colors.textDark, fontSize: 26, fontFamily: fonts.extraBold },
   exportButton: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  exportText: { color: colors.primary, fontSize: 14, fontWeight: '700' },
+  exportText: { color: colors.primary, fontSize: 14, fontFamily: fonts.bold },
   proBadge: {
     color: colors.night,
     fontSize: 9,
-    fontWeight: '800',
+    fontFamily: fonts.extraBold,
     backgroundColor: colors.accent,
     borderRadius: 6,
     paddingHorizontal: 5,
@@ -375,8 +375,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.primary + '30',
   },
-  summaryCount: { color: colors.textMid, fontSize: 14, fontWeight: '500' },
-  summaryTotal: { color: colors.primary, fontWeight: '800', fontSize: 14 },
+  summaryCount: { color: colors.textMid, fontSize: 14, fontFamily: fonts.medium },
+  summaryTotal: { color: colors.primary, fontFamily: fonts.extraBold, fontSize: 14 },
   filterList: { flexGrow: 0, marginBottom: 8 },
   filterContent: { paddingHorizontal: 16, paddingVertical: 4, gap: 8 },
   filterChip: {
@@ -392,20 +392,21 @@ const styles = StyleSheet.create({
     marginHorizontal: 2,
   },
   filterChipActive: { backgroundColor: colors.primaryTint, borderColor: colors.primary },
-  filterTextActive:   { color: colors.primary, fontSize: 12, fontWeight: '700' },
-  filterTextInactive: { color: colors.textMid,  fontSize: 12, fontWeight: '500' },
+  filterTextActive:   { color: colors.primary, fontSize: 12, fontFamily: fonts.bold },
+  filterTextInactive: { color: colors.textMid,  fontSize: 12, fontFamily: fonts.medium },
   emptyContainer: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32, gap: 0 },
   // Rich empty state — zero conversions
   emptyIcon: { width: 80, height: 80, opacity: 0.3, marginBottom: 20 },
   emptyTitle: {
     fontSize: 20,
-    fontWeight: '800',
+    fontFamily: fonts.extraBold,
     color: colors.textDark,
     textAlign: 'center',
     marginBottom: 10,
   },
   emptySubtitle: {
     fontSize: 14,
+    fontFamily: fonts.regular,
     color: colors.textMuted,
     textAlign: 'center',
     lineHeight: 20,
@@ -418,10 +419,10 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     elevation: 2,
   },
-  emptyButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 15 },
+  emptyButtonText: { color: '#FFFFFF', fontFamily: fonts.extraBold, fontSize: 15 },
   // Filter-empty state (entries exist but none match filter)
   emptyEmoji: { opacity: 0.3 },
-  emptyText:  { color: colors.textMuted, fontSize: 16 },
+  emptyText:  { color: colors.textMuted, fontSize: 16, fontFamily: fonts.regular },
   listContent: { paddingHorizontal: 20, paddingBottom: 40 },
   sectionHeader: {
     // Must match SECTION_HEADER_HEIGHT (40px) as closely as possible
@@ -431,6 +432,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
     textTransform: 'uppercase',
     letterSpacing: 1.2,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
   },
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { useProfileStore } from '../store/profileStore';
 import { t } from '../i18n';
-import { colors } from '../theme';
+import { colors, fonts } from '../theme';
 
 /**
  * Horizontal profile switcher shown on the converter screen.
@@ -88,19 +88,20 @@ const styles = StyleSheet.create({
   },
   chipTextActive: {
     color: '#FFFFFF',
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     fontSize: 13,
     flexShrink: 1,
   },
   chipTextInactive: {
     color: colors.textMid,
-    fontWeight: '500',
+    fontFamily: fonts.medium,
     fontSize: 13,
     flexShrink: 1,
   },
   chevron: {
     color: 'rgba(255,255,255,0.8)',
     fontSize: 11,
+    fontFamily: fonts.regular,
     lineHeight: 14,
     flexShrink: 0,
   },

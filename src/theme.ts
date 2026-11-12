@@ -32,3 +32,12 @@ export const colors = {
   danger:      '#D93025',
   warning:     '#F59E0B',
 } as const;
+
+export const fonts = {
+  regular:   'Inter-Regular',
+  medium:    'Inter-Medium',
+  semiBold:  'Inter-SemiBold',
+  bold:      'Inter-Bold',
+  extraBold: 'Inter-ExtraBold',
+  black:     'Inter-Black',
+} as const;

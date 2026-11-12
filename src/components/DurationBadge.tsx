@@ -10,7 +10,7 @@ import Animated, {
 import type { ConversionResult } from '../types';
 import { formatDuration } from '../core/formatter';
 import { useLocaleStore } from '../store/localeStore';
-import { colors } from '../theme';
+import { colors, fonts } from '../theme';
 
 const BASE_FONT = 48;
 const FONT_STEP = 4;
@@ -181,14 +181,14 @@ const styles = StyleSheet.create({
     opacity: 0,
   },
   durationLarge: {
-    fontWeight: '900',
+    fontFamily: fonts.black,
     color: colors.primary,
     fontSize: BASE_FONT,
     letterSpacing: -1,
     textAlign: 'center',
   },
   durationSmall: {
-    fontWeight: '800',
+    fontFamily: fonts.extraBold,
     color: colors.primary,
     fontSize: 22,
   },
@@ -196,6 +196,6 @@ const styles = StyleSheet.create({
     color: colors.textMid,
     fontSize: 13,
     marginTop: 4,
-    fontWeight: '500',
+    fontFamily: fonts.medium,
   },
 });

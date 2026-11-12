@@ -7,7 +7,7 @@ import { formatPriceDisplay } from '../core/currencies';
 import { useProfileStore } from '../store/profileStore';
 import { useLocaleStore } from '../store/localeStore';
 import { t } from '../i18n';
-import { colors } from '../theme';
+import { colors, fonts } from '../theme';
 
 // ─── CARD_HEIGHT ──────────────────────────────────────────────────────────────
 // Exported so history.tsx can feed getItemLayout without measuring each cell.
@@ -134,12 +134,13 @@ const styles = StyleSheet.create({
   },
   price: {
     color: colors.textDark,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     fontSize: 14,
   },
   date: {
     color: colors.textMuted,
     fontSize: 11,
+    fontFamily: fonts.regular,
   },
   durationWrap: {
     alignItems: 'flex-end',
@@ -148,12 +149,13 @@ const styles = StyleSheet.create({
   },
   duration: {
     color: colors.primary,
-    fontWeight: '800',
+    fontFamily: fonts.extraBold,
     fontSize: 16,
   },
   durationLabel: {
     color: colors.textMuted,
     fontSize: 10,
+    fontFamily: fonts.regular,
   },
   deleteBtn: {
     width: 24,
@@ -167,7 +169,7 @@ const styles = StyleSheet.create({
   deleteBtnText: {
     color: colors.textMuted,
     fontSize: 11,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     lineHeight: 13,
     textAlign: 'center',
   },

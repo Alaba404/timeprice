@@ -36,7 +36,7 @@ import { useProfileStore } from '../../src/store/profileStore';
 import { usePremium } from '../../src/hooks/usePremium';
 import { useLocaleStore } from '../../src/store/localeStore';
 import { t } from '../../src/i18n';
-import { colors } from '../../src/theme';
+import { colors, fonts } from '../../src/theme';
 import {
   ALL_CURRENCIES,
   DEFAULT_USER_CURRENCIES,
@@ -71,7 +71,7 @@ function OwodaLogo() {
 
 const logo = StyleSheet.create({
   container: { marginBottom: 20 },
-  tagline:   { fontSize: 10, color: colors.primary, fontWeight: '600', marginTop: 4 },
+  tagline:   { fontSize: 10, color: colors.primary, fontFamily: fonts.semiBold, marginTop: 4 },
 });
 
 // ── Currency row in modal ───────────────────────────────────────────────────
@@ -601,27 +601,27 @@ const styles = StyleSheet.create({
   guideBannerText: {
     color: colors.cream,
     fontSize: 13,
-    fontWeight: '600',
+    fontFamily: fonts.semiBold,
     lineHeight: 18,
   },
   guideBannerClose: {
     color: colors.cream,
     fontSize: 16,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
   },
 
   // No profile
   noProfileSafe: { flex: 1, backgroundColor: colors.bg },
   noProfileContent: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32 },
   noProfileIconWrap: { marginBottom: 20 },
-  noProfileTitle: { fontSize: 26, fontWeight: '800', color: colors.textDark, textAlign: 'center', marginBottom: 12 },
-  noProfileSub: { fontSize: 15, color: colors.textMid, textAlign: 'center', lineHeight: 22, marginBottom: 32 },
+  noProfileTitle: { fontSize: 26, fontFamily: fonts.extraBold, color: colors.textDark, textAlign: 'center', marginBottom: 12 },
+  noProfileSub: { fontSize: 15, fontFamily: fonts.regular, color: colors.textMid, textAlign: 'center', lineHeight: 22, marginBottom: 32 },
   configureButton: { backgroundColor: colors.primary, borderRadius: 14, paddingHorizontal: 40, paddingVertical: 16 },
-  configureButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 16 },
+  configureButtonText: { color: '#FFFFFF', fontFamily: fonts.extraBold, fontSize: 16 },
 
   // Input card
   inputCard: { backgroundColor: colors.card, borderRadius: 20, padding: 16, marginBottom: 14, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.08, shadowRadius: 12, elevation: 4 },
-  inputCardLabel: { fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1.2, marginBottom: 10 },
+  inputCardLabel: { fontSize: 11, fontFamily: fonts.bold, color: colors.textMuted, letterSpacing: 1.2, marginBottom: 10 },
 
   // Example chip
   exampleChip: {
@@ -641,57 +641,57 @@ const styles = StyleSheet.create({
   exampleChipText: {
     color: colors.primary,
     fontSize: 13,
-    fontWeight: '600',
+    fontFamily: fonts.semiBold,
   },
 
   // Result
   resultCard: { backgroundColor: colors.primaryTint, borderRadius: 20, paddingVertical: 28, paddingHorizontal: 20, marginBottom: 20, alignItems: 'center', borderWidth: 1.5, borderColor: colors.primary + '30' },
-  resultLabel: { fontSize: 11, fontWeight: '700', color: colors.primary, letterSpacing: 1.2, marginBottom: 12 },
-  resultSub: { fontSize: 13, color: colors.textMid, marginTop: 8, fontWeight: '500' },
+  resultLabel: { fontSize: 11, fontFamily: fonts.bold, color: colors.primary, letterSpacing: 1.2, marginBottom: 12 },
+  resultSub: { fontSize: 13, color: colors.textMid, marginTop: 8, fontFamily: fonts.medium },
   resultPlaceholder: { alignItems: 'center', gap: 10 },
   resultPlaceholderEmoji: { opacity: 0.35 },
-  resultPlaceholderText: { fontSize: 14, color: colors.textMuted, textAlign: 'center', lineHeight: 20 },
+  resultPlaceholderText: { fontSize: 14, fontFamily: fonts.regular, color: colors.textMuted, textAlign: 'center', lineHeight: 20 },
 
   // Categories
   categorySection: { marginBottom: 12 },
-  categoryLabel: { fontSize: 11, fontWeight: '700', color: colors.textMuted, letterSpacing: 1.2, marginBottom: 10 },
+  categoryLabel: { fontSize: 11, fontFamily: fonts.bold, color: colors.textMuted, letterSpacing: 1.2, marginBottom: 10 },
   // gap + flexWrap: 'wrap' is unreliable on Android 11 (Yoga layout engine).
   // Use marginRight + marginBottom on each chip instead.
   categoryRow: { flexDirection: 'row', flexWrap: 'wrap' },
   categoryChip: { flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 999, borderWidth: 1.5, backgroundColor: colors.card, borderColor: colors.border, marginRight: 8, marginBottom: 8 },
   categoryChipActive: { backgroundColor: colors.primaryTint, borderColor: colors.primary },
-  categoryTextActive: { color: colors.primary, fontSize: 12, fontWeight: '700' },
-  categoryTextInactive: { color: colors.textMid, fontSize: 12, fontWeight: '500' },
+  categoryTextActive: { color: colors.primary, fontSize: 12, fontFamily: fonts.bold },
+  categoryTextInactive: { color: colors.textMid, fontSize: 12, fontFamily: fonts.medium },
 
   // Actions
   actionsRow: { flexDirection: 'row', gap: 12, paddingHorizontal: 20, paddingVertical: 12, borderTopWidth: 1, borderTopColor: colors.divider, backgroundColor: colors.bg },
   proBadge: { position: 'absolute', top: -4, right: -4, backgroundColor: colors.accent, borderRadius: 6, paddingHorizontal: 4, paddingVertical: 1 },
-  proBadgeText: { color: colors.night, fontSize: 8, fontWeight: '800' },
+  proBadgeText: { color: colors.night, fontSize: 8, fontFamily: fonts.extraBold },
   saveButton: { flex: 1, height: 54, borderRadius: 14, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.primary },
   saveButtonDisabled: { backgroundColor: colors.border, shadowOpacity: 0, elevation: 0 },
-  saveButtonText: { color: '#FFFFFF', fontWeight: '800', fontSize: 16, letterSpacing: 0.3 },
+  saveButtonText: { color: '#FFFFFF', fontFamily: fonts.extraBold, fontSize: 16, letterSpacing: 0.3 },
   saveButtonTextDisabled: { color: colors.textMuted },
 
   // Modal
   modalOverlay: { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(43,23,16,0.45)' },
   modalSheet: { backgroundColor: colors.card, borderTopLeftRadius: 28, borderTopRightRadius: 28, paddingHorizontal: 24, paddingBottom: 36, paddingTop: 12, maxHeight: '80%' },
   modalHandle: { width: 40, height: 4, borderRadius: 2, backgroundColor: colors.border, alignSelf: 'center', marginBottom: 20 },
-  modalTitle: { color: colors.textDark, fontWeight: '800', fontSize: 20, marginBottom: 4 },
-  modalSubtitle: { color: colors.textMuted, fontSize: 12, marginBottom: 16 },
+  modalTitle: { color: colors.textDark, fontFamily: fonts.extraBold, fontSize: 20, marginBottom: 4 },
+  modalSubtitle: { color: colors.textMuted, fontSize: 12, fontFamily: fonts.regular, marginBottom: 16 },
   currencyList: { flexGrow: 0, maxHeight: 340 },
   currencyItem: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, paddingHorizontal: 8, borderRadius: 12, marginBottom: 2, gap: 12 },
   currencyItemActive: { backgroundColor: colors.primaryTint },
   currencyFlag: { fontSize: 24, width: 32, textAlign: 'center' },
   currencyInfo: { flex: 1 },
-  currencyCode: { color: colors.textDark, fontSize: 15, fontWeight: '700' },
+  currencyCode: { color: colors.textDark, fontSize: 15, fontFamily: fonts.bold },
   currencyCodeActive: { color: colors.primary },
-  currencyName: { color: colors.textMuted, fontSize: 12, marginTop: 1 },
+  currencyName: { color: colors.textMuted, fontSize: 12, fontFamily: fonts.regular, marginTop: 1 },
   currencyCheck: { width: 26, height: 26, borderRadius: 13, backgroundColor: colors.primary, alignItems: 'center', justifyContent: 'center' },
-  currencyCheckText: { color: '#FFFFFF', fontSize: 13, fontWeight: '800' },
+  currencyCheckText: { color: '#FFFFFF', fontSize: 13, fontFamily: fonts.extraBold },
   currencyRemove: { width: 26, height: 26, borderRadius: 13, backgroundColor: colors.divider, alignItems: 'center', justifyContent: 'center' },
-  currencyRemoveText: { color: colors.textMuted, fontSize: 11, fontWeight: '700' },
+  currencyRemoveText: { color: colors.textMuted, fontSize: 11, fontFamily: fonts.bold },
   addCurrencyButton: { marginTop: 12, paddingVertical: 14, alignItems: 'center', backgroundColor: colors.primaryTint, borderRadius: 14, borderWidth: 1.5, borderColor: colors.primary + '40' },
-  addCurrencyText: { color: colors.primary, fontWeight: '800', fontSize: 15 },
+  addCurrencyText: { color: colors.primary, fontFamily: fonts.extraBold, fontSize: 15 },
   modalCancel: { marginTop: 12, alignItems: 'center', paddingVertical: 10 },
-  modalCancelText: { color: colors.textMuted, fontWeight: '600', fontSize: 15 },
+  modalCancelText: { color: colors.textMuted, fontFamily: fonts.semiBold, fontSize: 15 },
 });

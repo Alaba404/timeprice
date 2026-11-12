@@ -8,7 +8,7 @@ import { useProfileStore } from '../../src/store/profileStore';
 import { useLocaleStore } from '../../src/store/localeStore';
 import { formatDuration } from '../../src/core/formatter';
 import { t } from '../../src/i18n';
-import { colors } from '../../src/theme';
+import { colors, fonts } from '../../src/theme';
 import { Icon } from '../../src/components/Icon';
 import type { Category, ConversionEntry } from '../../src/types';
 
@@ -45,7 +45,7 @@ function BarChart({ stats }: { stats: CategoryStat[] }) {
         return (
           <G key={s.category}>
             <Rect x={x} y={y} width={barWidth} height={barH} rx={6} fill={colors.primary} opacity={0.85} />
-            <SvgText x={x + barWidth / 2} y={BAR_CHART_HEIGHT - 2} fontSize={8} fill={colors.textMuted} textAnchor="middle">
+            <SvgText x={x + barWidth / 2} y={BAR_CHART_HEIGHT - 2} fontSize={8} fontFamily={fonts.medium} fill={colors.textMuted} textAnchor="middle">
               {s.label}
             </SvgText>
           </G>
@@ -170,36 +170,36 @@ const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: colors.bg },
   scroll: { flex: 1, paddingHorizontal: 20 },
   scrollContent: { paddingTop: 16, paddingBottom: 40 },
-  title: { color: colors.textDark, fontSize: 26, fontWeight: '800', marginBottom: 20 },
+  title: { color: colors.textDark, fontSize: 26, fontFamily: fonts.extraBold, marginBottom: 20 },
   heroCard: {
     backgroundColor: colors.primary,
     borderRadius: 20,
     padding: 20,
     marginBottom: 14,
   },
-  heroCardLabel: { color: 'rgba(255,255,255,0.75)', fontSize: 12, fontWeight: '600', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 1 },
-  heroCardValue: { color: '#FFFFFF', fontSize: 38, fontWeight: '900', letterSpacing: -1 },
+  heroCardLabel: { color: 'rgba(255,255,255,0.75)', fontSize: 12, fontFamily: fonts.semiBold, marginBottom: 6, textTransform: 'uppercase', letterSpacing: 1 },
+  heroCardValue: { color: '#FFFFFF', fontSize: 38, fontFamily: fonts.black, letterSpacing: -1 },
   deltaBadge: { alignSelf: 'flex-start', marginTop: 10, borderRadius: 8, paddingHorizontal: 10, paddingVertical: 4 },
   deltaBadgeUp: { backgroundColor: 'rgba(255,80,80,0.25)' },
   deltaBadgeDown: { backgroundColor: 'rgba(255,255,255,0.2)' },
-  deltaText: { fontSize: 13, fontWeight: '700' },
+  deltaText: { fontSize: 13, fontFamily: fonts.bold },
   deltaTextUp: { color: '#FFAAAA' },
   deltaTextDown: { color: 'rgba(255,255,255,0.9)' },
   card: { backgroundColor: colors.card, borderRadius: 20, padding: 16, marginBottom: 14, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 6, elevation: 2, borderWidth: 1, borderColor: colors.divider },
-  cardTitle: { color: colors.textDark, fontWeight: '800', marginBottom: 14, fontSize: 15 },
+  cardTitle: { color: colors.textDark, fontFamily: fonts.extraBold, marginBottom: 14, fontSize: 15 },
   emptyCard: { alignItems: 'center' },
-  emptyText: { color: colors.textMuted },
+  emptyText: { color: colors.textMuted, fontFamily: fonts.regular },
   topRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 10 },
   topRowBorder: { borderBottomWidth: 1, borderBottomColor: colors.divider },
-  topRank: { color: colors.textMuted, width: 20, fontSize: 13, fontWeight: '700' },
+  topRank: { color: colors.textMuted, width: 20, fontSize: 13, fontFamily: fonts.bold },
   topInfo: { flex: 1 },
-  topLabel: { color: colors.textDark, fontSize: 14, fontWeight: '600' },
-  topCategory: { color: colors.textMuted, fontSize: 11 },
-  topDuration: { color: colors.primary, fontWeight: '800', fontSize: 14 },
+  topLabel: { color: colors.textDark, fontSize: 14, fontFamily: fonts.semiBold },
+  topCategory: { color: colors.textMuted, fontSize: 11, fontFamily: fonts.regular },
+  topDuration: { color: colors.primary, fontFamily: fonts.extraBold, fontSize: 14 },
   upsellContainer: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32, gap: 16 },
   upsellIconWrap: { width: 72, height: 72, borderRadius: 20, backgroundColor: colors.primaryTint, alignItems: 'center', justifyContent: 'center' },
-  upsellTitle: { color: colors.textDark, fontSize: 22, fontWeight: '800', textAlign: 'center' },
-  upsellBody: { color: colors.textMid, textAlign: 'center', lineHeight: 22 },
+  upsellTitle: { color: colors.textDark, fontSize: 22, fontFamily: fonts.extraBold, textAlign: 'center' },
+  upsellBody: { color: colors.textMid, fontFamily: fonts.regular, textAlign: 'center', lineHeight: 22 },
   premiumBadge: { backgroundColor: colors.gold, borderRadius: 10, paddingHorizontal: 16, paddingVertical: 8 },
-  premiumBadgeText: { color: colors.night, fontWeight: '800', fontSize: 13, letterSpacing: 1 },
+  premiumBadgeText: { color: colors.night, fontFamily: fonts.extraBold, fontSize: 13, letterSpacing: 1 },
 });

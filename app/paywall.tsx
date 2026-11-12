@@ -14,7 +14,7 @@ import { useRouter } from 'expo-router';
 import type PurchasesType from 'react-native-purchases';
 import type { PurchasesPackage } from '@revenuecat/purchases-typescript-internal';
 import { t } from '../src/i18n';
-import { colors } from '../src/theme';
+import { colors, fonts } from '../src/theme';
 import { OwodaSymbole } from '../src/components/OwodaSymbole';
 import { Icon, type IconName } from '../src/components/Icon';
 import { useProfileStore } from '../src/store/profileStore';
@@ -327,13 +327,13 @@ const styles = StyleSheet.create({
   scrollContent: { paddingTop: 52, paddingBottom: 60 },
 
   closeButton: { position: 'absolute', top: 12, right: 0, padding: 8 },
-  closeText: { color: colors.textMuted, fontSize: 20, fontWeight: '600' },
+  closeText: { color: colors.textMuted, fontSize: 20, fontFamily: fonts.semiBold },
 
   // Hero
   hero: { alignItems: 'center', marginBottom: 28 },
   heroMark: { marginBottom: 20 },
-  heroTitle: { color: colors.textDark, fontSize: 26, fontWeight: '900', textAlign: 'center', marginBottom: 10, letterSpacing: -0.5 },
-  heroSubtitle: { color: colors.textMid, textAlign: 'center', fontSize: 15, lineHeight: 22, marginBottom: 14 },
+  heroTitle: { color: colors.textDark, fontSize: 26, fontFamily: fonts.black, textAlign: 'center', marginBottom: 10, letterSpacing: -0.5 },
+  heroSubtitle: { color: colors.textMid, fontFamily: fonts.regular, textAlign: 'center', fontSize: 15, lineHeight: 22, marginBottom: 14 },
   guideBadge: {
     backgroundColor: colors.gold + '20',
     borderWidth: 1,
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     marginTop: 4,
   },
-  guideBadgeText: { color: colors.night, fontSize: 13, fontWeight: '700', textAlign: 'center' },
+  guideBadgeText: { color: colors.night, fontSize: 13, fontFamily: fonts.bold, textAlign: 'center' },
 
   // Features list
   featuresCard: {
@@ -371,11 +371,12 @@ const styles = StyleSheet.create({
   },
   featureIconWrapBonus: { backgroundColor: colors.gold + '25' },
   featureLabelWrap: { flex: 1 },
-  featureLabel: { color: colors.textDark, fontSize: 14, fontWeight: '500' },
-  featureLabelBonus: { fontWeight: '700', color: colors.night },
+  featureLabel: { color: colors.textDark, fontSize: 14, fontFamily: fonts.medium },
+  featureLabelBonus: { fontFamily: fonts.bold, color: colors.night },
   featureValueStrike: {
     color: colors.textMuted,
     fontSize: 11,
+    fontFamily: fonts.regular,
     textDecorationLine: 'line-through',
     marginTop: 2,
   },
@@ -388,7 +389,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   featureCheckBonus: { backgroundColor: 'transparent' },
-  featureCheckText: { color: '#FFFFFF', fontSize: 12, fontWeight: '800' },
+  featureCheckText: { color: '#FFFFFF', fontSize: 12, fontFamily: fonts.extraBold },
 
   // Pricing grid
   pricingLabel: {
@@ -396,7 +397,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     textTransform: 'uppercase',
     letterSpacing: 1.5,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     marginBottom: 10,
     marginLeft: 2,
   },
@@ -436,13 +437,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  pricingCheckText: { color: '#FFFFFF', fontSize: 10, fontWeight: '900' },
+  pricingCheckText: { color: '#FFFFFF', fontSize: 10, fontFamily: fonts.black },
   pricingFlag: { fontSize: 22, lineHeight: 28, textAlign: 'center' },
-  pricingCurrency: { color: colors.textMuted, fontSize: 11, fontWeight: '700', letterSpacing: 0.5 },
+  pricingCurrency: { color: colors.textMuted, fontSize: 11, fontFamily: fonts.bold, letterSpacing: 0.5 },
   pricingCurrencyActive: { color: colors.primary },
-  pricingAmount: { color: colors.textDark, fontSize: 15, fontWeight: '800' },
+  pricingAmount: { color: colors.textDark, fontSize: 15, fontFamily: fonts.extraBold },
   pricingAmountActive: { color: colors.primaryDark },
-  pricingPer: { color: colors.textMuted, fontSize: 10 },
+  pricingPer: { color: colors.textMuted, fontSize: 10, fontFamily: fonts.regular },
   pricingPerActive: { color: colors.primary },
 
   // Comparison table
@@ -463,7 +464,7 @@ const styles = StyleSheet.create({
   },
   compHeaderFreeText: {
     fontSize: 10,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: colors.textMuted,
     letterSpacing: 0.8,
   },
@@ -476,7 +477,7 @@ const styles = StyleSheet.create({
   },
   compHeaderPremiumText: {
     fontSize: 10,
-    fontWeight: '700',
+    fontFamily: fonts.bold,
     color: '#FFFFFF',
     letterSpacing: 0.8,
   },
@@ -484,11 +485,11 @@ const styles = StyleSheet.create({
   compRowEven: { backgroundColor: colors.card },
   compRowOdd:  { backgroundColor: colors.bg },
   compFeatureCell: { flex: 2, paddingVertical: 9, paddingHorizontal: 12, justifyContent: 'center' },
-  compFeatureText: { fontSize: 12, color: colors.textMid, fontWeight: '500' },
+  compFeatureText: { fontSize: 12, color: colors.textMid, fontFamily: fonts.medium },
   compValueCell: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 9 },
-  compFreeText:      { fontSize: 13, color: colors.textMuted, fontWeight: '600' },
-  compPremiumCheck:  { fontSize: 13, color: colors.primary,   fontWeight: '900' },
-  compPremiumValue:  { fontSize: 13, color: colors.primary,   fontWeight: '900' },
+  compFreeText:      { fontSize: 13, color: colors.textMuted, fontFamily: fonts.semiBold },
+  compPremiumCheck:  { fontSize: 13, color: colors.primary,   fontFamily: fonts.black },
+  compPremiumValue:  { fontSize: 13, color: colors.primary,   fontFamily: fonts.black },
 
   // CTA
   ctaButton: {
@@ -500,13 +501,13 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   ctaButtonLoading: { opacity: 0.7 },
-  ctaText: { color: '#FFFFFF', fontWeight: '900', fontSize: 17, letterSpacing: 0.2 },
-  ctaDisclosure: { color: colors.textMuted, fontSize: 11, textAlign: 'center', marginBottom: 4, lineHeight: 16 },
-  ctaSubtext: { color: colors.textMuted, fontSize: 12, textAlign: 'center', marginBottom: 16 },
+  ctaText: { color: '#FFFFFF', fontFamily: fonts.black, fontSize: 17, letterSpacing: 0.2 },
+  ctaDisclosure: { color: colors.textMuted, fontSize: 11, fontFamily: fonts.regular, textAlign: 'center', marginBottom: 4, lineHeight: 16 },
+  ctaSubtext: { color: colors.textMuted, fontSize: 12, fontFamily: fonts.regular, textAlign: 'center', marginBottom: 16 },
 
   restoreButton: { alignItems: 'center', paddingVertical: 12 },
-  restoreText: { color: colors.textMuted, fontWeight: '600', fontSize: 14 },
+  restoreText: { color: colors.textMuted, fontFamily: fonts.semiBold, fontSize: 14 },
   legalLinks: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, paddingVertical: 8, paddingBottom: 4 },
-  legalLink: { color: colors.textMuted, fontSize: 11, fontWeight: '500' },
-  legalSep: { color: colors.textMuted, fontSize: 11 },
+  legalLink: { color: colors.textMuted, fontSize: 11, fontFamily: fonts.medium },
+  legalSep: { color: colors.textMuted, fontSize: 11, fontFamily: fonts.regular },
 });

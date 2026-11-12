@@ -7,7 +7,7 @@ import {
   StyleSheet,
   type TextInputProps,
 } from 'react-native';
-import { colors } from '../theme';
+import { colors, fonts } from '../theme';
 import type { CurrencyInfo } from '../core/currencies';
 
 type Props = {
@@ -72,21 +72,23 @@ const styles = StyleSheet.create({
   },
   currencyFlag: {
     fontSize: 18,
+    fontFamily: fonts.regular,
   },
   currencyCode: {
     color: colors.primary,
-    fontWeight: '800',
+    fontFamily: fonts.extraBold,
     fontSize: 13,
   },
   currencyChevron: {
     color: colors.primary,
     fontSize: 10,
+    fontFamily: fonts.regular,
     marginTop: 1,
   },
   textInput: {
     flex: 1,
     color: colors.textDark,
     fontSize: 42,
-    fontWeight: '800',
+    fontFamily: fonts.extraBold,
   },
 });
