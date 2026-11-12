@@ -345,7 +345,7 @@ export default function ConverterScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={['top']}>
       {/* ── Guide banner — slides in from top after 3rd conversion ──────── */}
       {showGuideBanner && (
         <Animated.View style={[styles.guideBanner, bannerStyle]}>
@@ -645,9 +645,9 @@ const styles = StyleSheet.create({
   },
 
   // Result
-  resultCard: { backgroundColor: colors.primaryTint, borderRadius: 20, paddingVertical: 28, paddingHorizontal: 20, marginBottom: 20, alignItems: 'center', borderWidth: 1.5, borderColor: colors.primary + '30' },
-  resultLabel: { fontSize: 11, fontFamily: fonts.bold, color: colors.primary, letterSpacing: 1.2, marginBottom: 12 },
-  resultSub: { fontSize: 13, color: colors.textMid, marginTop: 8, fontFamily: fonts.medium },
+  resultCard: { backgroundColor: colors.primaryTint, borderRadius: 20, paddingVertical: 16, paddingHorizontal: 20, marginBottom: 12, alignItems: 'center', borderWidth: 1.5, borderColor: colors.primary + '30' },
+  resultLabel: { fontSize: 11, fontFamily: fonts.bold, color: colors.primary, letterSpacing: 1.2, marginBottom: 6 },
+  resultSub: { fontSize: 13, color: colors.textMid, marginTop: 4, fontFamily: fonts.medium },
   resultPlaceholder: { alignItems: 'center', gap: 10 },
   resultPlaceholderEmoji: { opacity: 0.35 },
   resultPlaceholderText: { fontSize: 14, fontFamily: fonts.regular, color: colors.textMuted, textAlign: 'center', lineHeight: 20 },
