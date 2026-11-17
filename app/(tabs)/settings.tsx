@@ -38,7 +38,7 @@ const GUIDE_CHAPTERS_FR = [
   'La pression sociale · le coût qu\'on ne voit pas',
   'Les transferts familiaux · en parler sans briser les liens',
   'La règle des 100x · ta boussole financière',
-  'Construire une épargne avec un petit salaire',
+  'Construire une épargne avec un petit revenu',
   "Le plan d'action · 30 jours pour savoir où passe ton revenu",
 ] as const;
 
@@ -48,7 +48,7 @@ const GUIDE_CHAPTERS_EN = [
   'Social pressure · the cost you don\'t see',
   'Family transfers · talking about it without breaking ties',
   'The 100x rule · your financial compass',
-  'Building savings on a small salary',
+  'Building savings on a small income',
   'The action plan · 30 days to see where your income goes',
 ] as const;
 
