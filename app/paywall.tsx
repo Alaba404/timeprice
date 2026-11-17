@@ -381,7 +381,7 @@ const styles = StyleSheet.create({
   compHeader: { flexDirection: 'row' },
   compHeaderFree: {
     flex: 1,
-    backgroundColor: '#F3F4F6',
+    backgroundColor: colors.primaryTint,
     paddingVertical: 10,
     alignItems: 'center',
     justifyContent: 'center',

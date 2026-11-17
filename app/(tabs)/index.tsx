@@ -629,7 +629,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    backgroundColor: colors.primaryTint,
+    backgroundColor: colors.card,
     borderWidth: 1,
     borderColor: colors.primary + '60',
     borderRadius: 20,
@@ -645,7 +645,7 @@ const styles = StyleSheet.create({
   },
 
   // Result
-  resultCard: { backgroundColor: colors.primaryTint, borderRadius: 20, paddingVertical: 16, paddingHorizontal: 20, marginBottom: 12, alignItems: 'center', borderWidth: 1.5, borderColor: colors.primary + '30' },
+  resultCard: { backgroundColor: colors.card, borderRadius: 20, paddingVertical: 16, paddingHorizontal: 20, marginBottom: 12, alignItems: 'center', borderWidth: 1.5, borderColor: colors.primary + '30' },
   resultLabel: { fontSize: 11, fontFamily: fonts.bold, color: colors.primary, letterSpacing: 1.2, marginBottom: 6 },
   resultSub: { fontSize: 13, color: colors.textMid, marginTop: 4, fontFamily: fonts.medium },
   resultPlaceholder: { alignItems: 'center', gap: 10 },
@@ -659,7 +659,7 @@ const styles = StyleSheet.create({
   // Use marginRight + marginBottom on each chip instead.
   categoryRow: { flexDirection: 'row', flexWrap: 'wrap' },
   categoryChip: { flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 999, borderWidth: 1.5, backgroundColor: colors.card, borderColor: colors.border, marginRight: 8, marginBottom: 8 },
-  categoryChipActive: { backgroundColor: colors.primaryTint, borderColor: colors.primary },
+  categoryChipActive: { backgroundColor: colors.card, borderColor: colors.primary },
   categoryTextActive: { color: colors.primary, fontSize: 12, fontFamily: fonts.bold },
   categoryTextInactive: { color: colors.textMid, fontSize: 12, fontFamily: fonts.medium },
 
@@ -680,7 +680,7 @@ const styles = StyleSheet.create({
   modalSubtitle: { color: colors.textMuted, fontSize: 12, fontFamily: fonts.regular, marginBottom: 16 },
   currencyList: { flexGrow: 0, maxHeight: 340 },
   currencyItem: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, paddingHorizontal: 8, borderRadius: 12, marginBottom: 2, gap: 12 },
-  currencyItemActive: { backgroundColor: colors.primaryTint },
+  currencyItemActive: { backgroundColor: colors.card },
   currencyFlag: { fontSize: 24, width: 32, textAlign: 'center' },
   currencyInfo: { flex: 1 },
   currencyCode: { color: colors.textDark, fontSize: 15, fontFamily: fonts.bold },
@@ -690,7 +690,7 @@ const styles = StyleSheet.create({
   currencyCheckText: { color: '#FFFFFF', fontSize: 13, fontFamily: fonts.extraBold },
   currencyRemove: { width: 26, height: 26, borderRadius: 13, backgroundColor: colors.divider, alignItems: 'center', justifyContent: 'center' },
   currencyRemoveText: { color: colors.textMuted, fontSize: 11, fontFamily: fonts.bold },
-  addCurrencyButton: { marginTop: 12, paddingVertical: 14, alignItems: 'center', backgroundColor: colors.primaryTint, borderRadius: 14, borderWidth: 1.5, borderColor: colors.primary + '40' },
+  addCurrencyButton: { marginTop: 12, paddingVertical: 14, alignItems: 'center', backgroundColor: colors.card, borderRadius: 14, borderWidth: 1.5, borderColor: colors.primary + '40' },
   addCurrencyText: { color: colors.primary, fontFamily: fonts.extraBold, fontSize: 15 },
   modalCancel: { marginTop: 12, alignItems: 'center', paddingVertical: 10 },
   modalCancelText: { color: colors.textMuted, fontFamily: fonts.semiBold, fontSize: 15 },

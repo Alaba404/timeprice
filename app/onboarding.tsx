@@ -90,7 +90,7 @@ const s = StyleSheet.create({
 
   // Currency row
   currencyRow:         { flexDirection: 'row', alignItems: 'center', padding: 14, borderRadius: 14, borderWidth: 1.5, borderColor: colors.border, backgroundColor: colors.card, marginBottom: 10 },
-  currencyRowSelected: { flexDirection: 'row', alignItems: 'center', padding: 14, borderRadius: 14, borderWidth: 1.5, borderColor: colors.primary, backgroundColor: colors.primaryTint, marginBottom: 10 },
+  currencyRowSelected: { flexDirection: 'row', alignItems: 'center', padding: 14, borderRadius: 14, borderWidth: 1.5, borderColor: colors.primary, backgroundColor: colors.card, marginBottom: 10 },
   currencyFlag:        { width: 40, height: 40, borderRadius: 12, backgroundColor: colors.cardAlt, alignItems: 'center', justifyContent: 'center', marginRight: 12 },
   currencyFlagSel:     { width: 40, height: 40, borderRadius: 12, backgroundColor: colors.primary + '30', alignItems: 'center', justifyContent: 'center', marginRight: 12 },
   currencyFlagText:    { fontSize: 22 },
@@ -144,7 +144,7 @@ const s = StyleSheet.create({
   commuteRow:     { flexDirection: 'row', alignItems: 'center', gap: 8 },
   commuteInput:   { flex: 1 },
   unitChip:       { paddingHorizontal: 10, paddingVertical: 9, borderRadius: 12, borderWidth: 1.5, borderColor: colors.border, backgroundColor: colors.card },
-  unitChipActive: { paddingHorizontal: 10, paddingVertical: 9, borderRadius: 12, borderWidth: 1.5, borderColor: colors.primary, backgroundColor: colors.primaryTint },
+  unitChipActive: { paddingHorizontal: 10, paddingVertical: 9, borderRadius: 12, borderWidth: 1.5, borderColor: colors.primary, backgroundColor: colors.card },
   unitText:       { fontSize: 12, color: colors.textMid, fontFamily: fonts.semiBold },
   unitTextActive: { fontSize: 12, color: colors.primary, fontFamily: fonts.bold },
 

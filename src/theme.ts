@@ -4,7 +4,7 @@
  */
 export const colors = {
   // Backgrounds
-  bg:          '#FAFAF8',   // off-white canvas
+  bg:          '#F6EDE3',   // crème canvas
   card:        '#FFFFFF',   // pure white card
   cardAlt:     '#F9FAFB',   // light neutral
 
@@ -22,7 +22,7 @@ export const colors = {
   // Text
   textDark:    '#111827',   // near-black
   textMid:     '#4B5563',   // medium gray
-  textMuted:   '#6B7280',   // muted
+  textMuted:   '#606878',   // muted — assombri pour 4,5:1 sur fond crème
 
   // Borders / dividers
   border:      '#E5E7EB',

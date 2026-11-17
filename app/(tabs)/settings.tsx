@@ -35,21 +35,21 @@ const GUIDE_URL = 'https://pub-a6629518d11a4f689348be122e035b5f.r2.dev/owoda-gui
 const GUIDE_CHAPTERS_FR = [
   'Comprendre la dépense impulsive',
   'Les 7 pièges qui vident ton compte',
-  'La pression sociale et le regard des autres',
-  'Les transferts familiaux, en parler sans briser les liens',
-  'La règle des 100x, ta boussole financière',
+  'La pression sociale · le coût qu\'on ne voit pas',
+  'Les transferts familiaux · en parler sans briser les liens',
+  'La règle des 100x · ta boussole financière',
   'Construire une épargne avec un petit salaire',
-  "Ton plan d'action sur 30 jours",
+  "Le plan d'action · 30 jours pour savoir où passe ton revenu",
 ] as const;
 
 const GUIDE_CHAPTERS_EN = [
   'Understanding impulse spending',
-  'The 7 traps emptying your account',
-  'Social pressure and the gaze of others',
-  'Family transfers — talking about it without breaking ties',
-  'The 100x rule — your financial compass',
+  'The 7 traps that drain your account',
+  'Social pressure · the cost you don\'t see',
+  'Family transfers · talking about it without breaking ties',
+  'The 100x rule · your financial compass',
   'Building savings on a small salary',
-  'Your 30-day action plan',
+  'The action plan · 30 days to see where your income goes',
 ] as const;
 
 type GuideLibraryProps = {

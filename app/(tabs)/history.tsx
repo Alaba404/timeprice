@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
   summaryBox: {
     marginHorizontal: 20,
     marginBottom: 12,
-    backgroundColor: colors.primaryTint,
+    backgroundColor: colors.card,
     borderRadius: 14,
     paddingHorizontal: 16,
     paddingVertical: 12,
@@ -391,7 +391,7 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     marginHorizontal: 2,
   },
-  filterChipActive: { backgroundColor: colors.primaryTint, borderColor: colors.primary },
+  filterChipActive: { backgroundColor: colors.card, borderColor: colors.primary },
   filterTextActive:   { color: colors.primary, fontSize: 12, fontFamily: fonts.bold },
   filterTextInactive: { color: colors.textMid,  fontSize: 12, fontFamily: fonts.medium },
   emptyContainer: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32, gap: 0 },

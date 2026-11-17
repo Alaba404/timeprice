@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    backgroundColor: colors.primaryTint,
+    backgroundColor: colors.card,
     borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 10,

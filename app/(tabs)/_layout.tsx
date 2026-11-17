@@ -39,7 +39,7 @@ export default function TabsLayout() {
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: colors.card,
+          backgroundColor: colors.bg,
           borderTopColor: colors.border,
           borderTopWidth: 1,
           height: tabBarHeight,

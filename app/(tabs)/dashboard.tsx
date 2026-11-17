@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   topCategory: { color: colors.textMuted, fontSize: 11, fontFamily: fonts.regular },
   topDuration: { color: colors.primary, fontFamily: fonts.extraBold, fontSize: 14 },
   upsellContainer: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32, gap: 16 },
-  upsellIconWrap: { width: 72, height: 72, borderRadius: 20, backgroundColor: colors.primaryTint, alignItems: 'center', justifyContent: 'center' },
+  upsellIconWrap: { width: 72, height: 72, borderRadius: 20, backgroundColor: colors.card, alignItems: 'center', justifyContent: 'center' },
   upsellTitle: { color: colors.textDark, fontSize: 22, fontFamily: fonts.extraBold, textAlign: 'center' },
   upsellBody: { color: colors.textMid, fontFamily: fonts.regular, textAlign: 'center', lineHeight: 22 },
   premiumBadge: { backgroundColor: colors.gold, borderRadius: 10, paddingHorizontal: 16, paddingVertical: 8 },
