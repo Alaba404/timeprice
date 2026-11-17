@@ -4,7 +4,7 @@ export default {
     step1Title: 'Your currency',
     step1Subtitle: 'What currency are you paid in?',
     step2Title: 'Your income',
-    step2Subtitle: 'Salary or business income: enter your monthly total.',
+    step2Subtitle: 'Salary or business income: enter your monthly total. This data never leaves your device.',
     step3Title: 'Advanced options',
     step3Subtitle: 'Fine-tune your real hourly rate.',
     next: 'Next',

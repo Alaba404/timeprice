@@ -5,7 +5,7 @@ export default {
     step1Title: 'Votre devise',
     step1Subtitle: 'Dans quelle devise reçois-tu ton salaire ?',
     step2Title: 'Ton revenu',
-    step2Subtitle: 'Salaire ou revenus d\'activité : indique ton total mensuel.',
+    step2Subtitle: 'Salaire ou revenus d\'activité : indique ton total mensuel. Ces données restent sur ton appareil.',
     step3Title: 'Options avancées',
     step3Subtitle: 'Affine ton taux horaire réel.',
     next: 'Suivant',
