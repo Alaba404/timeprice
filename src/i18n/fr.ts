@@ -193,6 +193,11 @@ export default {
     },
   },
 
+  // Guide
+  guide: {
+    unavailable: 'Le guide n\'est pas disponible pour le moment. Réessaie plus tard.',
+  },
+
   // Validation
   validation: {
     required: 'Ce champ est obligatoire',

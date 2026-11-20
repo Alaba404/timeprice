@@ -187,6 +187,11 @@ export default {
     },
   },
 
+  // Guide
+  guide: {
+    unavailable: 'The guide is not available right now. Please try again later.',
+  },
+
   // Validation
   validation: {
     required: 'This field is required',

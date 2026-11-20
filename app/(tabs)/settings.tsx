@@ -25,11 +25,20 @@ import { useLocaleStore } from '../../src/store/localeStore';
 import { t } from '../../src/i18n';
 import { colors, fonts } from '../../src/theme';
 import type { Locale, SalaryFrequency, UserProfile } from '../../src/types';
+import type Purchases from 'react-native-purchases';
 import Constants from 'expo-constants';
 import { OwodaLogoHorizontal } from '../../src/components/OwodaLogoHorizontal';
 import { Icon } from '../../src/components/Icon';
+import { isRcConfigured } from '../../src/rcConfig';
 
-const GUIDE_URL = 'https://pub-a6629518d11a4f689348be122e035b5f.r2.dev/owoda-guide-900cb8e1bb3a44368c7dfd5e58dc8dce.pdf';
+const GUIDE_ENDPOINT = 'https://owoda-guide.owoda.workers.dev/guide';
+
+// react-native-purchases is unavailable in Expo Go — load lazily
+let _PurchasesRC: typeof Purchases | null = null;
+try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  _PurchasesRC = (require('react-native-purchases') as { default: typeof Purchases }).default;
+} catch {}
 
 // ── Guide chapters ───────────────────────────────────────────────────────────
 const GUIDE_CHAPTERS_FR = [
@@ -115,7 +124,18 @@ function GuideLibrary({ locale, hasGuideAccess, onUpgrade }: GuideLibraryProps) 
       <View style={lib.divider} />
       {hasGuideAccess ? (
         <TouchableOpacity
-          onPress={() => Linking.openURL(GUIDE_URL)}
+          onPress={async () => {
+            if (!_PurchasesRC || !isRcConfigured()) {
+              Alert.alert(t('common.error'), t('guide.unavailable'));
+              return;
+            }
+            try {
+              const appUserId = await _PurchasesRC.getAppUserID();
+              await Linking.openURL(`${GUIDE_ENDPOINT}?uid=${encodeURIComponent(appUserId)}`);
+            } catch {
+              Alert.alert(t('common.error'), t('guide.unavailable'));
+            }
+          }}
           style={lib.downloadButton}
           accessibilityRole="button"
           accessibilityLabel={t('settings.libraryDownload')}
